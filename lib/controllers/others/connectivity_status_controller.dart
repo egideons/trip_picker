@@ -3,8 +3,8 @@ import 'dart:developer';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/services.dart';
-import 'package:trip_picker/controllers/api_processor_controller.dart';
 import 'package:get/get.dart';
+import 'package:trip_picker/controllers/others/api_processor_controller.dart';
 
 class ConnectivityStatusController extends GetxController {
   static ConnectivityStatusController get instance {
@@ -21,7 +21,7 @@ class ConnectivityStatusController extends GetxController {
   void onInit() async {
     super.onInit();
     await Future.delayed(const Duration(seconds: 3));
-    initConnectivity();
+    // initConnectivity();
     _connectivitySubscription =
         _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
   }

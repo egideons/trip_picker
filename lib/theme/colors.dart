@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 Color kLightBackgroundColor = const Color(0xFFFFFFFF);
 Color kDarkBackgroundColor = const Color(0xFFFFFFFF);
-Color kPrimaryColor = const Color(0xFF41B696);
-Color kAccentColor = const Color(0xFF41B696);
-Color kSecondaryColor = const Color(0xFF41B696);
+Color kPrimaryColor = const Color(0xFF5800FF);
+Color kAccentColor = const Color(0xFFA87BFF);
+Color kSecondaryColor = const Color(0xFF281846);
 
 Color kStarColor = Colors.amber;
 Color kSuccessColor = const Color(0xFF41B696);

@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:trip_picker/controllers/connectivity_status_controller.dart';
-import 'package:trip_picker/controllers/theme_controller.dart';
+import 'package:trip_picker/controllers/others/connectivity_status_controller.dart';
+import 'package:trip_picker/controllers/others/theme_controller.dart';
 import 'package:trip_picker/utils/components/app_error_widget.dart';
 
 import 'routes/routes.dart';
@@ -51,7 +51,7 @@ class TripPickerApp extends StatelessWidget {
     //iOS App
     if (Platform.isIOS) {
       return GetCupertinoApp(
-        title: "",
+        title: "Trip Picker",
         color: kPrimaryColor,
         navigatorKey: Get.key,
         defaultTransition: Transition.native,
@@ -67,7 +67,7 @@ class TripPickerApp extends StatelessWidget {
 
     //Android App
     return GetMaterialApp(
-      title: "",
+      title: "Trip Picker",
       color: kPrimaryColor,
       navigatorKey: Get.key,
       defaultTransition: Transition.native,
