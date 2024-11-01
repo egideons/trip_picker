@@ -21,7 +21,7 @@ class OnboardingController extends GetxController {
 
   setIsLastPage(index) {
     isLastPage.value = onboardContent.value.items.length - 1 == index;
-  }g
+  }
 
   var currentPage = 0.obs;
   var isLastPage = false.obs;

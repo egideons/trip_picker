@@ -128,7 +128,7 @@ imageSection(OnboardingController controller, OnboardModel onboardItem) {
                                 .shake(
                                   curve: Curves.easeInOut,
                                   duration: Duration(seconds: 2),
-                                  delay: Duration(seconds: 2),
+                                  delay: Duration(milliseconds: 1000),
                                 )
                             : Image.asset(onboardItem.image)
                                 .animate(
