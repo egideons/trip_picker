@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LoginSignupController extends GetxController {
@@ -7,13 +8,27 @@ class LoginSignupController extends GetxController {
 
   var currentPage = 0.obs;
   var isLoginPage = true.obs;
-  var isLoading = false.obs;
+  var shouldAnimate = true.obs;
+  var isLoadingLogin = false.obs;
+  var isLoadingSignup = false.obs;
 
-  selectLoginPage() {
+  selectLoginPage() async {
+    shouldAnimate.value = true;
     isLoginPage.value = true;
+    await Future.delayed(const Duration(milliseconds: 2000));
+    shouldAnimate.value = false;
   }
 
-  selectSignupPage() {
+  selectSignupPage() async {
+    shouldAnimate.value = true;
     isLoginPage.value = false;
+    await Future.delayed(const Duration(milliseconds: 2000));
+    shouldAnimate.value = false;
   }
+
+  //========== Keys ================\\
+  final loginFormKey = GlobalKey<FormState>();
+  final signupFormKey = GlobalKey<FormState>();
+
+  //==========  ================\\
 }

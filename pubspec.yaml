@@ -24,6 +24,7 @@ dependencies:
   flutter_animate:
   smooth_page_indicator:
   bordered_text:
+  phone_text_field:
 
 dev_dependencies:
   flutter_test:

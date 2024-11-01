@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:phone_text_field/phone_text_field.dart';
+import 'package:trip_picker/app/android/auth/login_signup/content/login_signup_header.dart';
 import 'package:trip_picker/constants/assets.dart';
 import 'package:trip_picker/constants/consts.dart';
 import 'package:trip_picker/controllers/auth/login_signup_controller.dart';
 import 'package:trip_picker/theme/colors.dart';
+import 'package:trip_picker/utils/containers/form_field_container.dart';
 
 class AndroidLoginSignupScreen extends GetView<LoginSignupController> {
   const AndroidLoginSignupScreen({super.key});
@@ -15,7 +19,7 @@ class AndroidLoginSignupScreen extends GetView<LoginSignupController> {
     Get.put(LoginSignupController());
 
     var colorScheme = Theme.of(context).colorScheme;
-    // var size = MediaQuery.sizeOf(context);
+    var size = MediaQuery.sizeOf(context);
 
     return GetBuilder<LoginSignupController>(
       init: LoginSignupController(),
@@ -25,118 +29,118 @@ class AndroidLoginSignupScreen extends GetView<LoginSignupController> {
           child: Scaffold(
             backgroundColor: colorScheme.surface,
             body: SafeArea(
-              child: Stack(
+              child: ListView(
                 children: [
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: SvgPicture.asset(Assets.loginSignupBackgrounSvg),
-                  ),
-                  Column(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.only(
-                          left: 10,
-                          right: 10,
-                          top: 50,
+                  SizedBox(
+                    height: size.height,
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child:
+                              SvgPicture.asset(Assets.loginSignupBackgrounSvg),
                         ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        Column(
                           children: [
-                            Expanded(
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: SvgPicture.asset(
-                                  Assets.appIconSvg,
-                                  height: 40,
-                                  width: 40,
-                                ),
-                              ),
-                            ),
-                            Row(
-                              children: [
-                                InkWell(
-                                  onTap: controller.selectLoginPage,
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Column(
-                                    children: [
-                                      Text(
-                                        "Login",
-                                        style: defaultTextStyle(
-                                          fontSize: 18,
-                                          color: kTextHeaderColor,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                      Obx(() {
-                                        return controller.isLoginPage.value
-                                            ? AnimatedContainer(
-                                                duration: Duration(
-                                                    milliseconds: 1000),
-                                                height: 4,
-                                                width: 44,
-                                                decoration: ShapeDecoration(
-                                                  color: colorScheme.primary,
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            24),
-                                                  ),
-                                                ),
-                                              )
-                                            : SizedBox(height: 4);
-                                      }),
-                                    ],
+                            loginSignupHeader(controller, colorScheme),
+                            60.toHeight,
+                            Obx(() {
+                              return Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 20,
                                   ),
-                                ),
-                                40.toWidth,
-                                InkWell(
-                                  onTap: controller.selectSignupPage,
-                                  borderRadius: BorderRadius.circular(10),
                                   child: Column(
-                                    children: [
-                                      Text(
-                                        "Sign up",
-                                        style: defaultTextStyle(
-                                          fontSize: 18,
-                                          color: kTextHeaderColor,
-                                          fontWeight: FontWeight.w500,
-                                        ),
+                                    children: () {
+                                      if (controller.isLoginPage.value) {
+                                        return <Widget>[
+                                          Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                              "Welcome back!",
+                                              textAlign: TextAlign.start,
+                                              style: defaultTextStyle(
+                                                color: colorScheme.primary,
+                                                fontSize: 30,
+                                                fontWeight: FontWeight.w600,
+                                                letterSpacing: -1.0,
+                                              ),
+                                            ),
+                                          ),
+                                          60.toHeight,
+                                          Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                              "Enter your Phone Number",
+                                              textAlign: TextAlign.start,
+                                              style: defaultTextStyle(
+                                                color: kDefaultTextColor,
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.w600,
+                                                letterSpacing: -1.0,
+                                              ),
+                                            ),
+                                          ),
+                                          Text(
+                                            "Please confirm your country code and enter your phone number",
+                                            textAlign: TextAlign.start,
+                                            maxLines: 10,
+                                            style: defaultTextStyle(
+                                              color: kTextGreyColor,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w600,
+                                              letterSpacing: -1.0,
+                                            ),
+                                          ),
+                                          60.toHeight,
+                                          Form(
+                                            key: controller.loginFormKey,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                formFieldContainer(
+                                                  colorScheme,
+                                                  size,
+                                                  containerHeight:
+                                                      size.height * .08,
+                                                  containerWidth:
+                                                      size.width - 80,
+                                                  color: colorScheme.surface,
+                                                  padding:
+                                                      const EdgeInsets.all(10),
+                                                  borderSideColor:
+                                                      kTransparentColor,
+                                                  borderSideWidth: 0,
+                                                  child: PhoneTextField(),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ];
+                                      } else {
+                                        return <Widget>[];
+                                      }
+                                    }(),
+                                  )
+                                      .animate(
+                                        autoPlay:
+                                            controller.shouldAnimate.value,
+                                      )
+                                      .flip(
+                                        curve: Curves.easeInOut,
+                                        duration: Duration(milliseconds: 800),
                                       ),
-                                      Obx(() {
-                                        return !controller.isLoginPage.value
-                                            ? AnimatedContainer(
-                                                duration: Duration(
-                                                    milliseconds: 1000),
-                                                height: 4,
-                                                width: 44,
-                                                decoration: ShapeDecoration(
-                                                  color: colorScheme.primary,
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            24),
-                                                  ),
-                                                ),
-                                              )
-                                            : SizedBox(height: 4);
-                                      }),
-                                    ],
-                                  ),
                                 ),
-                              ],
-                            ),
+                              );
+                            }),
                           ],
                         ),
-                      ),
-                      40.toHeight,
-                      Expanded(
-                        child: ListView(
-                          children: [],
-                        ),
-                      )
-                    ],
+                      ],
+                    ),
                   ),
                 ],
               ),

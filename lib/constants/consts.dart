@@ -226,7 +226,7 @@ defaultTextStyle({
       fontSize: fontSize ?? 14.0,
       fontStyle: fontStyle ?? FontStyle.normal,
       fontWeight: fontWeight ?? FontWeight.w600,
-      letterSpacing: letterSpacing ?? .20,
+      letterSpacing: letterSpacing ?? -1.0,
     );
 
 //========== Image ==============\\
