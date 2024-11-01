@@ -72,8 +72,6 @@ class TripPickerApp extends StatelessWidget {
       navigatorKey: Get.key,
       defaultTransition: Transition.native,
       debugShowCheckedModeBanner: false,
-      highContrastTheme: androidLightTheme,
-      highContrastDarkTheme: androidDarkTheme,
       locale: Get.deviceLocale,
       initialRoute: Routes.startupSplashscreen,
       getPages: Routes.getPages,

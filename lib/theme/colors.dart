@@ -4,14 +4,16 @@ Color kLightBackgroundColor = const Color(0xFFFFFFFF);
 Color kDarkBackgroundColor = const Color(0xFFFFFFFF);
 Color kPrimaryColor = const Color(0xFF5800FF);
 Color kAccentColor = const Color(0xFFA87BFF);
-Color kSecondaryColor = const Color(0xFF281846);
+Color kSecondaryColor = const Color(0xFF1F1136);
 
 Color kStarColor = Colors.amber;
 Color kSuccessColor = const Color(0xFF41B696);
+Color kDefaultTextColor = const Color(0xFF282525);
+Color kTextGreyColor = const Color(0xff353535).withOpacity(.6);
 Color kTextBoldHeadingColor = const Color(0xFF4B4B4B);
-Color kTextGreyColor = const Color(0xFF6C6C6C);
 Color kTextWhiteColor = const Color(0xFFFFFFFF);
 Color kTransparentColor = const Color(0x00000000);
+// Color kTextGreyColor = const Color(0xFF6C6C6C);
 
 Color kWarningColor = Colors.amber;
 Color kFormFieldTextColor = const Color(0xFF2D2D2D);

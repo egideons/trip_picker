@@ -23,6 +23,7 @@ dependencies:
   delightful_toast:
   flutter_animate:
   smooth_page_indicator:
+  bordered_text:
 
 dev_dependencies:
   flutter_test:
