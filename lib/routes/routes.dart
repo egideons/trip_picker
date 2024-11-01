@@ -1,3 +1,7 @@
+import 'package:get/get.dart';
+import 'package:trip_picker/app/android/onboarding/android_onboarding_screen.dart';
+import 'package:trip_picker/app/android/splash_screen/startup/android_startup_screen.dart';
+
 class Routes {
   //Splash screens
   static const startupSplashscreen = "/";
@@ -9,5 +13,8 @@ class Routes {
   static const onboarding = "/onboarding";
 
   //========================= GET PAGES ==========================\\
-  static final getPages = [];
+  static final getPages = [
+    GetPage(name: startupSplashscreen, page: () => AndroidStartupScreen()),
+    GetPage(name: onboarding, page: () => AndroidOnboardingScreen())
+  ];
 }

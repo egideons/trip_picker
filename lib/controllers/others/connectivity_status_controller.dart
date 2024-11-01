@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:trip_picker/controllers/others/api_processor_controller.dart';
@@ -49,12 +50,18 @@ class ConnectivityStatusController extends GetxController {
     _connectionStatus = result;
     if (result.contains(ConnectivityResult.mobile)) {
       // Mobile network available.
-      ApiProcessorController.successSnack("Cellular network is connected");
+      ApiProcessorController.successSnack(
+        "Cellular network is connected",
+        icon: Icons.signal_cellular_4_bar_rounded,
+      );
     } else if (result.contains(ConnectivityResult.wifi)) {
       // Wi-fi is available.
       // Note for Android:
       // When both mobile and Wi-Fi are turned on system will return Wi-Fi only as active network type
-      ApiProcessorController.successSnack("Wi-Fi is connected");
+      ApiProcessorController.successSnack(
+        "Wi-Fi is connected",
+        icon: Icons.wifi,
+      );
     } else if (result.contains(ConnectivityResult.none)) {
       ApiProcessorController.errorSnack("No internet connection");
     }

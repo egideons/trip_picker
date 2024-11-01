@@ -1,25 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trip_picker/controllers/splash_screen/startup_screen_controller.dart';
+import 'package:trip_picker/app/android/splash_screen/startup/content/bottom_section.dart';
+import 'package:trip_picker/app/android/splash_screen/startup/content/first_section.dart';
+import 'package:trip_picker/controllers/auth/auth_controller.dart';
 
-class AndroidStartupScreen extends StatelessWidget {
+class AndroidStartupScreen extends GetView<AuthController> {
   const AndroidStartupScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     //Initialize the controller
-    Get.put(StartupScreenController());
+    Get.put(AuthController());
 
-    return GestureDetector(
-      onTap: (() => FocusManager.instance.primaryFocus?.unfocus()),
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('AndroidStartupScreen'),
-        ),
-        body: const Center(
-          child: Text('Scaffold Body'),
-        ),
-      ),
+    var size = MediaQuery.sizeOf(context);
+    var colorScheme = Theme.of(context).colorScheme;
+
+    return GetBuilder<AuthController>(
+      init: AuthController(),
+      builder: (controller) {
+        return GestureDetector(
+          onTap: (() => FocusManager.instance.primaryFocus?.unfocus()),
+          child: Scaffold(
+            backgroundColor: colorScheme.secondary,
+            appBar: AppBar(toolbarHeight: 0),
+            body: Wrap(
+              alignment: WrapAlignment.center,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              runAlignment: WrapAlignment.center,
+              children: [
+                firstSection(size),
+                bottomSection(size),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

@@ -21,7 +21,7 @@ class ApiProcessorController extends GetxController {
     }
   }
 
-  static void successSnack(String? msg) {
+  static void successSnack(String? msg, {IconData? icon}) {
     var colorScheme = Theme.of(Get.context!).colorScheme;
     var media = MediaQuery.of(Get.context!).size;
     Get.showSnackbar(
@@ -50,7 +50,7 @@ class ApiProcessorController extends GetxController {
           ),
         ),
         icon: Icon(
-          Icons.check_circle,
+          icon ?? Icons.check_circle,
           size: 16,
           color: kSuccessColor,
         ),
@@ -88,7 +88,7 @@ class ApiProcessorController extends GetxController {
     );
   }
 
-  static void errorSnack(String? msg) {
+  static void errorSnack(String? msg, {IconData? icon}) {
     var colorScheme = Theme.of(Get.context!).colorScheme;
     var media = MediaQuery.of(Get.context!).size;
 
@@ -119,8 +119,8 @@ class ApiProcessorController extends GetxController {
             letterSpacing: -0.40,
           ),
         ),
-        icon: const Icon(
-          Icons.error_rounded,
+        icon: Icon(
+          icon ?? Icons.error_rounded,
           size: 18,
           color: Colors.red,
         ),
@@ -158,7 +158,7 @@ class ApiProcessorController extends GetxController {
     );
   }
 
-  static void warningSnack(String? msg) {
+  static void warningSnack(String? msg, {IconData? icon}) {
     var colorScheme = Theme.of(Get.context!).colorScheme;
     var media = MediaQuery.of(Get.context!).size;
 
@@ -190,7 +190,7 @@ class ApiProcessorController extends GetxController {
           ),
         ),
         icon: Icon(
-          Icons.warning_rounded,
+          icon ?? Icons.warning_rounded,
           size: 18,
           color: kWarningColor,
         ),

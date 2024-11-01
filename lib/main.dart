@@ -76,7 +76,7 @@ class TripPickerApp extends StatelessWidget {
       highContrastDarkTheme: androidDarkTheme,
       locale: Get.deviceLocale,
       initialRoute: Routes.startupSplashscreen,
-      // getPages: Routes.getPages,
+      getPages: Routes.getPages,
       theme: androidLightTheme,
       darkTheme: androidDarkTheme,
       // themeMode: ThemeController.instance.themeMode.value,
