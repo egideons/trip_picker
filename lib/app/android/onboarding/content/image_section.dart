@@ -43,11 +43,15 @@ imageSection(OnboardingController controller, OnboardModel onboardItem) {
                           .animate(
                             autoPlay: controller.shouldAnimate.value,
                           )
+                          .shakeX(
+                            curve: Curves.easeInOut,
+                            duration: Duration(seconds: 1),
+                          )
                           .moveY(
                             begin: controller.shouldAnimate.value ? 60 : 0,
                             end: controller.shouldAnimate.value ? -200 : 0,
                             curve: Curves.easeInOut,
-                            duration: const Duration(seconds: 2),
+                            duration: const Duration(seconds: 3),
                           )
                           .fadeIn(
                             begin: 0,
@@ -145,7 +149,7 @@ imageSection(OnboardingController controller, OnboardModel onboardItem) {
           ],
         ).animate(autoPlay: true).moveX(
             begin: 100,
-            end: 0,
+            end: -10,
             curve: Curves.easeInOut,
             duration: Duration(milliseconds: 1000),
           );

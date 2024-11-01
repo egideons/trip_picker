@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trip_picker/app/android/onboarding/content/image_section.dart';
@@ -76,11 +78,28 @@ class AndroidOnboardingScreen extends GetView<OnboardingController> {
                           );
                         },
                       ),
-                      Positioned(
-                        bottom: 120,
-                        left: (size.width - 90) / 2,
-                        child: pageIndicator(controller, colorScheme),
-                      ),
+                      controller.isLoading.value
+                          ? BackdropFilter(
+                              filter: ImageFilter.blur(
+                                sigmaX: 70,
+                                sigmaY: 70,
+                              ),
+                              child: Center(
+                                child: CircularProgressIndicator.adaptive(
+                                  strokeAlign: 10,
+                                  strokeWidth: 10,
+                                  backgroundColor: colorScheme.surface,
+                                ),
+                              ),
+                            )
+                          : SizedBox(),
+                      controller.isLoading.value
+                          ? SizedBox()
+                          : Positioned(
+                              bottom: 120,
+                              left: (size.width - 90) / 2,
+                              child: pageIndicator(controller, colorScheme),
+                            ),
                     ],
                   ),
                 ),

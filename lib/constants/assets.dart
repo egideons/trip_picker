@@ -13,6 +13,8 @@ class Assets {
   static const onboard3Svg = "assets/images/svg/onboard_3.svg";
   static const onboard4Svg = "assets/images/svg/onboard_4.svg";
   static const getStartedSvg = "assets/images/svg/get_started.svg";
+  static const loginSignupBackgrounSvg =
+      "assets/images/svg/login_signup_background.svg";
 
 //=================== Icons ===================\\
 //PNG

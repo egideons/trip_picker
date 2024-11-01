@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:trip_picker/app/android/auth/login_signup/android_login_signup_screen.dart';
+import 'package:trip_picker/main.dart';
 
 import '../../app/android/onboarding/content/onboard_content.dart';
 
@@ -26,17 +28,27 @@ class OnboardingController extends GetxController {
   var currentPage = 0.obs;
   var isLastPage = false.obs;
   var shouldAnimate = false.obs;
+  var isLoading = false.obs;
   var pageController = PageController().obs;
   var onboardContent = OnboardContent().obs;
 
-  void triggerGetStartedAnimation() {
+  getStarted() async {
     shouldAnimate.value = true;
-    Future.delayed(const Duration(seconds: 3), () {
-      shouldAnimate.value = false;
+    await Future.delayed(const Duration(milliseconds: 1400), () {
+      isLoading.value = true;
     });
-  }
-
-  getStarted() {
-    triggerGetStartedAnimation();
+    await Future.delayed(const Duration(seconds: 2));
+    shouldAnimate.value = false;
+    isLoading.value = false;
+    prefs.setBool("isOnboarded", true);
+    await Get.offAll(
+      () => const AndroidLoginSignupScreen(),
+      routeName: "/login-signup",
+      fullscreenDialog: true,
+      curve: Curves.easeInOut,
+      predicate: (routes) => false,
+      popGesture: false,
+      transition: Transition.downToUp,
+    );
   }
 }
