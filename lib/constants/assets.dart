@@ -1,8 +1,18 @@
 class Assets {
 //=================== Images ===================\\
 //PNG
+  static const onboard1Png = "assets/images/png/onboard_1.png";
+  static const onboard2Png = "assets/images/png/onboard_2.png";
+  static const onboard3Png = "assets/images/png/onboard_3.png";
+  static const onboard4Png = "assets/images/png/onboard_4.png";
+  static const getStartedPng = "assets/images/png/get_started.png";
 
 //SVG
+  static const onboard1Svg = "assets/images/svg/onboard_1.svg";
+  static const onboard2Svg = "assets/images/svg/onboard_2.svg";
+  static const onboard3Svg = "assets/images/svg/onboard_3.svg";
+  static const onboard4Svg = "assets/images/svg/onboard_4.svg";
+  static const getStartedSvg = "assets/images/svg/get_started.svg";
 
 //=================== Icons ===================\\
 //PNG

@@ -9,12 +9,10 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
-  iconsax: ^0.0.8
   flutter_svg:
   get:
   image_picker:
   intl:
-  dio:
   http:
   http_parser:
   path:
@@ -24,6 +22,7 @@ dependencies:
   cached_network_image:
   delightful_toast:
   flutter_animate:
+  smooth_page_indicator:
 
 dev_dependencies:
   flutter_test:

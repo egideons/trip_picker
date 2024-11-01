@@ -20,7 +20,7 @@ class AuthController extends GetxController
 
   @override
   void onInit() {
-    Timer(const Duration(days: 3), () {
+    Timer(const Duration(seconds: 3), () {
       loadApp();
     });
     super.onInit();
