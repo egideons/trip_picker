@@ -3,8 +3,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trip_picker/app/android/auth/login_signup/android_login_signup_screen.dart';
-import 'package:trip_picker/app/android/onboarding/android_onboarding_screen.dart';
+import 'package:trip_picker/view/android/auth/login_signup/android_login_signup_screen.dart';
+import 'package:trip_picker/view/android/onboarding/android_onboarding_screen.dart';
 
 import '../../../main.dart';
 

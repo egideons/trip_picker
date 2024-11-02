@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trip_picker/app/android/splash_screen/startup/content/bottom_section.dart';
-import 'package:trip_picker/app/android/splash_screen/startup/content/first_section.dart';
 import 'package:trip_picker/controllers/auth/auth_controller.dart';
+import 'package:trip_picker/view/android/splash_screen/startup/content/bottom_section.dart';
+import 'package:trip_picker/view/android/splash_screen/startup/content/first_section.dart';
 
 class AndroidStartupScreen extends GetView<AuthController> {
   const AndroidStartupScreen({super.key});

@@ -2,12 +2,12 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trip_picker/app/android/onboarding/content/image_section.dart';
-import 'package:trip_picker/app/android/onboarding/content/page_indicator.dart';
-import 'package:trip_picker/app/android/onboarding/content/text_section.dart';
 import 'package:trip_picker/constants/consts.dart';
 import 'package:trip_picker/controllers/auth/onboarding_controller.dart';
 import 'package:trip_picker/utils/buttons/android/android_elevated_button.dart';
+import 'package:trip_picker/view/android/onboarding/content/image_section.dart';
+import 'package:trip_picker/view/android/onboarding/content/page_indicator.dart';
+import 'package:trip_picker/view/android/onboarding/content/text_section.dart';
 
 class AndroidOnboardingScreen extends GetView<OnboardingController> {
   const AndroidOnboardingScreen({super.key});

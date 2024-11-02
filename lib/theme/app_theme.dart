@@ -31,69 +31,69 @@ ThemeData androidLightTheme = ThemeData(
   brightness: Brightness.light,
   useMaterial3: true,
   applyElevationOverlayColor: false,
-  textTheme: const TextTheme(
-    titleLarge: TextStyle(
+  textTheme: TextTheme(
+    titleLarge: defaultTextStyle(
       fontFamily: "Poppins",
-      fontSize: 36,
+      fontSize: 30,
       fontWeight: FontWeight.w900,
-      overflow: TextOverflow.ellipsis,
-      letterSpacing: -0.40,
+      // overflow: TextOverflow.ellipsis,
+      letterSpacing: -1.0,
     ),
-    titleMedium: TextStyle(
+    titleMedium: defaultTextStyle(
+      fontFamily: "Poppins",
+      fontSize: 24,
+      fontWeight: FontWeight.w600,
+      // overflow: TextOverflow.ellipsis,
+      letterSpacing: -1.0,
+    ),
+    titleSmall: defaultTextStyle(
       fontFamily: "Poppins",
       fontSize: 20,
-      fontWeight: FontWeight.w600,
-      overflow: TextOverflow.ellipsis,
-      letterSpacing: -0.40,
+      fontWeight: FontWeight.w500,
+      // overflow: TextOverflow.ellipsis,
+      letterSpacing: -1.0,
     ),
-    titleSmall: TextStyle(
+    bodyLarge: defaultTextStyle(
+      fontFamily: "Poppins",
+      fontSize: 20,
+      fontWeight: FontWeight.w500,
+      // overflow: TextOverflow.ellipsis,
+      letterSpacing: -1.0,
+    ),
+    bodyMedium: defaultTextStyle(
       fontFamily: "Poppins",
       fontSize: 16,
       fontWeight: FontWeight.w500,
-      overflow: TextOverflow.ellipsis,
-      letterSpacing: -0.40,
+      // overflow: TextOverflow.ellipsis,
+      letterSpacing: -1.0,
     ),
-    bodyLarge: TextStyle(
-      fontFamily: "Poppins",
-      fontSize: 24,
-      fontWeight: FontWeight.w500,
-      overflow: TextOverflow.ellipsis,
-      letterSpacing: -0.40,
-    ),
-    bodyMedium: TextStyle(
-      fontFamily: "Poppins",
-      fontSize: 18,
-      fontWeight: FontWeight.w500,
-      overflow: TextOverflow.ellipsis,
-      letterSpacing: -0.40,
-    ),
-    bodySmall: TextStyle(
+    bodySmall: defaultTextStyle(
       fontFamily: "Poppins",
       fontSize: 12,
       fontWeight: FontWeight.w500,
-      overflow: TextOverflow.ellipsis,
-      letterSpacing: -0.40,
+      // overflow: TextOverflow.ellipsis,
+      letterSpacing: -1.0,
     ),
-    labelLarge: TextStyle(
+    labelLarge: defaultTextStyle(
       fontFamily: "Poppins",
-      fontSize: 30,
+      fontSize: 24,
       fontWeight: FontWeight.w600,
-      overflow: TextOverflow.ellipsis,
-      letterSpacing: -0.40,
+      // overflow: TextOverflow.ellipsis,
+      letterSpacing: -1.0,
     ),
-    labelMedium: TextStyle(
+    labelMedium: defaultTextStyle(
       fontFamily: "Poppins",
       fontSize: 20,
       fontWeight: FontWeight.w600,
-      overflow: TextOverflow.ellipsis,
-      letterSpacing: -0.40,
+      // overflow: TextOverflow.ellipsis,
+      letterSpacing: -1.0,
     ),
-    labelSmall: TextStyle(
+    labelSmall: defaultTextStyle(
       fontFamily: "Poppins",
-      fontSize: 10,
+      fontSize: 14,
       fontWeight: FontWeight.w600,
-      overflow: TextOverflow.ellipsis,
-      letterSpacing: -0.40,
+      // overflow: TextOverflow.ellipsis,
+      letterSpacing: -1.0,
     ),
   ),
   // textTheme: GoogleFonts.montserratAlternatesTextTheme(Typography.dense2021),
@@ -112,69 +112,69 @@ ThemeData androidDarkTheme = ThemeData(
   brightness: Brightness.dark,
   useMaterial3: true,
   applyElevationOverlayColor: false,
-  textTheme: const TextTheme(
-    titleLarge: TextStyle(
+  textTheme: TextTheme(
+    titleLarge: defaultTextStyle(
       fontFamily: "Poppins",
       fontSize: 36,
       fontWeight: FontWeight.w900,
-      overflow: TextOverflow.ellipsis,
-      letterSpacing: -0.40,
+      // overflow: TextOverflow.ellipsis,
+      letterSpacing: -1.0,
     ),
-    titleMedium: TextStyle(
+    titleMedium: defaultTextStyle(
       fontFamily: "Poppins",
       fontSize: 20,
       fontWeight: FontWeight.w600,
-      overflow: TextOverflow.ellipsis,
-      letterSpacing: -0.40,
+      // overflow: TextOverflow.ellipsis,
+      letterSpacing: -1.0,
     ),
-    titleSmall: TextStyle(
+    titleSmall: defaultTextStyle(
       fontFamily: "Poppins",
       fontSize: 16,
       fontWeight: FontWeight.w500,
-      overflow: TextOverflow.ellipsis,
-      letterSpacing: -0.40,
+      // overflow: TextOverflow.ellipsis,
+      letterSpacing: -1.0,
     ),
-    bodyLarge: TextStyle(
+    bodyLarge: defaultTextStyle(
       fontFamily: "Poppins",
       fontSize: 24,
       fontWeight: FontWeight.w500,
-      overflow: TextOverflow.ellipsis,
-      letterSpacing: -0.40,
+      // overflow: TextOverflow.ellipsis,
+      letterSpacing: -1.0,
     ),
-    bodyMedium: TextStyle(
+    bodyMedium: defaultTextStyle(
       fontFamily: "Poppins",
       fontSize: 18,
       fontWeight: FontWeight.w500,
-      overflow: TextOverflow.ellipsis,
-      letterSpacing: -0.40,
+      // overflow: TextOverflow.ellipsis,
+      letterSpacing: -1.0,
     ),
-    bodySmall: TextStyle(
+    bodySmall: defaultTextStyle(
       fontFamily: "Poppins",
       fontSize: 12,
       fontWeight: FontWeight.w500,
-      overflow: TextOverflow.ellipsis,
-      letterSpacing: -0.40,
+      // overflow: TextOverflow.ellipsis,
+      letterSpacing: -1.0,
     ),
-    labelLarge: TextStyle(
+    labelLarge: defaultTextStyle(
       fontFamily: "Poppins",
       fontSize: 30,
       fontWeight: FontWeight.w600,
-      overflow: TextOverflow.ellipsis,
-      letterSpacing: -0.40,
+      // overflow: TextOverflow.ellipsis,
+      letterSpacing: -1.0,
     ),
-    labelMedium: TextStyle(
+    labelMedium: defaultTextStyle(
       fontFamily: "Poppins",
       fontSize: 20,
       fontWeight: FontWeight.w600,
-      overflow: TextOverflow.ellipsis,
-      letterSpacing: -0.40,
+      // overflow: TextOverflow.ellipsis,
+      letterSpacing: -1.0,
     ),
-    labelSmall: TextStyle(
+    labelSmall: defaultTextStyle(
       fontFamily: "Poppins",
       fontSize: 10,
       fontWeight: FontWeight.w600,
-      overflow: TextOverflow.ellipsis,
-      letterSpacing: -0.40,
+      // overflow: TextOverflow.ellipsis,
+      letterSpacing: -1.0,
     ),
   ),
   // textTheme: GoogleFonts.montserratAlternatesTextTheme(Typography.dense2021),

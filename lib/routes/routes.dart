@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:trip_picker/app/android/auth/login_signup/android_login_signup_screen.dart';
-import 'package:trip_picker/app/android/onboarding/android_onboarding_screen.dart';
-import 'package:trip_picker/app/android/splash_screen/startup/android_startup_screen.dart';
+import 'package:trip_picker/view/android/auth/login_signup/android_login_signup_screen.dart';
+import 'package:trip_picker/view/android/onboarding/android_onboarding_screen.dart';
+import 'package:trip_picker/view/android/splash_screen/startup/android_startup_screen.dart';
 
 class Routes {
   //Splash screens
