@@ -22,6 +22,9 @@ class Assets {
 
 //SVG
   static const appIconSvg = "assets/icons/svg/app_icon.svg";
+  static const phoneIconSvg = "assets/icons/svg/phone_icon.svg";
+  static const emailIconSvg = "assets/icons/svg/email_icon.svg";
+  static const avatarIconSvg = "assets/icons/svg/avatar_icon.svg";
 
 //=================== Animations ===================\\
 

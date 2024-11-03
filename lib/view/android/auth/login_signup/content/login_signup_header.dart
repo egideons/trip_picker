@@ -27,24 +27,27 @@ loginSignupHeader(LoginSignupController controller, ColorScheme colorScheme) {
             ),
           ),
         ),
-        Row(
-          children: [
-            InkWell(
-              onTap: controller.selectLoginPage,
-              borderRadius: BorderRadius.circular(10),
-              child: Column(
-                children: [
-                  Text(
-                    "Log in",
-                    style: defaultTextStyle(
-                      fontSize: 18,
-                      color: kTextHeaderColor,
-                      fontWeight: FontWeight.w500,
-                      letterSpacing: -1.2,
+        Obx(() {
+          return Row(
+            children: [
+              InkWell(
+                onTap: controller.isLoadingLogin.value ||
+                        controller.isLoadingSignup.value
+                    ? null
+                    : controller.selectLoginPage,
+                borderRadius: BorderRadius.circular(10),
+                child: Column(
+                  children: [
+                    Text(
+                      "Log in",
+                      style: defaultTextStyle(
+                        fontSize: 18,
+                        color: kTextHeaderColor,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: -1.2,
+                      ),
                     ),
-                  ),
-                  Obx(() {
-                    return controller.isLoginPage.value
+                    controller.isLoginPage.value
                         ? AnimatedContainer(
                             duration: Duration(milliseconds: 1000),
                             height: 4,
@@ -58,28 +61,29 @@ loginSignupHeader(LoginSignupController controller, ColorScheme colorScheme) {
                               ),
                             ),
                           )
-                        : SizedBox(height: 4);
-                  }),
-                ],
+                        : SizedBox(height: 4),
+                  ],
+                ),
               ),
-            ),
-            40.toWidth,
-            InkWell(
-              onTap: controller.selectSignupPage,
-              borderRadius: BorderRadius.circular(10),
-              child: Column(
-                children: [
-                  Text(
-                    "Sign up",
-                    style: defaultTextStyle(
-                      fontSize: 18,
-                      color: kTextHeaderColor,
-                      fontWeight: FontWeight.w500,
-                      letterSpacing: -1.2,
+              40.toWidth,
+              InkWell(
+                onTap: controller.isLoadingLogin.value ||
+                        controller.isLoadingSignup.value
+                    ? null
+                    : controller.selectSignupPage,
+                borderRadius: BorderRadius.circular(10),
+                child: Column(
+                  children: [
+                    Text(
+                      "Sign up",
+                      style: defaultTextStyle(
+                        fontSize: 18,
+                        color: kTextHeaderColor,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: -1.2,
+                      ),
                     ),
-                  ),
-                  Obx(() {
-                    return !controller.isLoginPage.value
+                    !controller.isLoginPage.value
                         ? AnimatedContainer(
                             duration: Duration(milliseconds: 1000),
                             height: 4,
@@ -91,13 +95,13 @@ loginSignupHeader(LoginSignupController controller, ColorScheme colorScheme) {
                               ),
                             ),
                           )
-                        : SizedBox(height: 4);
-                  }),
-                ],
+                        : SizedBox(height: 4),
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
+            ],
+          );
+        }),
       ],
     ),
   );

@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:trip_picker/constants/consts.dart';
 import 'package:trip_picker/theme/colors.dart';
-import 'package:get/get.dart';
 
 class AndroidTextFormField extends StatelessWidget {
   final String? hintText, obscuringCharacter;
@@ -17,7 +17,7 @@ class AndroidTextFormField extends StatelessWidget {
 
   final Function(String)? onFieldSubmitted, onChanged;
   final Widget? label, prefix, suffix, prefixIcon, suffixIcon;
-  final TextStyle? helperStyle, prefixStyle, suffixStyle;
+  final TextStyle? style, helperStyle, prefixStyle, suffixStyle;
   final String? labelText, helperText, suffixText, prefixText;
   final Color? prefixIconColor, suffixIconColor;
   final bool? enabled,
@@ -32,6 +32,8 @@ class AndroidTextFormField extends StatelessWidget {
   final void Function()? onTap;
   final TextInputType? keyboardType;
   final int? maxLines, minLines, maxLength;
+  final double? cursorHeight;
+  final Radius? cursorRadius;
   final MaxLengthEnforcement? maxLengthEnforcement;
 
   const AndroidTextFormField({
@@ -56,6 +58,7 @@ class AndroidTextFormField extends StatelessWidget {
     this.suffix,
     this.prefixIcon,
     this.suffixIcon,
+    this.style,
     this.helperStyle,
     this.prefixStyle,
     this.suffixStyle,
@@ -69,6 +72,8 @@ class AndroidTextFormField extends StatelessWidget {
     this.keyboardType,
     this.maxLines,
     this.minLines,
+    this.cursorHeight,
+    this.cursorRadius,
     this.maxLengthEnforcement,
     this.maxLength,
     this.obscuringCharacter,
@@ -91,6 +96,8 @@ class AndroidTextFormField extends StatelessWidget {
       cursorOpacityAnimates: true,
       enableIMEPersonalizedLearning: true,
       mouseCursor: SystemMouseCursors.text,
+      cursorHeight: cursorHeight,
+      cursorRadius: cursorRadius,
       onTap: onTap,
       inputFormatters: inputFormatters,
       onFieldSubmitted: onFieldSubmitted,
@@ -111,11 +118,12 @@ class AndroidTextFormField extends StatelessWidget {
       obscureText: obscureText ?? false,
       obscuringCharacter: obscuringCharacter ?? "•",
       keyboardAppearance: Get.isDarkMode ? Brightness.dark : Brightness.light,
-      style: defaultTextStyle(
-        fontSize: 16.0,
-        color: kFormFieldTextColor,
-        fontWeight: FontWeight.normal,
-      ),
+      style: style ??
+          defaultTextStyle(
+            fontSize: 18.0,
+            color: kFormFieldTextColor,
+            fontWeight: FontWeight.normal,
+          ),
       decoration: InputDecoration(
         helperText: helperText,
         helperStyle: helperStyle,
@@ -137,12 +145,12 @@ class AndroidTextFormField extends StatelessWidget {
         fillColor: colorScheme.surface,
         focusColor: const Color(0xFFF6F6F7),
         labelStyle: defaultTextStyle(
-          fontSize: 16.0,
+          fontSize: 18.0,
           color: kFormFieldLabelTextColor,
           fontWeight: FontWeight.normal,
         ),
         hintStyle: defaultTextStyle(
-          fontSize: 16.0,
+          fontSize: 18.0,
           color: kFormFieldLabelTextColor,
           fontWeight: FontWeight.normal,
         ),

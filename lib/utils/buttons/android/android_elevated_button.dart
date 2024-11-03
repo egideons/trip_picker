@@ -23,6 +23,7 @@ class AndroidElevatedButton extends StatelessWidget {
       buttonIconColor;
   final Widget? rowIconWidget;
   final FontWeight? fontWeight;
+  final Size? minimumSize;
 
   const AndroidElevatedButton({
     super.key,
@@ -46,6 +47,7 @@ class AndroidElevatedButton extends StatelessWidget {
     this.rowIconWidget,
     this.fontWeight,
     this.disabledBackgroundColor,
+    this.minimumSize,
   });
 
   @override
@@ -67,7 +69,7 @@ class AndroidElevatedButton extends StatelessWidget {
         elevation: buttonElevation ?? 0,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius ?? 20)),
-        minimumSize: Size(media.width, 44),
+        minimumSize: minimumSize ?? Size(media.width, 44),
       ),
       child: isLoading
           ? CupertinoActivityIndicator(color: colorScheme.surface)

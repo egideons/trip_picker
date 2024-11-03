@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:trip_picker/view/android/auth/login_signup/android_login_signup_screen.dart';
+import 'package:trip_picker/view/android/auth/verify_phone_otp/android_verify_phone_otp_screen.dart';
 import 'package:trip_picker/view/android/onboarding/android_onboarding_screen.dart';
 import 'package:trip_picker/view/android/splash_screen/startup/android_startup_screen.dart';
 
@@ -13,11 +14,15 @@ class Routes {
 
   static const onboarding = "/onboarding";
   static const loginSignup = "/login-signup";
+  static const verifyPhoneOtp = "/verify-phone-otp";
+  static const verifyEmailOtp = "/verify-email-otp";
 
   //========================= GET PAGES ==========================\\
   static final getPages = [
     GetPage(name: startupSplashscreen, page: () => AndroidStartupScreen()),
     GetPage(name: onboarding, page: () => AndroidOnboardingScreen()),
     GetPage(name: loginSignup, page: () => AndroidLoginSignupScreen()),
+    GetPage(name: verifyPhoneOtp, page: () => AndroidVerifyPhoneOtpScreen()),
+    // GetPage(name: verifyEmailOtp, page: () => AndroidVerifyEmailOtpScreen()),
   ];
 }
