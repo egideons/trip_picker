@@ -26,6 +26,9 @@ dependencies:
   bordered_text:
   intl_phone_field:
   iconsax:
+  sliding_up_panel:
+  google_maps_flutter:
+  permission_handler:
 
 dev_dependencies:
   flutter_test:

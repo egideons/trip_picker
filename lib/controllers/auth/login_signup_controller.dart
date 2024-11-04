@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/phone_number.dart';
 import 'package:trip_picker/controllers/others/api_processor_controller.dart';
+import 'package:trip_picker/main.dart';
 import 'package:trip_picker/view/android/auth/verify_email_otp/android_verify_email_otp_screen.dart';
 import 'package:trip_picker/view/android/auth/verify_phone_otp/android_verify_phone_otp_screen.dart';
 
@@ -68,13 +69,21 @@ class LoginSignupController extends GetxController {
       }
       isLoadingLogin.value = true;
       log("This is the login data: $loginCountryDialCode${loginPhoneNumberEC.text}");
-      await Future.delayed(const Duration(seconds: 3));
 
       // Get.toNamed(Routes.verifyPhoneOtp, preventDuplicates: true);
+      var userPhoneNumber = prefs.setString(
+        "userPhoneNumber",
+        loginCountryDialCode + loginPhoneNumberEC.text,
+      );
+
+      await Future.delayed(const Duration(seconds: 2));
+
+      prefs.setBool("isLoggedIn", true);
+
       await Get.offAll(
         () => const AndroidVerifyPhoneOtpScreen(),
         routeName: "/verify-phone-otp",
-        arguments: {"phone": loginCountryDialCode + loginPhoneNumberEC.text},
+        arguments: {"phone": userPhoneNumber},
         fullscreenDialog: true,
         curve: Curves.easeInOut,
         predicate: (routes) => false,
@@ -164,13 +173,19 @@ class LoginSignupController extends GetxController {
         return;
       }
       isLoadingSignup.value = true;
-      await Future.delayed(const Duration(seconds: 3));
 
-      // Get.toNamed(Routes.verifyEmailOtp, preventDuplicates: true);
+      var userEmail = prefs.setString(
+        "userEmail",
+        signupEmailEC.text,
+      );
+
+      await Future.delayed(const Duration(seconds: 2));
+      prefs.setBool("isLoggedIn", true);
+
       await Get.offAll(
         () => const AndroidVerifyEmailOtpScreen(),
         routeName: "/verify-email-otp",
-        arguments: {"email": signupEmailEC.text},
+        arguments: {"email": userEmail},
         fullscreenDialog: true,
         curve: Curves.easeInOut,
         predicate: (routes) => false,

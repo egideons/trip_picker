@@ -3,8 +3,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trip_picker/controllers/auth/success_screen_controller.dart';
 import 'package:trip_picker/controllers/others/api_processor_controller.dart';
+import 'package:trip_picker/controllers/others/success_screen_controller.dart';
 import 'package:trip_picker/view/android/splash_screen/success/android_success_screen.dart';
 
 class VerifyPhoneOtpController extends GetxController {
