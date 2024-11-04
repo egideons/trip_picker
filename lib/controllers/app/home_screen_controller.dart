@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -21,7 +22,9 @@ class HomeScreenController extends GetxController {
   //============= Booleans =============\\
   var isLocationPermissionGranted = false.obs;
   var isLoading = false.obs;
+  var panelIsVisible = false.obs;
   var panelIsOpen = false.obs;
+  var headerSearchSectionIsVisible = false.obs;
 
   //============= Controllers =============\\
   var panelController = PanelController();
@@ -127,5 +130,105 @@ class HomeScreenController extends GetxController {
 
   onPanelClosed() {
     panelIsOpen.value = false;
+  }
+
+  tapOnGoogleMap(LatLng argument) {
+    // if (headerSearchSectionIsVisible.value = true) hideSearchField();
+    FocusManager.instance.primaryFocus?.unfocus();
+  }
+
+  //==================================== Search field =========================================\\
+
+  //============= Variables =============\\
+  var currentLocation = "No 12, GRA, Okumgbowa street".obs;
+  var pickupSuggestion = "No 12, GRA, Okumgbowa street".obs;
+  var destinationSuggestion = "No 24, GRA, Okumgbowa street".obs;
+
+  //============= Keys =============\\
+  final searchFieldFormKey = GlobalKey<FormState>();
+
+  //============= Booleans =============\\
+  var pickupFieldIsActive = false.obs;
+  var stop1FieldIsActive = false.obs;
+  var stop2FieldIsActive = false.obs;
+  var destinationFieldIsActive = false.obs;
+
+  //============= Focus Nodes =============\\
+  var pickupEC = TextEditingController();
+  var stop1EC = TextEditingController();
+  var stop2EC = TextEditingController();
+  var destinationEC = TextEditingController();
+
+  //============= Focus Nodes =============\\
+  var pickupFN = FocusNode();
+  var stop1FN = FocusNode();
+  var stop2FN = FocusNode();
+  var destinationFN = FocusNode();
+
+  //============= Functions =============\\
+  showHeaderSearchSection() {
+    headerSearchSectionIsVisible.value = true;
+    pickupFN.requestFocus();
+    pickupEC = TextEditingController(text: currentLocation.value);
+  }
+
+  hideSearchField() {
+    if (pickupEC.text.isEmpty && destinationEC.text.isEmpty) {
+      headerSearchSectionIsVisible.value = false;
+    }
+  }
+
+  pickupFieldOnChanged(String value) {
+    if (value.isEmpty) {
+      pickupFieldIsActive.value = false;
+      hideSearchField();
+    } else {
+      pickupFieldIsActive.value = true;
+      stop1FieldIsActive.value = false;
+      stop2FieldIsActive.value = false;
+      destinationFieldIsActive.value = false;
+    }
+  }
+
+  stop1FieldOnChanged(String value) {
+    if (value.isEmpty) {
+      stop1FieldIsActive.value = false;
+    } else {
+      stop1FieldIsActive.value = true;
+      stop2FieldIsActive.value = false;
+      destinationFieldIsActive.value = false;
+      pickupFieldIsActive.value = false;
+    }
+  }
+
+  stop2FieldOnChanged(String value) {
+    if (value.isEmpty) {
+      stop2FieldIsActive.value = false;
+    } else {
+      stop2FieldIsActive.value = true;
+      destinationFieldIsActive.value = false;
+      pickupFieldIsActive.value = false;
+      stop1FieldIsActive.value = false;
+    }
+  }
+
+  destinationFieldOnChanged(String value) {
+    if (value.isEmpty) {
+      destinationFieldIsActive.value = false;
+      hideSearchField();
+    } else {
+      destinationFieldIsActive.value = true;
+      pickupFieldIsActive.value = false;
+      stop1FieldIsActive.value = false;
+      stop2FieldIsActive.value = false;
+    }
+  }
+
+  selectPickupSuggestion() {
+    pickupEC.text = pickupSuggestion.value;
+  }
+
+  selectDestinationSuggestion() {
+    destinationEC.text = destinationSuggestion.value;
   }
 }

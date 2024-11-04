@@ -29,6 +29,7 @@ dependencies:
   sliding_up_panel:
   google_maps_flutter:
   permission_handler:
+  dotted_border:
 
 dev_dependencies:
   flutter_test:

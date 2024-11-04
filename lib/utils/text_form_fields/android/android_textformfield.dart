@@ -17,7 +17,12 @@ class AndroidTextFormField extends StatelessWidget {
 
   final Function(String)? onFieldSubmitted, onChanged;
   final Widget? label, prefix, suffix, prefixIcon, suffixIcon;
-  final TextStyle? style, helperStyle, prefixStyle, suffixStyle;
+  final TextStyle? style,
+      labelStyle,
+      hintStyle,
+      helperStyle,
+      prefixStyle,
+      suffixStyle;
   final String? labelText, helperText, suffixText, prefixText;
   final Color? prefixIconColor, suffixIconColor;
   final bool? enabled,
@@ -26,7 +31,7 @@ class AndroidTextFormField extends StatelessWidget {
       autoCorrect,
       obscureText,
       filled;
-  final InputBorder? inputBorder, focusedBorder, enabledBorder;
+  final InputBorder? border, focusedBorder, enabledBorder;
 
   final List<TextInputFormatter>? inputFormatters;
   final void Function()? onTap;
@@ -59,6 +64,8 @@ class AndroidTextFormField extends StatelessWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.style,
+    this.labelStyle,
+    this.hintStyle,
     this.helperStyle,
     this.prefixStyle,
     this.suffixStyle,
@@ -78,7 +85,7 @@ class AndroidTextFormField extends StatelessWidget {
     this.maxLength,
     this.obscuringCharacter,
     this.filled,
-    this.inputBorder,
+    this.border,
     this.focusedBorder,
     this.enabledBorder,
   });
@@ -144,18 +151,20 @@ class AndroidTextFormField extends StatelessWidget {
         filled: filled ?? false,
         fillColor: colorScheme.surface,
         focusColor: const Color(0xFFF6F6F7),
-        labelStyle: defaultTextStyle(
-          fontSize: 18.0,
-          color: kFormFieldLabelTextColor,
-          fontWeight: FontWeight.normal,
-        ),
-        hintStyle: defaultTextStyle(
-          fontSize: 18.0,
-          color: kFormFieldLabelTextColor,
-          fontWeight: FontWeight.normal,
-        ),
+        labelStyle: labelStyle ??
+            defaultTextStyle(
+              fontSize: 18.0,
+              color: kFormFieldLabelTextColor,
+              fontWeight: FontWeight.normal,
+            ),
+        hintStyle: hintStyle ??
+            defaultTextStyle(
+              fontSize: 18.0,
+              color: kFormFieldLabelTextColor,
+              fontWeight: FontWeight.normal,
+            ),
         // errorStyle: const TextStyle(color: Colors.red),
-        border: inputBorder ?? InputBorder.none,
+        border: border ?? InputBorder.none,
         enabledBorder: enabledBorder ?? InputBorder.none,
         focusedBorder: focusedBorder ?? InputBorder.none,
       ),

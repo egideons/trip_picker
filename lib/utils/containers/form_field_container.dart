@@ -17,7 +17,7 @@ Widget formFieldContainer(
     height: containerHeight ?? size.height * 0.06,
     padding: padding ?? const EdgeInsets.symmetric(horizontal: 10),
     decoration: ShapeDecoration(
-      color: color ?? Color(0xFFFFFFFF),
+      color: color ?? colorScheme.surface,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(borderRadius ?? 8),
         side: BorderSide(
