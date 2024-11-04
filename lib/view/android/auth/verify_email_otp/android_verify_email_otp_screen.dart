@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trip_picker/controllers/auth/success_screen_controller.dart';
-import 'package:trip_picker/controllers/auth/verify_phone_otp_controller.dart';
+import 'package:trip_picker/controllers/auth/verfy_email_otp_controller.dart';
 import 'package:trip_picker/theme/colors.dart';
-import 'package:trip_picker/view/android/auth/verify_phone_otp/content/form_section.dart';
+import 'package:trip_picker/view/android/auth/verify_email_otp/content/form_section.dart';
 
 import '../../../../constants/consts.dart';
 
-class AndroidVerifyPhoneOtpScreen extends GetView<VerifyPhoneOtpController> {
-  const AndroidVerifyPhoneOtpScreen({super.key});
+class AndroidVerifyEmailOtpScreen extends GetView<VerifyEmailOtpController> {
+  const AndroidVerifyEmailOtpScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     //Initialize the controller
-    Get.put(VerifyPhoneOtpController());
+    Get.put(VerifyEmailOtpController());
     Get.put(SuccessScreenController());
 
     var colorScheme = Theme.of(context).colorScheme;
@@ -57,7 +57,7 @@ class AndroidVerifyPhoneOtpScreen extends GetView<VerifyPhoneOtpController> {
                       ),
                     ),
                     TextSpan(
-                      text: "code sent to phone number",
+                      text: "code sent to ${controller.userEmail}",
                       style: defaultTextStyle(
                         color: kTextGreyColor,
                         fontSize: 14,
@@ -68,7 +68,7 @@ class AndroidVerifyPhoneOtpScreen extends GetView<VerifyPhoneOtpController> {
                 ),
               ),
               20.toHeight,
-              verifyPhoneOtpFormSection(colorScheme, size, context, controller),
+              verifyEmailOtpFormSection(colorScheme, size, context, controller),
             ],
           ),
         ),

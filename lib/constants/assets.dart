@@ -6,6 +6,7 @@ class Assets {
   static const onboard3Png = "assets/images/png/onboard_3.png";
   static const onboard4Png = "assets/images/png/onboard_4.png";
   static const getStartedPng = "assets/images/png/get_started.png";
+  static const doubleGreenTickPng = "assets/images/png/double_green_tick.png";
 
 //SVG
   static const onboard1Svg = "assets/images/svg/onboard_1.svg";
@@ -19,12 +20,16 @@ class Assets {
 //=================== Icons ===================\\
 //PNG
   static const appIconPng = "assets/icons/png/app_icon.png";
+  static const doubleGreenTickIconPng =
+      "assets/icons/png/double_green_tick.png";
 
 //SVG
   static const appIconSvg = "assets/icons/svg/app_icon.svg";
   static const phoneIconSvg = "assets/icons/svg/phone_icon.svg";
   static const emailIconSvg = "assets/icons/svg/email_icon.svg";
   static const avatarIconSvg = "assets/icons/svg/avatar_icon.svg";
+  static const doubleGreenTickIconSvg =
+      "assets/icons/svg/double_green_tick.svg";
 
 //=================== Animations ===================\\
 

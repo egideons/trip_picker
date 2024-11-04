@@ -3,7 +3,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:trip_picker/controllers/auth/success_screen_controller.dart';
 import 'package:trip_picker/controllers/others/api_processor_controller.dart';
+import 'package:trip_picker/view/android/splash_screen/success/android_success_screen.dart';
 
 class VerifyPhoneOtpController extends GetxController {
   static VerifyPhoneOtpController get instance {
@@ -31,7 +33,7 @@ class VerifyPhoneOtpController extends GetxController {
   }
 
   //============= Variables ================\\
-  var userPhoneNumber = Get.arguments?['phoneNumber'] ?? "";
+  var userPhoneNumber = Get.arguments?['phone'] ?? "";
   var loginResponseMessage = "".obs;
   late Timer _timer;
   var secondsRemaining = 30.obs;
@@ -150,7 +152,7 @@ class VerifyPhoneOtpController extends GetxController {
     if (value.length == 1) {
       pin4FieldIsActive.value = true;
       updatePin4Text(value);
-      FocusScope.of(context).unfocus();
+      // FocusScope.of(context).unfocus();
     }
   }
 
@@ -204,34 +206,36 @@ class VerifyPhoneOtpController extends GetxController {
     //   return;
     // }
 
-    try {
-      // Convert to json
-      //   dynamic responseJson;
-      //   if (response.data is String) {
-      //     responseJson = jsonDecode(response.data);
-      //   } else {
-      //     responseJson = response.data;
-      //   }
+    // try {
+    // Convert to json
+    //   dynamic responseJson;
+    //   if (response.data is String) {
+    //     responseJson = jsonDecode(response.data);
+    //   } else {
+    //     responseJson = response.data;
+    //   }
 
-      //   log("This is the response body ====> ${response.data}");
-      //   log("This is the response json ====> $responseJson");
+    //   log("This is the response body ====> ${response.data}");
+    //   log("This is the response json ====> $responseJson");
 
-      //   if (response.statusCode == 200) {
-      //     ApiProcessorController.successSnack(
-      //       "An OTP has been sent to your phone number",
-      //     );
-      startTimer();
-      //   } else {
-      //     log("Request failed with status: ${response.statusCode}");
-      //     log("Response body: ${response.data}");
-      //   }
-    } catch (e) {
-      log(e.toString());
-    }
+    //   if (response.statusCode == 200) {
+    await Future.delayed(const Duration(seconds: 1));
+    ApiProcessorController.successSnack(
+      "An OTP has been sent to your phone number",
+    );
+    startTimer();
+    //   } else {
+    //     log("Request failed with status: ${response.statusCode}");
+    //     log("Response body: ${response.data}");
+    //   }
+    // } catch (e) {
+    //   log(e.toString());
+    // }
   }
 
   Future<void> submitOTP() async {
     if (formKey.currentState!.validate()) {
+      log("This is the user phone number:$userPhoneNumber");
       if (pin1EC.text.isEmpty ||
           pin2EC.text.isEmpty ||
           pin3EC.text.isEmpty ||
@@ -251,19 +255,20 @@ class VerifyPhoneOtpController extends GetxController {
 
       // var url = ApiUrl.authBaseUrl + ApiUrl.auth + ApiUrl.verifyOTP;
 
-      var otpCode = pin1EC.text + pin2EC.text + pin3EC.text + pin4EC.text;
+      // var otpCode = originalPin1Text.value +
+      //     originalPin2Text.value +
+      //     originalPin1Text.value +
+      //     originalPin1Text.value;
 
-      log("This is the user phone number:$userPhoneNumber");
-
-      Map data = {
-        "phone": userPhoneNumber,
-        "otp": otpCode,
-        "type": "phone",
-        "purpose": "registration",
-      };
+      // Map data = {
+      //   "phone": userPhoneNumber,
+      //   "otp": otpCode,
+      //   "type": "phone",
+      //   "purpose": "registration",
+      // };
 
       // log("This is the Url: $url");
-      log("This is the phone otp Data: $data");
+      // log("This is the phone otp Data: $data");
 
       //HTTP Client Service
       // http.Response? response =
@@ -274,45 +279,60 @@ class VerifyPhoneOtpController extends GetxController {
       //   return;
       // }
 
-      try {
-        // Convert to json
-        // dynamic responseJson;
+      // try {
+      // Convert to json
+      // dynamic responseJson;
 
-        // responseJson = jsonDecode(response.body);
+      // responseJson = jsonDecode(response.body);
 
-        // log("This is the response body ====> ${response.body}");
+      // log("This is the response body ====> ${response.body}");
 
-        //Map the response json to the model provided
-        // otpResponse.value = VerifyOTPResponseModel.fromJson(responseJson);
+      //Map the response json to the model provided
+      // otpResponse.value = VerifyOTPResponseModel.fromJson(responseJson);
 
-        //   if (response.statusCode == 200) {
-        //     ApiProcessorController.successSnack("Verification successful");
+      //   if (response.statusCode == 200) {
 
-        await Future.delayed(const Duration(seconds: 3));
+      await Future.delayed(const Duration(seconds: 3));
+      // DelightToastBar(
+      //   autoDismiss: true,
+      //   snackbarDuration: Duration(seconds: 2),
+      //   builder: (context) => MessageAlertToast(
+      //     title: "Verify Phone OTP",
+      //     message: "Verification successful",
+      //     titleColor: kSuccessColor,
+      //     leading: SvgPicture.asset(
+      //       Assets.appIconSvg,
+      //       width: 40,
+      //       height: 40,
+      //     ),
+      //   ),
+      // ).show(Get.context!);
 
-        //     await loginUser();
+      //     await loginUser();
 
-        //     await Get.offAll(
-        //       () => const AndroidKycAddLocation(),
-        //       routeName: "/kyc-add-location",
-        //       fullscreenDialog: true,
-        //       curve: Curves.easeInOut,
-        //       predicate: (routes) => false,
-        //       popGesture: false,
-        //       transition: Get.defaultTransition,
-        //     );
-        //   } else {
-        //     ApiProcessorController.warningSnack(otpResponse.value.message);
-        //     log("Request failed with status: ${response.statusCode}");
-        //     log("Response body: ${response.body}");
-        //     isLoading.value = false;
-        //     return;
-        //   }
-      } catch (e) {
-        log(e.toString());
-        isLoading.value = false;
-        return;
-      }
+      await Get.offAll(
+        () => AndroidSuccessScreen(
+          loadData: SuccessScreenController.instance.loadHome,
+        ),
+        routeName: "/success-screen",
+        fullscreenDialog: true,
+        curve: Curves.easeInOut,
+        predicate: (routes) => false,
+        popGesture: false,
+        transition: Get.defaultTransition,
+      );
+      //   } else {
+      //     ApiProcessorController.warningSnack(otpResponse.value.message);
+      //     log("Request failed with status: ${response.statusCode}");
+      //     log("Response body: ${response.body}");
+      //     isLoading.value = false;
+      //     return;
+      //   }
+      // } catch (e) {
+      //   log(e.toString());
+      //   isLoading.value = false;
+      //   return;
+      // }
 
       isLoading.value = false;
       //Continue the timer and enable resend button

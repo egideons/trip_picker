@@ -5,7 +5,8 @@ import 'package:get/get.dart';
 import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/phone_number.dart';
 import 'package:trip_picker/controllers/others/api_processor_controller.dart';
-import 'package:trip_picker/routes/routes.dart';
+import 'package:trip_picker/view/android/auth/verify_email_otp/android_verify_email_otp_screen.dart';
+import 'package:trip_picker/view/android/auth/verify_phone_otp/android_verify_phone_otp_screen.dart';
 
 class LoginSignupController extends GetxController {
   static LoginSignupController get instance {
@@ -68,7 +69,18 @@ class LoginSignupController extends GetxController {
       isLoadingLogin.value = true;
       log("This is the login data: $loginCountryDialCode${loginPhoneNumberEC.text}");
       await Future.delayed(const Duration(seconds: 3));
-      Get.toNamed(Routes.verifyPhoneOtp, preventDuplicates: true);
+
+      // Get.toNamed(Routes.verifyPhoneOtp, preventDuplicates: true);
+      await Get.offAll(
+        () => const AndroidVerifyPhoneOtpScreen(),
+        routeName: "/verify-phone-otp",
+        arguments: {"phone": loginCountryDialCode + loginPhoneNumberEC.text},
+        fullscreenDialog: true,
+        curve: Curves.easeInOut,
+        predicate: (routes) => false,
+        popGesture: false,
+        transition: Get.defaultTransition,
+      );
       isLoadingLogin.value = false;
     }
   }
@@ -146,7 +158,7 @@ class LoginSignupController extends GetxController {
       } else if (signupEmailEC.text.isEmpty) {
         ApiProcessorController.errorSnack("Please enter your email");
         return;
-      } else if (!signupOccupationEC.text.isEmail) {
+      } else if (!signupEmailEC.text.isEmail) {
         ApiProcessorController.errorSnack("Please enter a valid email");
         return;
       } else if (signupOccupationEC.text.isEmpty) {
@@ -155,7 +167,19 @@ class LoginSignupController extends GetxController {
       }
       isLoadingSignup.value = true;
       await Future.delayed(const Duration(seconds: 3));
-      Get.toNamed(Routes.verifyPhoneOtp, preventDuplicates: true);
+
+      // Get.toNamed(Routes.verifyEmailOtp, preventDuplicates: true);
+      await Get.offAll(
+        () => const AndroidVerifyEmailOtpScreen(),
+        routeName: "/verify-email-otp",
+        arguments: {"email": signupEmailEC.text},
+        fullscreenDialog: true,
+        curve: Curves.easeInOut,
+        predicate: (routes) => false,
+        popGesture: false,
+        transition: Get.defaultTransition,
+      );
+
       isLoadingLogin.value = false;
     }
   }

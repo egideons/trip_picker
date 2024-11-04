@@ -78,7 +78,7 @@ imageSection(OnboardingController controller, OnboardModel onboardItem) {
                     controller.onboardContent.value.items.length
                 ? Image.asset(onboardItem.image)
                     .animate(
-                      onPlay: (controller) => controller.repeat(),
+                      // onPlay: (controller) => controller.repeat(),
                       autoPlay: true,
                     )
                     .moveY(
@@ -96,7 +96,7 @@ imageSection(OnboardingController controller, OnboardModel onboardItem) {
                         controller.onboardContent.value.items.length - 1
                     ? Image.asset(onboardItem.image)
                         .animate(
-                          onPlay: (controller) => controller.repeat(),
+                          // onPlay: (controller) => controller.repeat(),
                           autoPlay: true,
                         )
                         .shimmer(
@@ -111,22 +111,18 @@ imageSection(OnboardingController controller, OnboardModel onboardItem) {
                             width: 400,
                           )
                             .animate(
-                              onPlay: (controller) => controller.repeat(),
+                              // onPlay: (controller) => controller.repeat(),
                               autoPlay: true,
                             )
                             .fadeIn(
                               curve: Curves.easeInOut,
                               duration: Duration(milliseconds: 1000),
                             )
-                            .fadeOut(
-                              curve: Curves.easeInOut,
-                              duration: Duration(seconds: 3),
-                            )
                         : controller.currentPage.value + 1 ==
                                 controller.onboardContent.value.items.length - 3
                             ? Image.asset(onboardItem.image)
                                 .animate(
-                                  onPlay: (controller) => controller.repeat(),
+                                  // onPlay: (controller) => controller.repeat(),
                                   autoPlay: true,
                                 )
                                 .shake(
@@ -136,7 +132,7 @@ imageSection(OnboardingController controller, OnboardModel onboardItem) {
                                 )
                             : Image.asset(onboardItem.image)
                                 .animate(
-                                  onPlay: (controller) => controller.repeat(),
+                                  // onPlay: (controller) => controller.repeat(),
                                   autoPlay: true,
                                 )
                                 .rotate(
