@@ -21,6 +21,7 @@ class HomeScreenController extends GetxController {
   //============= Booleans =============\\
   var isLocationPermissionGranted = false.obs;
   var isLoading = false.obs;
+  var panelIsOpen = false.obs;
 
   //============= Controllers =============\\
   var panelController = PanelController();
@@ -46,6 +47,7 @@ class HomeScreenController extends GetxController {
     target: LatLng(37.42796133580664, -122.085749655962),
     zoom: 14,
   );
+
   // Future<void> loadMapData() async {
   //   bool serviceEnabled;
   //   LocationPermission permission;
@@ -104,5 +106,26 @@ class HomeScreenController extends GetxController {
   void onMapCreated(GoogleMapController controller) {
     _googleMapController.complete(controller);
     newGoogleMapController = controller;
+  }
+
+  selectLocation() async {
+    openPanel();
+  }
+
+  openPanel() {
+    panelController.open();
+    onPanelOpened();
+  }
+
+  onPanelSlide(double position) {
+    if (position > 0.1) panelIsOpen.value = true;
+  }
+
+  onPanelOpened() {
+    panelIsOpen.value = true;
+  }
+
+  onPanelClosed() {
+    panelIsOpen.value = false;
   }
 }

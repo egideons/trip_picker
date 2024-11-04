@@ -14,12 +14,15 @@ homeGoogleMap(HomeScreenController controller) {
     fortyFiveDegreeImageryEnabled: true,
     myLocationButtonEnabled: true,
     liteModeEnabled: false,
-    myLocationEnabled: true,
+    myLocationEnabled: false,
     cameraTargetBounds: CameraTargetBounds.unbounded,
+    buildingsEnabled: true,
     rotateGesturesEnabled: true,
     scrollGesturesEnabled: true,
     onMapCreated: controller.onMapCreated,
-    padding: const EdgeInsets.only(bottom: 90),
+    padding: controller.panelIsOpen.value
+        ? const EdgeInsets.only(bottom: 200)
+        : const EdgeInsets.only(left: 10, bottom: 120),
     initialCameraPosition: const CameraPosition(
       target: LatLng(37.42796133580664, -122.085749655962),
       zoom: 14,
