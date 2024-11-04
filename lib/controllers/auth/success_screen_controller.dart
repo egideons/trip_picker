@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:trip_picker/view/android/home/android_home_screen.dart';
 
 class SuccessScreenController extends GetxController {
   static SuccessScreenController get instance {
@@ -13,17 +15,17 @@ class SuccessScreenController extends GetxController {
     isLoading.value = true;
 
     // await UserController.instance.getUserProfile();
-    await Future.delayed(const Duration(days: 2));
+    await Future.delayed(const Duration(seconds: 2));
 
-    // await Get.offAll(
-    //   () => const AndroidHomeScreen(),
-    //   routeName: "/home",
-    //   fullscreenDialog: true,
-    //   curve: Curves.easeInOut,
-    //   predicate: (routes) => false,
-    //   popGesture: false,
-    //   transition: Get.defaultTransition,
-    // );
+    await Get.offAll(
+      () => const AndroidHomeScreen(),
+      routeName: "/home",
+      fullscreenDialog: true,
+      curve: Curves.easeInOut,
+      predicate: (routes) => false,
+      popGesture: false,
+      transition: Get.defaultTransition,
+    );
 
     isLoading.value = true;
   }

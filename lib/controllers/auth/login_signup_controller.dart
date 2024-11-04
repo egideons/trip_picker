@@ -121,12 +121,10 @@ class LoginSignupController extends GetxController {
       signupPhoneFieldActive.value = true;
     }
     signupCountryDialCode.value = value;
-    log("This is the country dial code: ${signupCountryDialCode.value}");
   }
 
   signupOnCountryChanged(Country value) {
     signupCountryDialCode.value = value.dialCode;
-    log("This is the country dial code: ${signupCountryDialCode.value}");
   }
 
   signupEmailOnchanged(String value) {

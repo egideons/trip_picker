@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:trip_picker/constants/assets.dart';
 import 'package:trip_picker/controllers/auth/success_screen_controller.dart';
@@ -33,7 +32,8 @@ class AndroidSuccessScreen extends GetView<VerifyEmailOtpController> {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             children: [
               40.toHeight,
-              SvgPicture.asset(Assets.doubleGreenTickIconSvg),
+              Image.asset(Assets.doubleGreenTickPng),
+              20.toHeight,
               Text(
                 "Successful",
                 textAlign: TextAlign.center,

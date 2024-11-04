@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:trip_picker/view/android/auth/login_signup/android_login_signup_screen.dart';
 import 'package:trip_picker/view/android/auth/verify_email_otp/android_verify_email_otp_screen.dart';
 import 'package:trip_picker/view/android/auth/verify_phone_otp/android_verify_phone_otp_screen.dart';
+import 'package:trip_picker/view/android/home/android_home_screen.dart';
 import 'package:trip_picker/view/android/onboarding/android_onboarding_screen.dart';
 import 'package:trip_picker/view/android/splash_screen/startup/android_startup_screen.dart';
 import 'package:trip_picker/view/android/splash_screen/success/android_success_screen.dart';
@@ -18,6 +19,8 @@ class Routes {
   static const verifyPhoneOtp = "/verify-phone-otp";
   static const verifyEmailOtp = "/verify-email-otp";
 
+  static const home = "/home";
+
   //========================= GET PAGES ==========================\\
   static final getPages = [
     //Startup and Auth
@@ -27,5 +30,8 @@ class Routes {
     GetPage(name: verifyPhoneOtp, page: () => AndroidVerifyPhoneOtpScreen()),
     GetPage(name: verifyEmailOtp, page: () => AndroidVerifyEmailOtpScreen()),
     GetPage(name: successScreen, page: () => AndroidSuccessScreen()),
+
+    GetPage(name: home, page: () => AndroidHomeScreen()),
+    // GetPage(name: home, page: () => AndroidHomeScreen()),
   ];
 }
