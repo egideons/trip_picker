@@ -152,6 +152,7 @@ class HomeScreenController extends GetxController {
   var stop1FieldIsActive = false.obs;
   var stop2FieldIsActive = false.obs;
   var destinationFieldIsActive = false.obs;
+  var hideCollapsedSection = false.obs;
 
   //============= Focus Nodes =============\\
   var pickupEC = TextEditingController();
@@ -167,13 +168,16 @@ class HomeScreenController extends GetxController {
 
   //============= Functions =============\\
   showHeaderSearchSection() {
+    if (panelController.isPanelOpen) panelController.close();
     headerSearchSectionIsVisible.value = true;
+    hideCollapsedSection.value = true;
     pickupFN.requestFocus();
     pickupEC = TextEditingController(text: currentLocation.value);
   }
 
   hideSearchField() {
     if (pickupEC.text.isEmpty && destinationEC.text.isEmpty) {
+      hideCollapsedSection.value = false;
       headerSearchSectionIsVisible.value = false;
     }
   }
@@ -183,10 +187,12 @@ class HomeScreenController extends GetxController {
       pickupFieldIsActive.value = false;
       hideSearchField();
     } else {
+      if (panelController.isPanelOpen) panelController.close();
       pickupFieldIsActive.value = true;
       stop1FieldIsActive.value = false;
       stop2FieldIsActive.value = false;
       destinationFieldIsActive.value = false;
+      hideCollapsedSection.value = true;
     }
   }
 
@@ -194,10 +200,12 @@ class HomeScreenController extends GetxController {
     if (value.isEmpty) {
       stop1FieldIsActive.value = false;
     } else {
+      if (panelController.isPanelOpen) panelController.close();
       stop1FieldIsActive.value = true;
       stop2FieldIsActive.value = false;
       destinationFieldIsActive.value = false;
       pickupFieldIsActive.value = false;
+      hideCollapsedSection.value = true;
     }
   }
 
@@ -205,10 +213,12 @@ class HomeScreenController extends GetxController {
     if (value.isEmpty) {
       stop2FieldIsActive.value = false;
     } else {
+      if (panelController.isPanelOpen) panelController.close();
       stop2FieldIsActive.value = true;
       destinationFieldIsActive.value = false;
       pickupFieldIsActive.value = false;
       stop1FieldIsActive.value = false;
+      hideCollapsedSection.value = true;
     }
   }
 
@@ -217,18 +227,32 @@ class HomeScreenController extends GetxController {
       destinationFieldIsActive.value = false;
       hideSearchField();
     } else {
+      if (panelController.isPanelOpen) panelController.close();
       destinationFieldIsActive.value = true;
       pickupFieldIsActive.value = false;
       stop1FieldIsActive.value = false;
       stop2FieldIsActive.value = false;
+      hideCollapsedSection.value = true;
     }
   }
 
   selectPickupSuggestion() {
+    if (panelController.isPanelOpen) panelController.close();
     pickupEC.text = pickupSuggestion.value;
+    pickupFieldIsActive.value = false;
+    stop1FieldIsActive.value = false;
+    stop2FieldIsActive.value = false;
+    destinationFieldIsActive.value = false;
+    hideCollapsedSection.value = false;
   }
 
   selectDestinationSuggestion() {
+    if (panelController.isPanelOpen) panelController.close();
     destinationEC.text = destinationSuggestion.value;
+    pickupFieldIsActive.value = false;
+    stop1FieldIsActive.value = false;
+    stop2FieldIsActive.value = false;
+    destinationFieldIsActive.value = false;
+    hideCollapsedSection.value = false;
   }
 }

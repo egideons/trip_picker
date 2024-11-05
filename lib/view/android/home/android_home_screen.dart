@@ -66,10 +66,9 @@ class AndroidHomeScreen extends GetView<HomeScreenController> {
                               colorScheme,
                               size,
                             ),
-                            collapsed:
-                                controller.headerSearchSectionIsVisible.value
-                                    ? SizedBox()
-                                    : collapsedSection(controller),
+                            collapsed: controller.hideCollapsedSection.value
+                                ? SizedBox()
+                                : collapsedSection(controller),
                           ),
                     Positioned(
                       child: homeHeader(
