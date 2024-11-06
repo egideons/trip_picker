@@ -12,100 +12,97 @@ homeBookTripHeader(
   ColorScheme colorScheme,
   Size size,
 ) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 44),
-    child: Row(
-      children: [
-        AnimatedContainer(
-          duration: Duration(milliseconds: 800),
-          curve: Curves.ease,
-          decoration: ShapeDecoration(
+  return Row(
+    children: [
+      AnimatedContainer(
+        duration: Duration(milliseconds: 800),
+        curve: Curves.ease,
+        decoration: ShapeDecoration(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(3),
+          ),
+          shadows: [
+            BoxShadow(
+              color: const Color(0xc0000000),
+              blurRadius: 12,
+              offset: const Offset(0, 4),
+              spreadRadius: -16,
+            ),
+          ],
+        ),
+        child: IconButton(
+          onPressed: () {},
+          // borderRadius: BorderRadius.circular(3),
+          style: IconButton.styleFrom(
+            padding: const EdgeInsets.all(0),
+            backgroundColor: colorScheme.surface,
+            minimumSize: Size(30, 30),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(3),
+            ),
+          ),
+          icon: Icon(Icons.menu),
+        ),
+      ),
+      4.toWidth,
+      Expanded(
+        child: AnimatedContainer(
+          duration: Duration(milliseconds: 800),
+          curve: Curves.ease,
+          padding: EdgeInsets.only(
+            left: 10,
+            top: controller.headerSearchSectionIsVisible.value ? 0 : 10,
+            bottom: controller.headerSearchSectionIsVisible.value ? 0 : 10,
+          ),
+          decoration: ShapeDecoration(
+            color: colorScheme.surface,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
             ),
             shadows: [
               BoxShadow(
                 color: const Color(0xc0000000),
-                blurRadius: 12,
-                offset: const Offset(0, 4),
-                spreadRadius: -16,
+                blurRadius: 4,
+                offset: const Offset(0, 2),
+                spreadRadius: -2,
               ),
             ],
           ),
-          child: IconButton(
-            onPressed: () {},
-            // borderRadius: BorderRadius.circular(3),
-            style: IconButton.styleFrom(
-              padding: const EdgeInsets.all(0),
-              backgroundColor: colorScheme.surface,
-              minimumSize: Size(30, 30),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(3),
-              ),
-            ),
-            icon: Icon(Icons.menu),
-          ),
-        ),
-        4.toWidth,
-        Expanded(
-          child: AnimatedContainer(
-            duration: Duration(milliseconds: 800),
-            curve: Curves.ease,
-            padding: EdgeInsets.only(
-              left: 10,
-              top: controller.headerSearchSectionIsVisible.value ? 0 : 10,
-              bottom: controller.headerSearchSectionIsVisible.value ? 0 : 10,
-            ),
-            decoration: ShapeDecoration(
-              color: colorScheme.surface,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              shadows: [
-                BoxShadow(
-                  color: const Color(0xc0000000),
-                  blurRadius: 4,
-                  offset: const Offset(0, 2),
-                  spreadRadius: -2,
-                ),
-              ],
-            ),
-            child: Row(
-              children: [
-                Expanded(
-                  child: controller.headerSearchSectionIsVisible.value
-                      ? headerSearchSection(
-                          controller,
-                          colorScheme,
-                          size,
-                        )
-                      : destinationInkWell(
-                          controller,
-                          "No 12, GRA, Okumgbowa street",
-                        ),
-                ),
-                controller.headerSearchSectionIsVisible.value
-                    ? IconButton(
-                        onPressed: () {},
-                        // borderRadius: BorderRadius.circular(3),
-                        style: IconButton.styleFrom(
-                          backgroundColor: colorScheme.surface,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(3),
-                          ),
-                        ),
-                        icon: Icon(
-                          Icons.add_box,
-                          color: kGreyColor,
-                        ),
+          child: Row(
+            children: [
+              Expanded(
+                child: controller.headerSearchSectionIsVisible.value
+                    ? headerSearchSection(
+                        controller,
+                        colorScheme,
+                        size,
                       )
-                    : SizedBox(),
-              ],
-            ),
+                    : destinationInkWell(
+                        controller,
+                        "No 12, GRA, Okumgbowa street",
+                      ),
+              ),
+              controller.headerSearchSectionIsVisible.value
+                  ? IconButton(
+                      onPressed: () {},
+                      // borderRadius: BorderRadius.circular(3),
+                      style: IconButton.styleFrom(
+                        backgroundColor: colorScheme.surface,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(3),
+                        ),
+                      ),
+                      icon: Icon(
+                        Icons.add_box,
+                        color: kGreyColor,
+                      ),
+                    )
+                  : SizedBox(),
+            ],
           ),
         ),
-      ],
-    ),
+      ),
+    ],
   );
 }
 

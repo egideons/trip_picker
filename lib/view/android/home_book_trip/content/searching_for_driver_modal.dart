@@ -42,7 +42,7 @@ searchingForDriverModal(
                 },
               ),
               10.toHeight,
-              controller.bookDriverFound.value
+              controller.cabDriverFound.value
                   ? Text(
                       "Driver found",
                       textAlign: TextAlign.start,
@@ -62,7 +62,7 @@ searchingForDriverModal(
                       ),
                     ),
               10.toHeight,
-              controller.bookDriverFound.value
+              controller.cabDriverFound.value
                   ? Text(
                       "Arriving in 6 minutes",
                       textAlign: TextAlign.start,
@@ -73,7 +73,7 @@ searchingForDriverModal(
                       ),
                     )
                   : SizedBox(),
-              controller.bookDriverFound.value ? 10.toHeight : 0.toHeight,
+              controller.cabDriverFound.value ? 10.toHeight : 0.toHeight,
               Container(
                 decoration: ShapeDecoration(
                   shape: RoundedRectangleBorder(

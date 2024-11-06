@@ -7,6 +7,7 @@ class Assets {
   static const onboard4Png = "assets/images/png/onboard_4.png";
   static const getStartedPng = "assets/images/png/get_started.png";
   static const doubleGreenTickPng = "assets/images/png/double_green_tick.png";
+  static const userAvatarPng = "assets/images/png/user_avatar.png";
 
 //SVG
   static const onboard1Svg = "assets/images/svg/onboard_1.svg";

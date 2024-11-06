@@ -139,9 +139,6 @@ class HomeBookTripScreenController extends GetxController {
     if (position > 0.1) {
       panelIsOpen.value = true;
     }
-    if (panelController.isPanelClosed) {
-      headerSearchSectionIsVisible.value = false;
-    }
   }
 
   onPanelOpened() {
@@ -153,8 +150,10 @@ class HomeBookTripScreenController extends GetxController {
   }
 
   tapOnGoogleMap(LatLng argument) {
-    if (headerSearchSectionIsVisible.value) {
-      headerSearchSectionIsVisible.value = false;
+    if (panelController.isPanelClosed) {
+      if (headerSearchSectionIsVisible.value) {
+        headerSearchSectionIsVisible.value = false;
+      }
     }
 
     FocusManager.instance.primaryFocus?.unfocus();
@@ -202,7 +201,7 @@ class HomeBookTripScreenController extends GetxController {
       if (panelController.isPanelOpen) panelController.close();
       headerSearchSectionIsVisible.value = true;
       // hideCollapsedSection.value = true;
-      pickupFN.requestFocus();
+      destinationFN.requestFocus();
       pickupEC = TextEditingController(text: currentLocation.value);
     }
   }
@@ -385,9 +384,8 @@ class HomeBookTripScreenController extends GetxController {
 
   //============= Booleans =============\\
   var searchingForDriver = false.obs;
-  var bookDriverTimerFinished = false.obs;
-  var bookDriverFound = false.obs;
-  var driverHasArrived = false.obs;
+  var cabDriverFound = false.obs;
+  var driverIsArriving = false.obs;
 
   //============= Variables =============\\
   Timer? bookRideTimer;
@@ -396,7 +394,7 @@ class HomeBookTripScreenController extends GetxController {
   //============= Functions =============\\
 
   // Method to update the progress
-  void updateProgress(double value) {
+  void updateDriverSearchProgress(double value) {
     if (value >= 0.0 && value <= 1.0) {
       progress.value = value;
       log("Progress: ${progress.value}");
@@ -404,24 +402,25 @@ class HomeBookTripScreenController extends GetxController {
   }
 
   // Start the progress simulation with a Timer
-  void simulateBookRideDriverSearchProgress() {
+  void simulateDriverSearchProgress() {
     progress.value = 0.0;
     driverHasArrived.value = false;
-    bookDriverFound.value = false;
+    cabDriverFound.value = false;
 
-    bookRideTimer = Timer.periodic(const Duration(seconds: 3), (timer) {
+    bookRideTimer = Timer.periodic(const Duration(seconds: 1), (timer) async {
       if (progress.value < 0.9) {
-        updateProgress(progress.value + 0.1);
+        updateDriverSearchProgress(progress.value + 0.1);
         searchingForDriver.value = true;
       } else {
         // Directly set progress to 1.0 on the last step
-        updateProgress(1.0);
-        bookDriverTimerFinished.value = true;
-        bookDriverFound.value = true;
+        updateDriverSearchProgress(1.0);
+        cabDriverFound.value = true;
         searchingForDriver.value = false;
-        log("Timer finished: ${bookDriverTimerFinished.value}");
-        log("Driver found: ${bookDriverFound.value}");
+        log("Driver found: ${cabDriverFound.value}");
         cancelProgress();
+        Get.close(0);
+        await Future.delayed(const Duration(seconds: 2));
+        driverIsArriving.value = true;
       }
     });
   }
@@ -436,7 +435,7 @@ class HomeBookTripScreenController extends GetxController {
     var colorScheme = Theme.of(Get.context!).colorScheme;
     panelController.close();
 
-    simulateBookRideDriverSearchProgress();
+    simulateDriverSearchProgress();
 
     await showModalBottomSheet(
       isScrollControlled: true,
@@ -444,8 +443,9 @@ class HomeBookTripScreenController extends GetxController {
       enableDrag: false,
       context: Get.context!,
       useSafeArea: true,
-      isDismissible: true,
+      isDismissible: false,
       barrierColor: kTransparentColor,
+      backgroundColor: kTransparentColor,
       // constraints:
       //     BoxConstraints(maxHeight: size!.height / 2, minWidth: size.width),
       shape: const RoundedRectangleBorder(
@@ -462,5 +462,77 @@ class HomeBookTripScreenController extends GetxController {
         );
       },
     );
+  }
+
+  //==================================== Trip Section =========================================\\
+
+  //============= Variables =============\\
+  Timer? tripTimer;
+  var tripProgress = .0.obs;
+
+  //============= Booleans =============\\
+  var tripPanelIsOpen = false.obs;
+  var driverHasArrived = false.obs;
+
+  //============= Controllers =============\\
+  var tripPanelController = PanelController();
+
+  //============= Functions =============\\
+  openTripPanel() {
+    tripPanelController.open();
+    onTripPanelOpened();
+  }
+
+  closeTripPanel() {
+    tripPanelController.close();
+    onTripPanelClosed();
+  }
+
+  onTripPanelSlide(double position) {
+    if (position > 0.1) {
+      tripPanelIsOpen.value = true;
+    }
+  }
+
+  onTripPanelOpened() {
+    tripPanelIsOpen.value = true;
+  }
+
+  onTripPanelClosed() {
+    tripPanelIsOpen.value = false;
+  }
+
+  // Method to update the progress
+  void updateTripProgress(double value) {
+    if (value >= 0.0 && value <= 1.0) {
+      progress.value = value;
+      log("Progress: ${progress.value}");
+    }
+  }
+
+  // Start the progress simulation with a Timer
+  void simulateTripProgress() {
+    progress.value = 0.0;
+    driverHasArrived.value = false;
+    cabDriverFound.value = false;
+
+    bookRideTimer = Timer.periodic(const Duration(seconds: 1), (timer) async {
+      if (progress.value < 0.9) {
+        updateTripProgress(progress.value + 0.1);
+        searchingForDriver.value = true;
+      } else {
+        // Directly set progress to 1.0 on the last step
+        updateTripProgress(1.0);
+        searchingForDriver.value = false;
+        cabDriverFound.value = true;
+        log("Driver found: ${cabDriverFound.value}");
+        cancelTripProgress();
+      }
+    });
+  }
+
+  // Cancel the progress simulation
+  void cancelTripProgress() {
+    bookRideTimer?.cancel();
   }
 }
