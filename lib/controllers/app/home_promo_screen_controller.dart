@@ -6,14 +6,16 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
-class HomeScreenController extends GetxController {
-  static HomeScreenController get instance {
-    return Get.find<HomeScreenController>();
+class HomePromoScreenController extends GetxController {
+  static HomePromoScreenController get instance {
+    return Get.find<HomePromoScreenController>();
   }
 
   @override
   void onInit() {
     requestLocationPermission();
+    // Listener to update thumb position and display distance in real-time
+    ever(currentDistance, (_) => updateThumbPosition());
     super.onInit();
   }
 
@@ -112,7 +114,8 @@ class HomeScreenController extends GetxController {
   }
 
   selectLocation() async {
-    openPanel();
+    await openPanel();
+    updateThumbPosition();
   }
 
   openPanel() {
@@ -121,7 +124,9 @@ class HomeScreenController extends GetxController {
   }
 
   onPanelSlide(double position) {
-    if (position > 0.1) panelIsOpen.value = true;
+    if (position > 0.1) {
+      panelIsOpen.value = true;
+    }
   }
 
   onPanelOpened() {
@@ -153,6 +158,9 @@ class HomeScreenController extends GetxController {
   var stop2FieldIsActive = false.obs;
   var destinationFieldIsActive = false.obs;
   var hideCollapsedSection = false.obs;
+  var panelBannerIsVisible = false.obs;
+  var panelBannerHasButton = false.obs;
+  var readyToBookTrip = false.obs;
 
   //============= Focus Nodes =============\\
   var pickupEC = TextEditingController();
@@ -254,5 +262,53 @@ class HomeScreenController extends GetxController {
     stop2FieldIsActive.value = false;
     destinationFieldIsActive.value = false;
     hideCollapsedSection.value = false;
+  }
+
+  showPanelBanner() {
+    panelBannerIsVisible.value = true;
+  }
+
+  hidePanelBanner() {
+    panelBannerIsVisible.value = false;
+  }
+
+  //==================================== Distance Slider =========================================\\
+
+  //============= Booleans =============\\
+
+  //============= Variables =============\\
+  final double maxDistance = 80467.2; // Max distance in meters (50 miles)
+  final double mileInMeters = 1609.0;
+  final double kmInMeters = 1000.0;
+
+  // Observable current distance (starting at 1 mile or 1609 meters)
+  var currentDistance = 10230.0.obs;
+
+  // Observable for thumb position and displayed distance
+  var thumbPosition = 0.0.obs;
+  var displayDistance = ''.obs;
+
+  //============= Functions =============\\
+  // Function to update the thumb position based on the screen width and max distance
+  void updateThumbPosition() {
+    thumbPosition.value = (currentDistance.value / maxDistance) *
+        (MediaQuery.sizeOf(Get.context!).width - 40);
+    updateDisplayDistance();
+  }
+
+  // Function to update display distance with the correct units
+  void updateDisplayDistance() {
+    if (currentDistance.value >= mileInMeters) {
+      // Convert to miles and round to 1 decimal
+      displayDistance.value =
+          '${(currentDistance.value / mileInMeters).toStringAsFixed(1)} mi';
+    } else if (currentDistance.value >= kmInMeters) {
+      // Convert to kilometers and round to 1 decimal
+      displayDistance.value =
+          '${(currentDistance.value / kmInMeters).toStringAsFixed(1)} km';
+    } else {
+      // Display in meters
+      displayDistance.value = '${currentDistance.value.toStringAsFixed(0)} m';
+    }
   }
 }

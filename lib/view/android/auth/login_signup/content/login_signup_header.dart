@@ -42,7 +42,7 @@ loginSignupHeader(LoginSignupController controller, ColorScheme colorScheme) {
                       "Log in",
                       style: defaultTextStyle(
                         fontSize: 18,
-                        color: kTextHeaderColor,
+                        color: kDefaultTextColor,
                         fontWeight: FontWeight.w500,
                         letterSpacing: -1.2,
                       ),
@@ -78,7 +78,7 @@ loginSignupHeader(LoginSignupController controller, ColorScheme colorScheme) {
                       "Sign up",
                       style: defaultTextStyle(
                         fontSize: 18,
-                        color: kTextHeaderColor,
+                        color: kDefaultTextColor,
                         fontWeight: FontWeight.w500,
                         letterSpacing: -1.2,
                       ),

@@ -22,6 +22,11 @@ class Assets {
   static const appIconPng = "assets/icons/png/app_icon.png";
   static const doubleGreenTickIconPng =
       "assets/icons/png/double_green_tick.png";
+  static const myLocationIconPng = "assets/icons/png/my_location_icon.png";
+  static const cabIconPng = "assets/icons/png/cab_icon.png";
+  static const basicCabIconPng = "assets/icons/png/basic_cab_icon.png";
+  static const premiumCabIconPng = "assets/icons/png/premium_cab_icon.png";
+  static const logisticsIconPng = "assets/icons/png/logistics_icon.png";
 
 //SVG
   static const appIconSvg = "assets/icons/svg/app_icon.svg";
@@ -30,6 +35,8 @@ class Assets {
   static const avatarIconSvg = "assets/icons/svg/avatar_icon.svg";
   static const doubleGreenTickIconSvg =
       "assets/icons/svg/double_green_tick.svg";
+  static const myLocationIconSvg = "assets/icons/svg/my_location_icon.svg";
+  static const moneyPaymentIconSvg = "assets/icons/svg/money_payment_icon.svg";
 
 //=================== Animations ===================\\
 

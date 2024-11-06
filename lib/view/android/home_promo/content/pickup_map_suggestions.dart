@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:trip_picker/constants/consts.dart';
-import 'package:trip_picker/controllers/app/home_screen_controller.dart';
+import 'package:trip_picker/controllers/app/home_promo_screen_controller.dart';
 import 'package:trip_picker/theme/colors.dart';
 
-pickupMapSuggestions(
-  HomeScreenController controller,
+homePromoPickupMapSuggestions(
+  HomePromoScreenController controller,
   ColorScheme colorScheme,
   Size size,
 ) {

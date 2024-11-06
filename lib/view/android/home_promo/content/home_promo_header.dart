@@ -2,13 +2,13 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:trip_picker/constants/consts.dart';
-import 'package:trip_picker/controllers/app/home_screen_controller.dart';
+import 'package:trip_picker/controllers/app/home_promo_screen_controller.dart';
 import 'package:trip_picker/theme/colors.dart';
 import 'package:trip_picker/utils/containers/form_field_container.dart';
 import 'package:trip_picker/utils/text_form_fields/android/android_textformfield.dart';
 
-homeHeader(
-  HomeScreenController controller,
+homePromoHeader(
+  HomePromoScreenController controller,
   ColorScheme colorScheme,
   Size size,
 ) {
@@ -106,7 +106,7 @@ homeHeader(
 }
 
 headerSearchSection(
-  HomeScreenController controller,
+  HomePromoScreenController controller,
   ColorScheme colorScheme,
   Size size,
 ) {
@@ -121,9 +121,7 @@ headerSearchSection(
           children: [
             Icon(
               Iconsax.location5,
-              color: controller.pickupFieldIsActive.value
-                  ? colorScheme.primary
-                  : kGreyColor,
+              color: colorScheme.primary,
             ),
             4.toWidth,
             Expanded(
@@ -156,13 +154,13 @@ headerSearchSection(
                         focusNode: controller.pickupFN,
                         onChanged: controller.pickupFieldOnChanged,
                         cursorHeight: 15,
+                        textInputAction: TextInputAction.done,
+                        textCapitalization: TextCapitalization.sentences,
                         style: defaultTextStyle(
                           fontSize: 12,
                           color: kDefaultTextColor,
                           fontWeight: FontWeight.w500,
                         ),
-                        textInputAction: TextInputAction.search,
-                        textCapitalization: TextCapitalization.sentences,
                         labelStyle: defaultTextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
@@ -205,9 +203,7 @@ headerSearchSection(
           children: [
             Icon(
               Iconsax.location5,
-              color: controller.destinationFieldIsActive.value
-                  ? kGreenIconColor
-                  : kGreyColor,
+              color: kGreenIconColor,
             ),
             4.toWidth,
             Expanded(
@@ -245,7 +241,7 @@ headerSearchSection(
                           color: kDefaultTextColor,
                           fontWeight: FontWeight.w500,
                         ),
-                        textInputAction: TextInputAction.search,
+                        textInputAction: TextInputAction.done,
                         textCapitalization: TextCapitalization.sentences,
                         labelStyle: defaultTextStyle(
                           fontSize: 14,
@@ -279,7 +275,7 @@ headerSearchSection(
   );
 }
 
-destinationInkWell(HomeScreenController controller, String destination) {
+destinationInkWell(HomePromoScreenController controller, String destination) {
   return InkWell(
     onTap: controller.showHeaderSearchSection,
     enableFeedback: true,
@@ -302,7 +298,7 @@ destinationInkWell(HomeScreenController controller, String destination) {
                 style: defaultTextStyle(
                   fontSize: 10,
                   fontWeight: FontWeight.w600,
-                  color: kTextHeaderColor,
+                  color: kDefaultTextColor,
                 ),
               ),
               Text(

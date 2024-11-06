@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:trip_picker/controllers/app/home_screen_controller.dart';
-import 'package:trip_picker/utils/buttons/android/android_elevated_button.dart';
+import 'package:trip_picker/controllers/app/home_booking_screen_controller.dart';
 
-collapsedSection(HomeScreenController controller) {
+import '../../../../utils/buttons/android/android_elevated_button.dart';
+
+homeBookTripCollapsedSection(HomeBookTripScreenController controller) {
   return Container(
     margin: const EdgeInsets.fromLTRB(40.0, 20.0, 40.0, 20.0),
     child: AndroidElevatedButton(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trip_picker/view/android/home/android_home_screen.dart';
+import 'package:trip_picker/view/android/home_promo/android_home_promo_screen.dart';
 
 class SuccessScreenController extends GetxController {
   static SuccessScreenController get instance {
@@ -18,7 +18,7 @@ class SuccessScreenController extends GetxController {
     await Future.delayed(const Duration(seconds: 2));
 
     await Get.offAll(
-      () => const AndroidHomeScreen(),
+      () => const AndroidHomePromoScreen(),
       routeName: "/home",
       fullscreenDialog: true,
       curve: Curves.easeInOut,

@@ -85,7 +85,7 @@ class TripPickerApp extends StatelessWidget {
         scrollbars: true,
       ),
       // This is the home route
-      // home: const AndroidHomeScreen(),
+      // home: const AndroidHomePromoScreen(),
     );
   }
 }
