@@ -65,7 +65,7 @@ homeBookTripPanelSection(
                       width: size.width - 100,
                       child: AndroidElevatedButton(
                         title: "Book Trip",
-                        onPressed: () {},
+                        onPressed: controller.showSearchingForDriverModal,
                         borderRadius: 10,
                         disable: !controller.bookTripButtonIsEnabled.value,
                         minimumSize: Size(size.width, 60),
@@ -219,7 +219,7 @@ cabsSection(
           padding: const EdgeInsets.all(4),
           margin: const EdgeInsets.symmetric(horizontal: 4),
           decoration: ShapeDecoration(
-            color: controller.cabIsSelected[index]
+            color: controller.selectedCabIndex.value == index
                 ? kAccentColor.withOpacity(.1)
                 : kTransparentColor,
             shape: RoundedRectangleBorder(
@@ -238,11 +238,11 @@ cabsSection(
                   cab["name"] ?? "",
                   textAlign: TextAlign.center,
                   style: defaultTextStyle(
-                    color: controller.cabIsSelected[index]
+                    color: controller.selectedCabIndex.value == index
                         ? kAccentColor
                         : kDefaultTextColor,
                     fontSize: 12,
-                    fontWeight: controller.cabIsSelected[index]
+                    fontWeight: controller.selectedCabIndex.value == index
                         ? FontWeight.w800
                         : FontWeight.w600,
                   ),
@@ -253,44 +253,6 @@ cabsSection(
         );
       },
     ),
-    //  [
-    //   IconButton(
-    //     onPressed: () {},
-    //     icon: Column(
-    //       crossAxisAlignment: CrossAxisAlignment.center,
-    //       children: [
-    //         Image.asset(Assets.basicCabIconPng, height: 40),
-    //         Text(
-    //           "Cab",
-    //           textAlign: TextAlign.center,
-    //           style: defaultTextStyle(
-    //             color: kDefaultTextColor,
-    //             fontSize: 12,
-    //             fontWeight: FontWeight.w600,
-    //           ),
-    //         ),
-    //       ],
-    //     ),
-    //   ),
-    //   IconButton(
-    //     onPressed: () {},
-    //     icon: Column(
-    //       crossAxisAlignment: CrossAxisAlignment.center,
-    //       children: [
-    //         Image.asset(Assets.premiumCabIconPng, height: 40),
-    //         Text(
-    //           "Premium",
-    //           textAlign: TextAlign.center,
-    //           style: defaultTextStyle(
-    //             color: kDefaultTextColor,
-    //             fontSize: 12,
-    //             fontWeight: FontWeight.w600,
-    //           ),
-    //         ),
-    //       ],
-    //     ),
-    //   ),
-    // ],
   );
 }
 

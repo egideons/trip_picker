@@ -104,7 +104,7 @@ class AndroidHomeBookTripScreen extends GetView<HomeBookTripScreenController> {
                             controller.hideCollapsedSection.value
                         ? SizedBox()
                         : Positioned(
-                            bottom: 140,
+                            bottom: 160,
                             right: 20,
                             child: IconButton(
                               onPressed: () {},

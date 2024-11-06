@@ -1,12 +1,15 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:trip_picker/constants/assets.dart';
+import 'package:trip_picker/main.dart';
+import 'package:trip_picker/theme/colors.dart';
+import 'package:trip_picker/view/android/home_book_trip/content/searching_for_driver_modal.dart';
 
 class HomeBookTripScreenController extends GetxController {
   static HomeBookTripScreenController get instance {
@@ -16,8 +19,10 @@ class HomeBookTripScreenController extends GetxController {
   @override
   void onInit() {
     requestLocationPermission();
-    // Listener to update thumb position and display distance in real-time
-    ever(currentDistance, (_) => updateThumbPosition());
+    // // Listener to update thumb position and display distance in real-time
+    // ever(currentDistance, (_) => updateThumbPosition());
+    selectedCabIndex.value = prefs.getInt("selectedCabIndex") ?? -1;
+    bookTripButtonIsEnabled.value = selectedCabIndex.value != -1;
     super.onInit();
   }
 
@@ -46,7 +51,6 @@ class HomeBookTripScreenController extends GetxController {
 
     if (status.isGranted) {
       isLocationPermissionGranted.value = true;
-      update();
     }
     if (status.isDenied) {
       Permission.location.request();
@@ -135,6 +139,9 @@ class HomeBookTripScreenController extends GetxController {
     if (position > 0.1) {
       panelIsOpen.value = true;
     }
+    if (panelController.isPanelClosed) {
+      headerSearchSectionIsVisible.value = false;
+    }
   }
 
   onPanelOpened() {
@@ -187,11 +194,17 @@ class HomeBookTripScreenController extends GetxController {
 
   //============= Functions =============\\
   showHeaderSearchSection() {
-    if (panelController.isPanelOpen) panelController.close();
-    headerSearchSectionIsVisible.value = true;
-    hideCollapsedSection.value = true;
-    pickupFN.requestFocus();
-    pickupEC = TextEditingController(text: currentLocation.value);
+    if (pickupEC.text.isNotEmpty && destinationEC.text.isNotEmpty) {
+      headerSearchSectionIsVisible.value = true;
+      FocusManager.instance.primaryFocus?.unfocus();
+      panelController.open();
+    } else {
+      if (panelController.isPanelOpen) panelController.close();
+      headerSearchSectionIsVisible.value = true;
+      // hideCollapsedSection.value = true;
+      pickupFN.requestFocus();
+      pickupEC = TextEditingController(text: currentLocation.value);
+    }
   }
 
   hideSearchField() {
@@ -263,6 +276,7 @@ class HomeBookTripScreenController extends GetxController {
     destinationFieldIsActive.value = false;
     hideCollapsedSection.value = false;
     if (destinationEC.text.isNotEmpty) {
+      FocusManager.instance.primaryFocus?.unfocus();
       if (panelController.isPanelClosed) panelController.open();
     }
   }
@@ -276,6 +290,7 @@ class HomeBookTripScreenController extends GetxController {
     destinationFieldIsActive.value = false;
     hideCollapsedSection.value = false;
     if (pickupEC.text.isNotEmpty) {
+      FocusManager.instance.primaryFocus?.unfocus();
       if (panelController.isPanelClosed) panelController.open();
     }
   }
@@ -344,34 +359,28 @@ class HomeBookTripScreenController extends GetxController {
       "icon": Assets.premiumCabIconPng,
     },
   ];
+
+  var selectedCabIndex = (-1).obs;
+
   var cabIsSelected = [
     false,
     false,
   ].obs;
 
   //============= Functions =============\\
-  selectCab(int index) {
-    //Select basic cab
-    if (index == 0) {
-      cabIsSelected[0] = !cabIsSelected[0];
-      cabIsSelected[1] = false;
-      if (cabIsSelected[0] == false) {
-        bookTripButtonIsEnabled.value = false;
-      } else {
-        bookTripButtonIsEnabled.value = true;
-      }
-    }
-    //Select premium cab
-    else {
-      cabIsSelected[0] = false;
-      cabIsSelected[1] = !cabIsSelected[1];
-      if (cabIsSelected[1] == false) {
-        bookTripButtonIsEnabled.value = false;
-      } else {
-        bookTripButtonIsEnabled.value = true;
-      }
+  void selectCab(int index) {
+    // Toggle selection: if the same cab is tapped, deselect it
+    if (selectedCabIndex.value == index) {
+      selectedCabIndex.value = -1;
+      bookTripButtonIsEnabled.value = false;
+      prefs.remove("selectedCabIndex");
+    } else {
+      selectedCabIndex.value = index;
+      bookTripButtonIsEnabled.value = true;
+      prefs.setInt("selectedCabIndex", index);
     }
   }
+
   //==================================== Book Trip =========================================\\
 
   //============= Booleans =============\\
@@ -381,13 +390,11 @@ class HomeBookTripScreenController extends GetxController {
   var driverHasArrived = false.obs;
 
   //============= Variables =============\\
-
   Timer? bookRideTimer;
-
   var progress = .0.obs;
+
   //============= Functions =============\\
 
-  //Progress Indicatior
   // Method to update the progress
   void updateProgress(double value) {
     if (value >= 0.0 && value <= 1.0) {
@@ -400,16 +407,18 @@ class HomeBookTripScreenController extends GetxController {
   void simulateBookRideDriverSearchProgress() {
     progress.value = 0.0;
     driverHasArrived.value = false;
+    bookDriverFound.value = false;
 
-    bookRideTimer = Timer.periodic(const Duration(seconds: 1), (bookRideTimer) {
+    bookRideTimer = Timer.periodic(const Duration(seconds: 3), (timer) {
       if (progress.value < 0.9) {
         updateProgress(progress.value + 0.1);
+        searchingForDriver.value = true;
       } else {
         // Directly set progress to 1.0 on the last step
         updateProgress(1.0);
         bookDriverTimerFinished.value = true;
         bookDriverFound.value = true;
-        update();
+        searchingForDriver.value = false;
         log("Timer finished: ${bookDriverTimerFinished.value}");
         log("Driver found: ${bookDriverFound.value}");
         cancelProgress();
@@ -420,5 +429,38 @@ class HomeBookTripScreenController extends GetxController {
   // Cancel the progress simulation
   void cancelProgress() {
     bookRideTimer?.cancel();
+  }
+
+  Future<void> showSearchingForDriverModal() async {
+    var size = Get.context!.size;
+    var colorScheme = Theme.of(Get.context!).colorScheme;
+    panelController.close();
+
+    simulateBookRideDriverSearchProgress();
+
+    await showModalBottomSheet(
+      isScrollControlled: true,
+      showDragHandle: false,
+      enableDrag: false,
+      context: Get.context!,
+      useSafeArea: true,
+      isDismissible: true,
+      barrierColor: kTransparentColor,
+      // constraints:
+      //     BoxConstraints(maxHeight: size!.height / 2, minWidth: size.width),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(12),
+          topRight: Radius.circular(12),
+        ),
+      ),
+      builder: (context) {
+        return searchingForDriverModal(
+          HomeBookTripScreenController.instance,
+          size!,
+          colorScheme,
+        );
+      },
+    );
   }
 }

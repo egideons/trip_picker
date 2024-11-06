@@ -14,6 +14,7 @@ Color kTextBlackColor = const Color(0xFF000000);
 Color kFormFieldTextColor = const Color(0xFF2D2D2D);
 Color kFormFieldLabelTextColor = kFormFieldTextColor.withOpacity(.5);
 Color kGreyColor = const Color(0xFF7E869E);
+Color kLightGreyColor = const Color(0xFFEFEFEF);
 Color kTrackColor = const Color(0xFFD6D6D6);
 Color kTextGreyColor = const Color(0xFFB0B0B0);
 Color kTextBoldHeadingColor = const Color(0xFF4B4B4B);
