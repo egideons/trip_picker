@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:trip_picker/controllers/auth/loading_controller.dart';
 import 'package:trip_picker/controllers/others/connectivity_status_controller.dart';
+import 'package:trip_picker/controllers/others/success_screen_controller.dart';
 import 'package:trip_picker/controllers/others/theme_controller.dart';
 import 'package:trip_picker/utils/components/app_error_widget.dart';
 
@@ -28,6 +30,8 @@ void main() async {
 
   Get.put(ThemeController());
   Get.put(ConnectivityStatusController());
+  Get.put(SuccessScreenController());
+  Get.put(LoadingController());
 
   //This is to handle widget errors by showing a custom error widget screen
   if (kReleaseMode) ErrorWidget.builder = (_) => const AppErrorWidget();

@@ -14,9 +14,6 @@ class AndroidSuccessScreen extends GetView<SuccessScreenController> {
 
   @override
   Widget build(BuildContext context) {
-    //Initialize the controller
-    Get.put(SuccessScreenController());
-
     var colorScheme = Theme.of(context).colorScheme;
     // var size = MediaQuery.sizeOf(context);
 
