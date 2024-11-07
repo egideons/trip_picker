@@ -14,7 +14,7 @@ tripPanel(
   return SlidingUpPanel(
     controller: controller.panelController,
     maxHeight: size.height * .76,
-    minHeight: size.height * .34,
+    minHeight: size.height * .32,
     backdropEnabled: true,
     backdropTapClosesPanel: true,
     panelSnapping: true,
@@ -35,7 +35,7 @@ tripPanel(
         //         ),
         //       )
         //     :
-        tripGoogleMap(controller),
+        tripGoogleMap(controller, size),
     panel: tripPanelSection(controller, size, colorScheme),
     collapsed: tripCollapsedPanel(controller, size, colorScheme),
   );

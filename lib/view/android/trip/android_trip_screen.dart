@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trip_picker/controllers/app/trip_screen_controller.dart';
-import 'package:trip_picker/view/android/home_book_trip/content/locate_user_button.dart';
 import 'package:trip_picker/view/android/trip/content/trip_header.dart';
+import 'package:trip_picker/view/android/trip/content/trip_locate_user_button.dart';
 import 'package:trip_picker/view/android/trip/content/trip_panel.dart';
 
 class AndroidTripScreen extends GetView<TripScreenController> {
@@ -34,10 +34,13 @@ class AndroidTripScreen extends GetView<TripScreenController> {
                       right: 10,
                       child: tripHeader(size, colorScheme),
                     ),
-                    controller.panelIsOpen.value ||
-                            controller.driverIsArriving.value
+                    controller.driverIsArriving.value
                         ? SizedBox()
-                        : locateUserButton(colorScheme),
+                        : tripLocateUserButton(
+                            colorScheme,
+                            controller,
+                            size,
+                          ),
                   ],
                 );
               },

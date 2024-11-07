@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:trip_picker/controllers/app/trip_screen_controller.dart';
 
-tripGoogleMap(TripScreenController controller) {
+tripGoogleMap(TripScreenController controller, Size size) {
   return GoogleMap(
     onTap: controller.tapOnGoogleMap,
     mapType: MapType.normal,
@@ -21,8 +21,8 @@ tripGoogleMap(TripScreenController controller) {
     scrollGesturesEnabled: true,
     onMapCreated: controller.onMapCreated,
     padding: controller.panelIsOpen.value
-        ? const EdgeInsets.only(bottom: 200)
-        : const EdgeInsets.only(left: 10, bottom: 120),
+        ? EdgeInsets.only(left: 10, bottom: size.height * .72)
+        : const EdgeInsets.only(left: 10, bottom: 200),
     initialCameraPosition: const CameraPosition(
       target: LatLng(37.42796133580664, -122.085749655962),
       zoom: 14,

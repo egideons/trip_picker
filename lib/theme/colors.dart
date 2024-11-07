@@ -5,6 +5,7 @@ Color kDarkBackgroundColor = const Color(0xFFFFFFFF);
 Color kPrimaryColor = const Color(0xFF5800FF);
 Color kAccentColor = const Color(0xFFA87BFF);
 Color kTextAccentColor = const Color(0xFFFF6633);
+Color kButtonAccentColor = const Color(0xFFFF453A);
 Color kSecondaryColor = const Color(0xFF1F1136);
 
 Color kStarColor = Colors.amber;
