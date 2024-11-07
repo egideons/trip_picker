@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trip_picker/controllers/app/home_booking_screen_controller.dart';
+import 'package:trip_picker/controllers/app/home_book_trip_screen_controller.dart';
 import 'package:trip_picker/view/android/home_book_trip/content/book_trip_panel.dart';
 import 'package:trip_picker/view/android/home_book_trip/content/destination_map_suggestions.dart';
 import 'package:trip_picker/view/android/home_book_trip/content/home_book_trip_header.dart';
 import 'package:trip_picker/view/android/home_book_trip/content/locate_user_button.dart';
 import 'package:trip_picker/view/android/home_book_trip/content/pickup_map_suggestions.dart';
-import 'package:trip_picker/view/android/home_book_trip/content/trip_header.dart';
+import 'package:trip_picker/view/android/trip/content/trip_header.dart';
 
 class AndroidHomeBookTripScreen extends GetView<HomeBookTripScreenController> {
   const AndroidHomeBookTripScreen({super.key});
@@ -70,7 +70,9 @@ class AndroidHomeBookTripScreen extends GetView<HomeBookTripScreenController> {
                       }(),
                     ),
                     controller.panelIsOpen.value ||
-                            controller.hideCollapsedSection.value
+                            controller.hideCollapsedSection.value ||
+                            controller.driverIsArriving.value ||
+                            controller.cabDriverFound.value
                         ? SizedBox()
                         : locateUserButton(colorScheme),
                   ],

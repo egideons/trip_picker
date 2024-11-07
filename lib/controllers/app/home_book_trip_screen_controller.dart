@@ -10,6 +10,7 @@ import 'package:trip_picker/constants/assets.dart';
 import 'package:trip_picker/main.dart';
 import 'package:trip_picker/theme/colors.dart';
 import 'package:trip_picker/view/android/home_book_trip/content/searching_for_driver_modal.dart';
+import 'package:trip_picker/view/android/trip/android_trip_screen.dart';
 
 class HomeBookTripScreenController extends GetxController {
   static HomeBookTripScreenController get instance {
@@ -404,7 +405,6 @@ class HomeBookTripScreenController extends GetxController {
   // Start the progress simulation with a Timer
   void simulateDriverSearchProgress() {
     progress.value = 0.0;
-    driverHasArrived.value = false;
     cabDriverFound.value = false;
 
     bookRideTimer = Timer.periodic(const Duration(seconds: 1), (timer) async {
@@ -418,9 +418,18 @@ class HomeBookTripScreenController extends GetxController {
         searchingForDriver.value = false;
         log("Driver found: ${cabDriverFound.value}");
         cancelProgress();
-        Get.close(0);
         await Future.delayed(const Duration(seconds: 2));
-        driverIsArriving.value = true;
+        Get.close(0);
+
+        await Get.offAll(
+          () => const AndroidTripScreen(),
+          routeName: "/trip",
+          fullscreenDialog: true,
+          curve: Curves.easeInOut,
+          predicate: (routes) => false,
+          popGesture: false,
+          transition: Get.defaultTransition,
+        );
       }
     });
   }
@@ -446,8 +455,8 @@ class HomeBookTripScreenController extends GetxController {
       isDismissible: false,
       barrierColor: kTransparentColor,
       backgroundColor: kTransparentColor,
-      // constraints:
-      //     BoxConstraints(maxHeight: size!.height / 2, minWidth: size.width),
+      constraints:
+          BoxConstraints(maxHeight: size!.height / 3.6, minWidth: size.width),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(12),
@@ -457,82 +466,10 @@ class HomeBookTripScreenController extends GetxController {
       builder: (context) {
         return searchingForDriverModal(
           HomeBookTripScreenController.instance,
-          size!,
+          size,
           colorScheme,
         );
       },
     );
-  }
-
-  //==================================== Trip Section =========================================\\
-
-  //============= Variables =============\\
-  Timer? tripTimer;
-  var tripProgress = .0.obs;
-
-  //============= Booleans =============\\
-  var tripPanelIsOpen = false.obs;
-  var driverHasArrived = false.obs;
-
-  //============= Controllers =============\\
-  var tripPanelController = PanelController();
-
-  //============= Functions =============\\
-  openTripPanel() {
-    tripPanelController.open();
-    onTripPanelOpened();
-  }
-
-  closeTripPanel() {
-    tripPanelController.close();
-    onTripPanelClosed();
-  }
-
-  onTripPanelSlide(double position) {
-    if (position > 0.1) {
-      tripPanelIsOpen.value = true;
-    }
-  }
-
-  onTripPanelOpened() {
-    tripPanelIsOpen.value = true;
-  }
-
-  onTripPanelClosed() {
-    tripPanelIsOpen.value = false;
-  }
-
-  // Method to update the progress
-  void updateTripProgress(double value) {
-    if (value >= 0.0 && value <= 1.0) {
-      progress.value = value;
-      log("Progress: ${progress.value}");
-    }
-  }
-
-  // Start the progress simulation with a Timer
-  void simulateTripProgress() {
-    progress.value = 0.0;
-    driverHasArrived.value = false;
-    cabDriverFound.value = false;
-
-    bookRideTimer = Timer.periodic(const Duration(seconds: 1), (timer) async {
-      if (progress.value < 0.9) {
-        updateTripProgress(progress.value + 0.1);
-        searchingForDriver.value = true;
-      } else {
-        // Directly set progress to 1.0 on the last step
-        updateTripProgress(1.0);
-        searchingForDriver.value = false;
-        cabDriverFound.value = true;
-        log("Driver found: ${cabDriverFound.value}");
-        cancelTripProgress();
-      }
-    });
-  }
-
-  // Cancel the progress simulation
-  void cancelTripProgress() {
-    bookRideTimer?.cancel();
   }
 }

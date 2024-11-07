@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:trip_picker/controllers/app/home_booking_screen_controller.dart';
+import 'package:trip_picker/controllers/app/home_book_trip_screen_controller.dart';
 
 import '../../../../utils/buttons/android/android_elevated_button.dart';
 

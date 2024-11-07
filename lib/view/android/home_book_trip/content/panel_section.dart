@@ -3,15 +3,12 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:trip_picker/constants/assets.dart';
 import 'package:trip_picker/constants/consts.dart';
-import 'package:trip_picker/controllers/app/home_booking_screen_controller.dart';
+import 'package:trip_picker/controllers/app/home_book_trip_screen_controller.dart';
 import 'package:trip_picker/theme/colors.dart';
 import 'package:trip_picker/utils/buttons/android/android_elevated_button.dart';
 
-homeBookTripPanelSection(
-  HomeBookTripScreenController controller,
-  ColorScheme colorScheme,
-  Size size,
-) {
+homeBookTripPanelSection(HomeBookTripScreenController controller,
+    ColorScheme colorScheme, Size size, gi) {
   if (controller.panelIsOpen.value) {
     return Container(
       decoration: ShapeDecoration(

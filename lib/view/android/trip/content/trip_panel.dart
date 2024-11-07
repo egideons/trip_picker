@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:trip_picker/controllers/app/home_book_trip_screen_controller.dart';
+import 'package:trip_picker/controllers/app/trip_screen_controller.dart';
 import 'package:trip_picker/theme/colors.dart';
-import 'package:trip_picker/view/android/home_book_trip/content/home_book_trip_google_map.dart';
-import 'package:trip_picker/view/android/home_book_trip/content/panel_section.dart';
+import 'package:trip_picker/view/android/trip/content/trip_collapsed_panel.dart';
+import 'package:trip_picker/view/android/trip/content/trip_google_map.dart';
+import 'package:trip_picker/view/android/trip/content/trip_panel_section.dart';
 
-bookTripPanel(
-  HomeBookTripScreenController controller,
+tripPanel(
+  TripScreenController controller,
   Size size,
   ColorScheme colorScheme,
 ) {
   return SlidingUpPanel(
     controller: controller.panelController,
-    maxHeight: size.height / 2.4,
-    // minHeight: size.height * .26,
+    maxHeight: size.height * .76,
+    minHeight: size.height * .34,
     backdropEnabled: true,
     backdropTapClosesPanel: true,
     panelSnapping: true,
@@ -26,15 +27,16 @@ bookTripPanel(
     backdropColor: kTransparentColor,
     backdropOpacity: .2,
     borderRadius: const BorderRadius.all(Radius.circular(32)),
-    body: // controller.userPosition == null
+    body:
+        // controller.userPosition == null
         //     ? Center(
         //         child: CircularProgressIndicator(
         //           color: colorScheme.primary,
         //         ),
         //       )
         //     :
-        homeBookTripGoogleMap(controller),
-    panel: homeBookTripPanelSection(controller, colorScheme, size),
-    // collapsed: homeBookTripCollapsedSection(controller),
+        tripGoogleMap(controller),
+    panel: tripPanelSection(controller, size, colorScheme),
+    collapsed: tripCollapsedPanel(controller, size, colorScheme),
   );
 }

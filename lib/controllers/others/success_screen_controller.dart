@@ -7,16 +7,8 @@ class SuccessScreenController extends GetxController {
     return Get.find<SuccessScreenController>();
   }
 
-//============= Variables =============\\
-  var isLoading = false.obs;
-
 //============= Load BottomNavView =============\\
   loadHome() async {
-    isLoading.value = true;
-
-    // await UserController.instance.getUserProfile();
-    await Future.delayed(const Duration(seconds: 2));
-
     await Get.offAll(
       () => const AndroidHomeBookTripScreen(),
       routeName: "/home-book-trip",
@@ -26,7 +18,5 @@ class SuccessScreenController extends GetxController {
       popGesture: false,
       transition: Get.defaultTransition,
     );
-
-    isLoading.value = true;
   }
 }

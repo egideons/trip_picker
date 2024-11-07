@@ -6,6 +6,7 @@ import 'package:trip_picker/view/android/home_promo/android_home_promo_screen.da
 import 'package:trip_picker/view/android/onboarding/android_onboarding_screen.dart';
 import 'package:trip_picker/view/android/splash_screen/startup/android_startup_screen.dart';
 import 'package:trip_picker/view/android/splash_screen/success/android_success_screen.dart';
+import 'package:trip_picker/view/android/trip/android_trip_screen.dart';
 
 class Routes {
   //Splash screens
@@ -21,6 +22,7 @@ class Routes {
 
   static const homePromo = "/home-promo";
   static const homeBookTrip = "/home-book-trip";
+  static const trip = "/trip";
 
   //========================= GET PAGES ==========================\\
   static final getPages = [
@@ -34,6 +36,6 @@ class Routes {
 
     GetPage(name: homePromo, page: () => AndroidHomePromoScreen()),
     GetPage(name: homeBookTrip, page: () => AndroidHomePromoScreen()),
-    // GetPage(name: home, page: () => AndroidHomePromoScreen()),
+    GetPage(name: trip, page: () => AndroidTripScreen()),
   ];
 }

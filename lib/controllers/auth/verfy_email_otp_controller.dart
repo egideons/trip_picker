@@ -152,7 +152,7 @@ class VerifyEmailOtpController extends GetxController {
     if (value.length == 1) {
       pin4FieldIsActive.value = true;
       updatePin4Text(value);
-      // FocusScope.of(context).unfocus();
+      FocusScope.of(context).unfocus();
     }
   }
 

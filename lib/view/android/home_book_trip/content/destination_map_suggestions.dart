@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:trip_picker/constants/consts.dart';
-import 'package:trip_picker/controllers/app/home_booking_screen_controller.dart';
+import 'package:trip_picker/controllers/app/home_book_trip_screen_controller.dart';
 import 'package:trip_picker/theme/colors.dart';
 
 homeBookTripDestinationMapSuggestions(

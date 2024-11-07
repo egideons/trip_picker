@@ -4,8 +4,8 @@ import 'package:trip_picker/constants/assets.dart';
 
 locateUserButton(ColorScheme colorScheme) {
   return Positioned(
-    bottom: 160,
-    right: 20,
+    bottom: 240,
+    right: 10,
     child: IconButton(
       onPressed: () {},
       style: IconButton.styleFrom(

@@ -17,7 +17,7 @@ class AndroidSuccessScreen extends GetView<SuccessScreenController> {
     var colorScheme = Theme.of(context).colorScheme;
     // var size = MediaQuery.sizeOf(context);
 
-    Timer(Duration.zero, loadData ?? () {});
+    Timer(Duration(seconds: 2), loadData ?? () {});
 
     return GestureDetector(
       onTap: (() => FocusManager.instance.primaryFocus?.unfocus()),
