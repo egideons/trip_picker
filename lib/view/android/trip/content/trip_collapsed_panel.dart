@@ -65,9 +65,11 @@ tripCollapsedPanel(
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
               style: defaultTextStyle(
-                color: kTextRedColor,
+                color: controller.tripEnded.value
+                    ? kTextRedColor
+                    : colorScheme.primary,
                 fontWeight: FontWeight.w600,
-                fontSize: 12,
+                fontSize: 14,
               ),
             ).animate().fade(
                   curve: Curves.easeIn,

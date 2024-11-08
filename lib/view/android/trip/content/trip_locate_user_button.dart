@@ -9,10 +9,11 @@ tripLocateUserButton(
   Size size,
 ) {
   return Positioned(
-    bottom: controller.panelIsOpen.value ? size.height * .74 : 200,
+    bottom:
+        controller.panelIsOpen.value ? size.height * .74 : size.height * .28,
     right: 10,
     child: IconButton(
-      onPressed: () {},
+      onPressed: controller.showDriverRatingDialog,
       style: IconButton.styleFrom(
         elevation: 20,
         padding: const EdgeInsets.all(0),

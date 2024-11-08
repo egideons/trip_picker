@@ -12,7 +12,7 @@ tripHeader(
     curve: Curves.ease,
     padding: EdgeInsets.all(10),
     decoration: ShapeDecoration(
-      color: colorScheme.surface,
+      color: colorScheme.primary,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
@@ -31,8 +31,8 @@ tripHeader(
       textAlign: TextAlign.center,
       style: defaultTextStyle(
         fontSize: 15,
-        fontWeight: FontWeight.w400,
-        color: kDefaultTextColor,
+        fontWeight: FontWeight.w600,
+        color: kTextWhiteColor,
       ),
     ).animate().fadeIn(
           curve: Curves.easeIn,

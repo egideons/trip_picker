@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:trip_picker/constants/assets.dart';
+import 'package:trip_picker/controllers/app/book_trip_screen_controller.dart';
 
-bookTripLocateUserButton(ColorScheme colorScheme) {
+bookTripLocateUserButton(
+  BookTripScreenController controller,
+  ColorScheme colorScheme,
+  Size size,
+) {
   return Positioned(
-    bottom: 120,
+    bottom:
+        controller.panelIsOpen.value ? size.height * .44 : size.height * .14,
     right: 10,
     child: IconButton(
       onPressed: () {},

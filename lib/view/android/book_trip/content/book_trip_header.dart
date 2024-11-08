@@ -2,13 +2,13 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:trip_picker/constants/consts.dart';
-import 'package:trip_picker/controllers/app/home_book_trip_screen_controller.dart';
+import 'package:trip_picker/controllers/app/book_trip_screen_controller.dart';
 import 'package:trip_picker/theme/colors.dart';
 import 'package:trip_picker/utils/containers/form_field_container.dart';
 import 'package:trip_picker/utils/text_form_fields/android/android_textformfield.dart';
 
 bookTripHeader(
-  HomeBookTripScreenController controller,
+  BookTripScreenController controller,
   ColorScheme colorScheme,
   Size size,
 ) {
@@ -79,7 +79,7 @@ bookTripHeader(
                       )
                     : destinationInkWell(
                         controller,
-                        "No 12, GRA, Okumgbowa street",
+                        controller.destinationAddress.value,
                       ),
               ),
               controller.headerSearchSectionIsVisible.value
@@ -107,7 +107,7 @@ bookTripHeader(
 }
 
 headerSearchSection(
-  HomeBookTripScreenController controller,
+  BookTripScreenController controller,
   ColorScheme colorScheme,
   Size size,
 ) {
@@ -277,7 +277,7 @@ headerSearchSection(
 }
 
 destinationInkWell(
-  HomeBookTripScreenController controller,
+  BookTripScreenController controller,
   String destination,
 ) {
   return InkWell(

@@ -29,12 +29,12 @@ class AndroidTripScreen extends GetView<TripScreenController> {
                 return Stack(
                   children: [
                     tripPanel(controller, size, colorScheme),
-                    Positioned(
-                      top: 44,
-                      left: 10,
-                      right: 10,
-                      child: tripHeader(controller, size, colorScheme),
-                    ),
+                    // Positioned(
+                    //   top: 44,
+                    //   left: 10,
+                    //   right: 10,
+                    //   child: tripHeader(controller, size, colorScheme),
+                    // ),
                     controller.driverIsArriving.value
                         ? SizedBox()
                         : tripLocateUserButton(
@@ -50,7 +50,9 @@ class AndroidTripScreen extends GetView<TripScreenController> {
                     ),
                     controller.tripHasStarted.value
                         ? Positioned(
-                            bottom: 200,
+                            bottom: controller.panelIsOpen.value
+                                ? size.height * .76
+                                : size.height * .28,
                             left: 10,
                             child: tripperContainer(
                               colorScheme,

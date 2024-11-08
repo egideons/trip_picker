@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:trip_picker/constants/consts.dart';
-import 'package:trip_picker/controllers/app/home_promo_screen_controller.dart';
+import 'package:trip_picker/controllers/app/home_screen_controller.dart';
 import 'package:trip_picker/theme/colors.dart';
 
-promoTripDestinationMapSuggestions(
-  HomePromoScreenController controller,
+homePickupMapSuggestions(
+  HomeScreenController controller,
   ColorScheme colorScheme,
   Size size,
 ) {
@@ -35,11 +35,11 @@ promoTripDestinationMapSuggestions(
         separatorBuilder: (context, index) => Divider(color: kGreyColor),
         itemBuilder: (context, index) {
           return ListTile(
-            onTap: controller.selectDestinationSuggestion,
+            onTap: controller.selectPickupSuggestion,
             dense: true,
             leading: Icon(
               Iconsax.location5,
-              color: kGreenIconColor,
+              color: colorScheme.primary,
             ),
             title: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,7 +48,7 @@ promoTripDestinationMapSuggestions(
                 SizedBox(
                   width: size.width - 100,
                   child: Text(
-                    "To ",
+                    "From ",
                     overflow: TextOverflow.ellipsis,
                     style: defaultTextStyle(
                       color: kFormFieldLabelTextColor,
@@ -60,7 +60,7 @@ promoTripDestinationMapSuggestions(
                 SizedBox(
                   width: size.width - 100,
                   child: Text(
-                    controller.destinationSuggestion.value,
+                    controller.pickupSuggestion.value,
                     style: defaultTextStyle(
                       color: kFormFieldTextColor,
                       fontSize: 12,

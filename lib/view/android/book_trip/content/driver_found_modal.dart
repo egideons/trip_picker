@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 import 'package:trip_picker/constants/assets.dart';
-import 'package:trip_picker/controllers/app/home_book_trip_screen_controller.dart';
+import 'package:trip_picker/controllers/app/book_trip_screen_controller.dart';
 import 'package:trip_picker/theme/colors.dart';
 import 'package:trip_picker/utils/clipper/container_top_clipper.dart';
 import 'package:trip_picker/utils/components/circle_avatar_image.dart';
@@ -10,7 +10,7 @@ import 'package:trip_picker/utils/components/circle_avatar_image.dart';
 import '../../../../constants/consts.dart';
 
 driverFoundModal(
-  HomeBookTripScreenController controller,
+  BookTripScreenController controller,
   Size size,
   ColorScheme colorScheme,
 ) {

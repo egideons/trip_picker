@@ -6,7 +6,8 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:trip_picker/constants/assets.dart';
-import 'package:trip_picker/view/android/book_trip/android_book_trip_screen.dart';
+import 'package:trip_picker/theme/colors.dart';
+import 'package:trip_picker/view/android/trip/content/driver_rating_dialog.dart';
 
 class TripScreenController extends GetxController {
   static TripScreenController get instance {
@@ -147,6 +148,8 @@ class TripScreenController extends GetxController {
     panelController.close();
   }
 
+  //==================================== Trip Section =========================================\\
+
   // Method to update the mining progress
   void updateMiningProgress(double value) {
     // if (value >= 0.00000 && value <= 1.0) {
@@ -234,14 +237,60 @@ class TripScreenController extends GetxController {
     tripHeaderMsg.value = "You have arrived at your destination";
 
     await Future.delayed(const Duration(seconds: 2));
-    await Get.offAll(
-      () => const AndroidBookTripScreen(),
-      routeName: "/book-trip",
-      fullscreenDialog: true,
-      curve: Curves.easeInOut,
-      predicate: (routes) => false,
-      popGesture: false,
-      transition: Get.defaultTransition,
+    showDriverRatingDialog();
+    // await Get.offAll(
+    //   () => const AndroidBookTripScreen(),
+    //   routeName: "/book-trip",
+    //   fullscreenDialog: true,
+    //   curve: Curves.easeInOut,
+    //   predicate: (routes) => false,
+    //   popGesture: false,
+    //   transition: Get.defaultTransition,
+    // );
+  }
+
+  //==================================== Driver Rating =========================================\\
+
+  //============= Variables =============\\
+  var rating = 0.0.obs;
+
+  //============= Booleans =============\\
+  var hasRated = false.obs;
+  var goodRatingFeedbackTextFieldIsActive = false.obs;
+  var badRatingFeedbackTextFieldIsActive = false.obs;
+
+  //============= Controllers =============\\
+  var driverRatingPageController = PageController();
+  var goodRatingFeedbackEC = TextEditingController();
+  var badRatingFeedbackEC = TextEditingController();
+
+  //============= Focus Nodes =============\\
+  var goodRatingFeedbackFN = FocusNode();
+  var badRatingFeedbackFN = FocusNode();
+
+  //============= Functions =============\\
+  rateDriver(Size size, int index) {
+    rating.value = index + 1;
+    hasRated.value = true;
+  }
+
+  showDriverRatingDialog() async {
+    var size = Get.context!.size;
+    var colorScheme = Theme.of(Get.context!).colorScheme;
+
+    await showAdaptiveDialog(
+      context: Get.context!,
+      anchorPoint: Offset(40, 0),
+      barrierColor: kDarkBackgroundColor.withOpacity(.4),
+      barrierDismissible: false,
+      useSafeArea: true,
+      builder: (context) {
+        return driverRatingDialog(
+          TripScreenController.instance,
+          colorScheme,
+          size!,
+        );
+      },
     );
   }
 }

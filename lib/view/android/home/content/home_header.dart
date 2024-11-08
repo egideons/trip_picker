@@ -2,13 +2,13 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:trip_picker/constants/consts.dart';
-import 'package:trip_picker/controllers/app/home_promo_screen_controller.dart';
+import 'package:trip_picker/controllers/app/home_screen_controller.dart';
 import 'package:trip_picker/theme/colors.dart';
 import 'package:trip_picker/utils/containers/form_field_container.dart';
 import 'package:trip_picker/utils/text_form_fields/android/android_textformfield.dart';
 
-promoTripHeader(
-  HomePromoScreenController controller,
+homeHeader(
+  HomeScreenController controller,
   ColorScheme colorScheme,
   Size size,
 ) {
@@ -46,59 +46,36 @@ promoTripHeader(
         ),
         4.toWidth,
         Expanded(
-          child: Container(
-            padding: EdgeInsets.only(
-              left: 10,
-              top: controller.headerSearchSectionIsVisible.value ? 0 : 10,
-              bottom: controller.headerSearchSectionIsVisible.value ? 0 : 10,
-            ),
-            decoration: ShapeDecoration(
-              color: colorScheme.surface,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              shadows: [
-                BoxShadow(
-                  color: const Color(0xc0000000),
-                  blurRadius: 4,
-                  offset: const Offset(0, 2),
-                  spreadRadius: -2,
-                ),
-              ],
-            ),
-            child: Row(
-              children: [
-                Expanded(
-                  child: controller.headerSearchSectionIsVisible.value
-                      ? headerSearchSection(
+          child: controller.headerSearchSectionIsVisible.value
+              ? Container(
+                  padding: EdgeInsets.only(left: 10, right: 10),
+                  decoration: ShapeDecoration(
+                    color: colorScheme.surface,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    shadows: [
+                      BoxShadow(
+                        color: const Color(0xc0000000),
+                        blurRadius: 4,
+                        offset: const Offset(0, 2),
+                        spreadRadius: -2,
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: headerSearchSection(
                           controller,
                           colorScheme,
                           size,
-                        )
-                      : destinationInkWell(
-                          controller,
-                          "No 12, GRA, Okumgbowa street",
                         ),
-                ),
-                controller.headerSearchSectionIsVisible.value
-                    ? IconButton(
-                        onPressed: () {},
-                        // borderRadius: BorderRadius.circular(3),
-                        style: IconButton.styleFrom(
-                          backgroundColor: colorScheme.surface,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(3),
-                          ),
-                        ),
-                        icon: Icon(
-                          Icons.add_box,
-                          color: kGreyColor,
-                        ),
-                      )
-                    : SizedBox(),
-              ],
-            ),
-          ),
+                      ),
+                    ],
+                  ),
+                )
+              : SizedBox(),
         ),
       ],
     ),
@@ -106,7 +83,7 @@ promoTripHeader(
 }
 
 headerSearchSection(
-  HomePromoScreenController controller,
+  HomeScreenController controller,
   ColorScheme colorScheme,
   Size size,
 ) {
@@ -150,6 +127,7 @@ headerSearchSection(
                     ),
                     Expanded(
                       child: AndroidTextFormField(
+                        readOnly: true,
                         controller: controller.pickupEC,
                         focusNode: controller.pickupFN,
                         onChanged: controller.pickupFieldOnChanged,
@@ -270,49 +248,6 @@ headerSearchSection(
           ],
         ),
         4.toHeight,
-      ],
-    ),
-  );
-}
-
-destinationInkWell(HomePromoScreenController controller, String destination) {
-  return InkWell(
-    onTap: controller.showHeaderSearchSection,
-    enableFeedback: true,
-    mouseCursor: SystemMouseCursors.click,
-    child: Row(
-      children: [
-        Icon(
-          Iconsax.location5,
-          // Icons.location_on_rounded,
-          color: kGreenIconColor,
-        ),
-        10.toWidth,
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                "To",
-                style: defaultTextStyle(
-                  fontSize: 10,
-                  fontWeight: FontWeight.w600,
-                  color: kDefaultTextColor,
-                ),
-              ),
-              Text(
-                destination,
-                overflow: TextOverflow.ellipsis,
-                style: defaultTextStyle(
-                  fontSize: 10,
-                  fontWeight: FontWeight.w500,
-                  color: kTextGreyColor,
-                ),
-              ),
-            ],
-          ),
-        ),
       ],
     ),
   );

@@ -1,21 +1,28 @@
 import 'dart:async';
+import 'dart:developer';
 
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:trip_picker/constants/assets.dart';
+import 'package:trip_picker/main.dart';
+import 'package:trip_picker/theme/colors.dart';
+import 'package:trip_picker/view/android/book_trip/content/payment_method_modal.dart';
+import 'package:trip_picker/view/android/book_trip/content/searching_for_driver_modal.dart';
+import 'package:trip_picker/view/android/trip/android_trip_screen.dart';
 
-class HomePromoScreenController extends GetxController {
-  static HomePromoScreenController get instance {
-    return Get.find<HomePromoScreenController>();
+class BookTripScreenController extends GetxController {
+  static BookTripScreenController get instance {
+    return Get.find<BookTripScreenController>();
   }
 
   @override
-  void onInit() {
-    requestLocationPermission();
-    // Listener to update thumb position and display distance in real-time
-    ever(currentDistance, (_) => updateThumbPosition());
+  void onInit() async {
+    selectedCabIndex.value = prefs.getInt("selectedCabIndex") ?? -1;
+    bookTripButtonIsEnabled.value = selectedCabIndex.value != -1;
+    await Future.delayed(const Duration(seconds: 1));
+    await openPanel();
     super.onInit();
   }
 
@@ -32,20 +39,6 @@ class HomePromoScreenController extends GetxController {
   var panelController = PanelController();
   final Completer<GoogleMapController> _googleMapController = Completer();
   GoogleMapController? newGoogleMapController;
-
-  Future<void> requestLocationPermission() async {
-    PermissionStatus status = await Permission.location.request();
-
-    if (status.isGranted) {
-      isLocationPermissionGranted.value = true;
-      update();
-    }
-    if (status.isDenied) {
-      Permission.location.request();
-    } else if (status.isPermanentlyDenied) {
-      openAppSettings();
-    }
-  }
 
   //==================================== Google Maps =========================================\\
   static const CameraPosition kGooglePlex = CameraPosition(
@@ -113,13 +106,13 @@ class HomePromoScreenController extends GetxController {
     newGoogleMapController = controller;
   }
 
-  selectLocation() async {
+  chooseRide() async {
     await openPanel();
-    updateThumbPosition();
+    // updateThumbPosition();
   }
 
-  openPanel() {
-    panelController.open();
+  openPanel() async {
+    await panelController.open();
     onPanelOpened();
   }
 
@@ -138,7 +131,16 @@ class HomePromoScreenController extends GetxController {
   }
 
   tapOnGoogleMap(LatLng argument) {
-    // if (headerSearchSectionIsVisible.value = true) hideSearchField();
+    if (panelController.isPanelClosed) {
+      if (headerSearchSectionIsVisible.value) {
+        headerSearchSectionIsVisible.value = false;
+        if (pickupFieldIsActive.value || destinationFieldIsActive.value) {
+          pickupFieldIsActive.value = false;
+          destinationFieldIsActive.value = false;
+        }
+      }
+    }
+
     FocusManager.instance.primaryFocus?.unfocus();
   }
 
@@ -146,6 +148,7 @@ class HomePromoScreenController extends GetxController {
 
   //============= Variables =============\\
   var currentLocation = "No 12, GRA, Okumgbowa street".obs;
+  var destinationAddress = Get.arguments?['tripDestinationAddress'] ?? "".obs;
   var pickupSuggestion = "No 12, GRA, Okumgbowa street".obs;
   var destinationSuggestion = "No 24, GRA, Okumgbowa street".obs;
 
@@ -175,12 +178,20 @@ class HomePromoScreenController extends GetxController {
   var destinationFN = FocusNode();
 
   //============= Functions =============\\
-  showHeaderSearchSection() {
-    if (panelController.isPanelOpen) panelController.close();
-    headerSearchSectionIsVisible.value = true;
-    hideCollapsedSection.value = true;
-    pickupFN.requestFocus();
-    pickupEC = TextEditingController(text: currentLocation.value);
+  showHeaderSearchSection() async {
+    if (pickupEC.text.isNotEmpty && destinationEC.text.isNotEmpty) {
+      headerSearchSectionIsVisible.value = true;
+      FocusManager.instance.primaryFocus?.unfocus();
+      await panelController.open();
+      destinationFN.requestFocus();
+    } else {
+      if (panelController.isPanelOpen) await panelController.close();
+      headerSearchSectionIsVisible.value = true;
+      // hideCollapsedSection.value = true;
+      destinationFN.requestFocus();
+      pickupEC = TextEditingController(text: currentLocation.value);
+      destinationEC = TextEditingController(text: destinationAddress.value);
+    }
   }
 
   hideSearchField() {
@@ -190,12 +201,12 @@ class HomePromoScreenController extends GetxController {
     }
   }
 
-  pickupFieldOnChanged(String value) {
+  pickupFieldOnChanged(String value) async {
     if (value.isEmpty) {
       pickupFieldIsActive.value = false;
       hideSearchField();
     } else {
-      if (panelController.isPanelOpen) panelController.close();
+      if (panelController.isPanelOpen) await panelController.close();
       pickupFieldIsActive.value = true;
       stop1FieldIsActive.value = false;
       stop2FieldIsActive.value = false;
@@ -204,11 +215,11 @@ class HomePromoScreenController extends GetxController {
     }
   }
 
-  stop1FieldOnChanged(String value) {
+  stop1FieldOnChanged(String value) async {
     if (value.isEmpty) {
       stop1FieldIsActive.value = false;
     } else {
-      if (panelController.isPanelOpen) panelController.close();
+      if (panelController.isPanelOpen) await panelController.close();
       stop1FieldIsActive.value = true;
       stop2FieldIsActive.value = false;
       destinationFieldIsActive.value = false;
@@ -217,11 +228,11 @@ class HomePromoScreenController extends GetxController {
     }
   }
 
-  stop2FieldOnChanged(String value) {
+  stop2FieldOnChanged(String value) async {
     if (value.isEmpty) {
       stop2FieldIsActive.value = false;
     } else {
-      if (panelController.isPanelOpen) panelController.close();
+      if (panelController.isPanelOpen) await panelController.close();
       stop2FieldIsActive.value = true;
       destinationFieldIsActive.value = false;
       pickupFieldIsActive.value = false;
@@ -230,12 +241,12 @@ class HomePromoScreenController extends GetxController {
     }
   }
 
-  destinationFieldOnChanged(String value) {
+  destinationFieldOnChanged(String value) async {
     if (value.isEmpty) {
       destinationFieldIsActive.value = false;
       hideSearchField();
     } else {
-      if (panelController.isPanelOpen) panelController.close();
+      if (panelController.isPanelOpen) await panelController.close();
       destinationFieldIsActive.value = true;
       pickupFieldIsActive.value = false;
       stop1FieldIsActive.value = false;
@@ -244,24 +255,31 @@ class HomePromoScreenController extends GetxController {
     }
   }
 
-  selectPickupSuggestion() {
-    if (panelController.isPanelOpen) panelController.close();
+  selectPickupSuggestion() async {
     pickupEC.text = pickupSuggestion.value;
     pickupFieldIsActive.value = false;
     stop1FieldIsActive.value = false;
     stop2FieldIsActive.value = false;
     destinationFieldIsActive.value = false;
     hideCollapsedSection.value = false;
+    if (destinationEC.text.isNotEmpty) {
+      FocusManager.instance.primaryFocus?.unfocus();
+      if (panelController.isPanelClosed) await panelController.open();
+    }
   }
 
-  selectDestinationSuggestion() {
-    if (panelController.isPanelOpen) panelController.close();
+  selectDestinationSuggestion() async {
+    if (panelController.isPanelClosed) await panelController.open();
     destinationEC.text = destinationSuggestion.value;
     pickupFieldIsActive.value = false;
     stop1FieldIsActive.value = false;
     stop2FieldIsActive.value = false;
     destinationFieldIsActive.value = false;
     hideCollapsedSection.value = false;
+    if (pickupEC.text.isNotEmpty) {
+      FocusManager.instance.primaryFocus?.unfocus();
+      if (panelController.isPanelClosed) await panelController.open();
+    }
   }
 
   showPanelBanner() {
@@ -310,5 +328,167 @@ class HomePromoScreenController extends GetxController {
       // Display in meters
       displayDistance.value = '${currentDistance.value.toStringAsFixed(0)} m';
     }
+  }
+
+  //==================================== Select Cab Type =========================================\\
+
+  //============= Booleans =============\\
+  var bookTripButtonIsEnabled = false.obs;
+
+  //============= Variables =============\\
+  var cabs = [
+    {
+      "name": "Basic",
+      "icon": Assets.basicCabIconPng,
+    },
+    {
+      "name": "Premium",
+      "icon": Assets.premiumCabIconPng,
+    },
+  ];
+
+  var selectedCabIndex = (-1).obs;
+
+  var cabIsSelected = [
+    false,
+    false,
+  ].obs;
+
+  //============= Functions =============\\
+  void selectCab(int index) {
+    // Toggle selection: if the same cab is tapped, deselect it
+    if (selectedCabIndex.value == index) {
+      selectedCabIndex.value = -1;
+      bookTripButtonIsEnabled.value = false;
+      prefs.remove("selectedCabIndex");
+    } else {
+      selectedCabIndex.value = index;
+      bookTripButtonIsEnabled.value = true;
+      prefs.setInt("selectedCabIndex", index);
+    }
+  }
+
+  selectPaymentMethod() async {
+    var size = Get.context!.size;
+    var colorScheme = Theme.of(Get.context!).colorScheme;
+    await panelController.close();
+
+    await showModalBottomSheet(
+      isScrollControlled: true,
+      showDragHandle: false,
+      enableDrag: true,
+      context: Get.context!,
+      useSafeArea: true,
+      isDismissible: true,
+      barrierColor: kTransparentColor,
+      backgroundColor: kTransparentColor,
+      constraints:
+          BoxConstraints(maxHeight: size!.height / 1.4, minWidth: size.width),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(12),
+          topRight: Radius.circular(12),
+        ),
+      ),
+      builder: (context) {
+        return selectPaymentMethodModal(
+          BookTripScreenController.instance,
+          size,
+          colorScheme,
+        );
+      },
+    );
+  }
+
+  //==================================== Book Trip =========================================\\
+
+  //============= Booleans =============\\
+  var searchingForDriver = false.obs;
+  var cabDriverFound = false.obs;
+  var driverIsArriving = false.obs;
+
+  //============= Variables =============\\
+  Timer? bookRideTimer;
+  var progress = .0.obs;
+
+  //============= Functions =============\\
+
+  // Method to update the progress
+  void updateDriverSearchProgress(double value) {
+    if (value >= 0.0 && value <= 1.0) {
+      progress.value = value;
+      log("Progress: ${progress.value}");
+    }
+  }
+
+  // Start the progress simulation with a Timer
+  void simulateDriverSearchProgress() {
+    progress.value = 0.0;
+    cabDriverFound.value = false;
+
+    bookRideTimer = Timer.periodic(const Duration(seconds: 1), (timer) async {
+      if (progress.value < 0.9) {
+        updateDriverSearchProgress(progress.value + 0.1);
+        searchingForDriver.value = true;
+      } else {
+        // Directly set progress to 1.0 on the last step
+        updateDriverSearchProgress(1.0);
+        cabDriverFound.value = true;
+        searchingForDriver.value = false;
+        log("Driver found: ${cabDriverFound.value}");
+        cancelProgress();
+        await Future.delayed(const Duration(seconds: 2));
+        Get.close(0);
+
+        await Get.offAll(
+          () => const AndroidTripScreen(),
+          routeName: "/home-trip",
+          fullscreenDialog: true,
+          curve: Curves.easeInOut,
+          predicate: (routes) => false,
+          popGesture: false,
+          transition: Get.defaultTransition,
+        );
+      }
+    });
+  }
+
+  // Cancel the progress simulation
+  void cancelProgress() {
+    bookRideTimer?.cancel();
+  }
+
+  Future<void> showSearchingForDriverModal() async {
+    var size = Get.context!.size;
+    var colorScheme = Theme.of(Get.context!).colorScheme;
+    await panelController.close();
+
+    simulateDriverSearchProgress();
+
+    await showModalBottomSheet(
+      isScrollControlled: true,
+      showDragHandle: false,
+      enableDrag: false,
+      context: Get.context!,
+      useSafeArea: true,
+      isDismissible: false,
+      barrierColor: kTransparentColor,
+      backgroundColor: kTransparentColor,
+      constraints:
+          BoxConstraints(maxHeight: size!.height / 3.6, minWidth: size.width),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(12),
+          topRight: Radius.circular(12),
+        ),
+      ),
+      builder: (context) {
+        return searchingForDriverModal(
+          BookTripScreenController.instance,
+          size,
+          colorScheme,
+        );
+      },
+    );
   }
 }

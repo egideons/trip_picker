@@ -3,12 +3,12 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:trip_picker/constants/assets.dart';
 import 'package:trip_picker/constants/consts.dart';
-import 'package:trip_picker/controllers/app/home_book_trip_screen_controller.dart';
+import 'package:trip_picker/controllers/app/book_trip_screen_controller.dart';
 import 'package:trip_picker/theme/colors.dart';
 import 'package:trip_picker/utils/buttons/android/android_elevated_button.dart';
 
-bookTripDestinationMapSuggestions(
-  HomeBookTripScreenController controller,
+bookTripPanelSection(
+  BookTripScreenController controller,
   ColorScheme colorScheme,
   Size size,
 ) {
@@ -85,7 +85,7 @@ bookTripDestinationMapSuggestions(
 }
 
 tripDetailsSection(
-  HomeBookTripScreenController controller,
+  BookTripScreenController controller,
   ColorScheme colorScheme,
 ) {
   return Row(
@@ -207,7 +207,7 @@ tripDetailsSection(
 }
 
 cabsSection(
-  HomeBookTripScreenController controller,
+  BookTripScreenController controller,
   ColorScheme colorScheme,
 ) {
   return Row(
@@ -258,7 +258,7 @@ cabsSection(
 
 panelBannerSection(
   ColorScheme colorScheme,
-  HomeBookTripScreenController controller,
+  BookTripScreenController controller,
 ) {
   return AnimatedContainer(
     duration: Duration(seconds: 1),

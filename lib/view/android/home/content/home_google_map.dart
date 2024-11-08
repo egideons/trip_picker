@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:trip_picker/controllers/app/home_promo_screen_controller.dart';
+import 'package:trip_picker/controllers/app/home_screen_controller.dart';
 
-promoTripGoogleMap(HomePromoScreenController controller) {
+homeGoogleMap(
+  HomeScreenController controller,
+  Size size,
+) {
   return GoogleMap(
     onTap: controller.tapOnGoogleMap,
     mapType: MapType.normal,
@@ -21,8 +24,8 @@ promoTripGoogleMap(HomePromoScreenController controller) {
     scrollGesturesEnabled: true,
     onMapCreated: controller.onMapCreated,
     padding: controller.panelIsOpen.value
-        ? const EdgeInsets.only(bottom: 200)
-        : const EdgeInsets.only(left: 10, bottom: 120),
+        ? EdgeInsets.only(left: 10, bottom: size.height * .4)
+        : EdgeInsets.only(left: 10, bottom: size.height * .14),
     initialCameraPosition: const CameraPosition(
       target: LatLng(37.42796133580664, -122.085749655962),
       zoom: 14,

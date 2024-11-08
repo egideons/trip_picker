@@ -3,22 +3,22 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:trip_picker/constants/assets.dart';
-import 'package:trip_picker/controllers/app/home_promo_screen_controller.dart';
+import 'package:trip_picker/controllers/app/home_screen_controller.dart';
 import 'package:trip_picker/theme/colors.dart';
-import 'package:trip_picker/view/android/promo_trip/content/collapsed_section.dart';
-import 'package:trip_picker/view/android/promo_trip/content/destination_map_suggestions.dart';
-import 'package:trip_picker/view/android/promo_trip/content/home_promo_google_map.dart';
-import 'package:trip_picker/view/android/promo_trip/content/home_promo_header.dart';
-import 'package:trip_picker/view/android/promo_trip/content/panel_section.dart';
-import 'package:trip_picker/view/android/promo_trip/content/pickup_map_suggestions.dart';
+import 'package:trip_picker/view/android/home/content/collapsed_section.dart';
+import 'package:trip_picker/view/android/home/content/destination_map_suggestions.dart';
+import 'package:trip_picker/view/android/home/content/home_google_map.dart';
+import 'package:trip_picker/view/android/home/content/home_header.dart';
+import 'package:trip_picker/view/android/home/content/panel_section.dart';
+import 'package:trip_picker/view/android/home/content/pickup_map_suggestions.dart';
 
-class AndroidPromoTripScreen extends GetView<HomePromoScreenController> {
-  const AndroidPromoTripScreen({super.key});
+class AndroidHomeScreen extends GetView<HomeScreenController> {
+  const AndroidHomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     //Initialize the controller
-    Get.put(HomePromoScreenController());
+    Get.put(HomeScreenController());
 
     var colorScheme = Theme.of(context).colorScheme;
     var size = MediaQuery.sizeOf(context);
@@ -27,8 +27,8 @@ class AndroidPromoTripScreen extends GetView<HomePromoScreenController> {
       onTap: (() => FocusManager.instance.primaryFocus?.unfocus()),
       child: Scaffold(
         backgroundColor: colorScheme.surface,
-        body: GetBuilder<HomePromoScreenController>(
-          init: HomePromoScreenController(),
+        body: GetBuilder<HomeScreenController>(
+          init: HomeScreenController(),
           builder: (controller) {
             return Obx(
               () {
@@ -62,18 +62,18 @@ class AndroidPromoTripScreen extends GetView<HomePromoScreenController> {
                                 //         ),
                                 //       )
                                 //     :
-                                promoTripGoogleMap(controller),
-                            panel: promoTripPanelSection(
+                                homeGoogleMap(controller, size),
+                            panel: homePanelSection(
                               controller,
                               colorScheme,
                               size,
                             ),
                             collapsed: controller.hideCollapsedSection.value
                                 ? SizedBox()
-                                : promoTripCollapsedSection(controller),
+                                : homeCollapsedSection(controller),
                           ),
                     Positioned(
-                      child: promoTripHeader(
+                      child: homeHeader(
                         controller,
                         colorScheme,
                         size,
@@ -85,13 +85,13 @@ class AndroidPromoTripScreen extends GetView<HomePromoScreenController> {
                       right: 12,
                       child: () {
                         if (controller.pickupFieldIsActive.isTrue) {
-                          return promoTripPickupMapSuggestions(
+                          return homePickupMapSuggestions(
                             controller,
                             colorScheme,
                             size,
                           );
                         } else if (controller.destinationFieldIsActive.isTrue) {
-                          return promoTripDestinationMapSuggestions(
+                          return homeDestinationMapSuggestions(
                             controller,
                             colorScheme,
                             size,
@@ -105,23 +105,9 @@ class AndroidPromoTripScreen extends GetView<HomePromoScreenController> {
                             controller.hideCollapsedSection.value
                         ? SizedBox()
                         : Positioned(
-                            bottom: 140,
+                            bottom: size.height * .14,
                             right: 20,
-                            child: IconButton(
-                              onPressed: () {},
-                              style: IconButton.styleFrom(
-                                padding: const EdgeInsets.all(0),
-                                backgroundColor: colorScheme.surface,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                              icon: Image.asset(
-                                Assets.myLocationIconPng,
-                                height: 40,
-                                width: 40,
-                              ),
-                            ),
+                            child: locateUserButton(colorScheme),
                           ).animate().fade(
                               duration: Duration(milliseconds: 800),
                               curve: Curves.easeInOut,
@@ -132,6 +118,25 @@ class AndroidPromoTripScreen extends GetView<HomePromoScreenController> {
             );
           },
         ),
+      ),
+    );
+  }
+
+  locateUserButton(ColorScheme colorScheme) {
+    return IconButton(
+      onPressed: () {},
+      tooltip: "Go to my location",
+      style: IconButton.styleFrom(
+        padding: const EdgeInsets.all(0),
+        backgroundColor: colorScheme.surface,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+      icon: Image.asset(
+        Assets.myLocationIconPng,
+        height: 40,
+        width: 40,
       ),
     );
   }

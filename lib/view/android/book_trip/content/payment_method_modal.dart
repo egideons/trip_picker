@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:trip_picker/constants/assets.dart';
 import 'package:trip_picker/constants/consts.dart';
-import 'package:trip_picker/controllers/app/home_book_trip_screen_controller.dart';
+import 'package:trip_picker/controllers/app/book_trip_screen_controller.dart';
 import 'package:trip_picker/theme/colors.dart';
 
 selectPaymentMethodModal(
-  HomeBookTripScreenController controller,
+  BookTripScreenController controller,
   Size size,
   ColorScheme colorScheme,
 ) {
@@ -87,31 +87,31 @@ selectPaymentMethodModal(
             indent: 16,
             endIndent: 28,
           ),
-          ListTile(
-            onTap: () {},
-            leading: SvgPicture.asset(Assets.walletIconSvg),
-            enableFeedback: true,
-            dense: true,
-            minTileHeight: 40,
-            title: Text(
-              "Wallet",
-              textAlign: TextAlign.start,
-              maxLines: 2,
-              style: defaultTextStyle(
-                color: kTextGreyColor,
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            trailing: Icon(Icons.chevron_right, color: kGreyColor),
-          ),
-          Divider(
-            thickness: .5,
-            color: kGreyColor,
-            height: 0,
-            indent: 16,
-            endIndent: 28,
-          ),
+          // ListTile(
+          //   onTap: () {},
+          //   leading: SvgPicture.asset(Assets.walletIconSvg),
+          //   enableFeedback: true,
+          //   dense: true,
+          //   minTileHeight: 40,
+          //   title: Text(
+          //     "Wallet",
+          //     textAlign: TextAlign.start,
+          //     maxLines: 2,
+          //     style: defaultTextStyle(
+          //       color: kTextGreyColor,
+          //       fontSize: 12,
+          //       fontWeight: FontWeight.w500,
+          //     ),
+          //   ),
+          //   trailing: Icon(Icons.chevron_right, color: kGreyColor),
+          // ),
+          // Divider(
+          //   thickness: .5,
+          //   color: kGreyColor,
+          //   height: 0,
+          //   indent: 16,
+          //   endIndent: 28,
+          // ),
         ],
       ),
     ),
