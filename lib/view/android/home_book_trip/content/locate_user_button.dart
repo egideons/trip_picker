@@ -4,7 +4,7 @@ import 'package:trip_picker/constants/assets.dart';
 
 locateUserButton(ColorScheme colorScheme) {
   return Positioned(
-    bottom: 240,
+    bottom: 120,
     right: 10,
     child: IconButton(
       onPressed: () {},
@@ -15,6 +15,7 @@ locateUserButton(ColorScheme colorScheme) {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
+        shadowColor: Color(0xc0000000),
       ),
       icon: Image.asset(
         Assets.myLocationIconPng,

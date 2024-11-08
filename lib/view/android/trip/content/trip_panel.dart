@@ -13,19 +13,21 @@ tripPanel(
 ) {
   return SlidingUpPanel(
     controller: controller.panelController,
-    maxHeight: size.height * .76,
+    maxHeight: size.height * .8,
     minHeight: size.height * .32,
     backdropEnabled: true,
     backdropTapClosesPanel: true,
     panelSnapping: true,
-    isDraggable: true,
+    isDraggable: controller.panelEnabled.value,
     parallaxEnabled: true,
+    color: Colors.transparent,
     renderPanelSheet: controller.panelIsOpen.value ? true : false,
     onPanelSlide: controller.onPanelSlide,
     onPanelOpened: controller.onPanelOpened,
     onPanelClosed: controller.onPanelClosed,
     backdropColor: kTransparentColor,
     backdropOpacity: .2,
+    boxShadow: [BoxShadow(color: kTransparentColor)],
     borderRadius: const BorderRadius.all(Radius.circular(32)),
     body:
         // controller.userPosition == null

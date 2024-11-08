@@ -92,12 +92,12 @@ tripDetailsSection(
     children: [
       Expanded(
         child: IconButton(
-          onPressed: () {},
+          onPressed: controller.selectPaymentMethod,
           icon: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               SvgPicture.asset(
-                Assets.moneyPaymentIconSvg,
+                Assets.cashIconSvg,
               ),
               Icon(
                 Icons.chevron_right,

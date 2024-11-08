@@ -71,10 +71,10 @@ class LoginSignupController extends GetxController {
       log("This is the login data: $loginCountryDialCode${loginPhoneNumberEC.text}");
 
       // Get.toNamed(Routes.verifyPhoneOtp, preventDuplicates: true);
-      var userPhoneNumber = prefs.setString(
-        "userPhoneNumber",
-        loginCountryDialCode + loginPhoneNumberEC.text,
-      );
+      // var userPhoneNumber = prefs.setString(
+      //   "userPhoneNumber",
+      //   loginCountryDialCode + loginPhoneNumberEC.text,
+      // );
 
       await Future.delayed(const Duration(seconds: 2));
 
@@ -83,7 +83,7 @@ class LoginSignupController extends GetxController {
       await Get.offAll(
         () => const AndroidVerifyPhoneOtpScreen(),
         routeName: "/verify-phone-otp",
-        arguments: {"phone": userPhoneNumber},
+        arguments: {"phone": loginCountryDialCode + loginPhoneNumberEC.text},
         fullscreenDialog: true,
         curve: Curves.easeInOut,
         predicate: (routes) => false,
@@ -174,10 +174,10 @@ class LoginSignupController extends GetxController {
       }
       isLoadingSignup.value = true;
 
-      var userEmail = prefs.setString(
-        "userEmail",
-        signupEmailEC.text,
-      );
+      // var userEmail = prefs.setString(
+      //   "userEmail",
+      //   signupEmailEC.text,
+      // );
 
       await Future.delayed(const Duration(seconds: 2));
       prefs.setBool("isLoggedIn", true);
@@ -185,7 +185,7 @@ class LoginSignupController extends GetxController {
       await Get.offAll(
         () => const AndroidVerifyEmailOtpScreen(),
         routeName: "/verify-email-otp",
-        arguments: {"email": userEmail},
+        arguments: {"email": signupEmailEC.text},
         fullscreenDialog: true,
         curve: Curves.easeInOut,
         predicate: (routes) => false,

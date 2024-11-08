@@ -21,7 +21,7 @@ tripGoogleMap(TripScreenController controller, Size size) {
     scrollGesturesEnabled: true,
     onMapCreated: controller.onMapCreated,
     padding: controller.panelIsOpen.value
-        ? EdgeInsets.only(left: 10, bottom: size.height * .72)
+        ? EdgeInsets.only(left: 10, bottom: size.height * .7)
         : const EdgeInsets.only(left: 10, bottom: 200),
     initialCameraPosition: const CameraPosition(
       target: LatLng(37.42796133580664, -122.085749655962),

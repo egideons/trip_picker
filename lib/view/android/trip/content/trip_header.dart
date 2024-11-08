@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:trip_picker/constants/consts.dart';
+import 'package:trip_picker/controllers/app/trip_screen_controller.dart';
 import 'package:trip_picker/theme/colors.dart';
 
-tripHeader(Size size, ColorScheme colorScheme) {
+tripHeader(
+    TripScreenController controller, Size size, ColorScheme colorScheme) {
   return AnimatedContainer(
     width: size.width,
     duration: Duration(milliseconds: 800),
@@ -23,7 +26,7 @@ tripHeader(Size size, ColorScheme colorScheme) {
       ],
     ),
     child: Text(
-      "Arriving in 4 mins",
+      controller.tripHeaderMsg.value,
       overflow: TextOverflow.ellipsis,
       textAlign: TextAlign.center,
       style: defaultTextStyle(
@@ -31,6 +34,9 @@ tripHeader(Size size, ColorScheme colorScheme) {
         fontWeight: FontWeight.w400,
         color: kDefaultTextColor,
       ),
-    ),
+    ).animate().fadeIn(
+          curve: Curves.easeIn,
+          duration: Duration(milliseconds: 800),
+        ),
   );
 }

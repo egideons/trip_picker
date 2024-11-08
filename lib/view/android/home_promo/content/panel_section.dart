@@ -185,7 +185,7 @@ panelSection(
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 SvgPicture.asset(
-                                  Assets.moneyPaymentIconSvg,
+                                  Assets.cashIconSvg,
                                 ),
                                 Icon(
                                   Icons.chevron_right,

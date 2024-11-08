@@ -8,6 +8,10 @@ class Assets {
   static const getStartedPng = "assets/images/png/get_started.png";
   static const doubleGreenTickPng = "assets/images/png/double_green_tick.png";
   static const userAvatarPng = "assets/images/png/user_avatar.png";
+  static const man1Png = "assets/images/png/man_1.png";
+  static const man2Png = "assets/images/png/man_2.png";
+  static const man3Png = "assets/images/png/man_3.png";
+  static const man4Png = "assets/images/png/man_4.png";
 
 //SVG
   static const onboard1Svg = "assets/images/svg/onboard_1.svg";
@@ -28,6 +32,7 @@ class Assets {
   static const basicCabIconPng = "assets/icons/png/basic_cab_icon.png";
   static const premiumCabIconPng = "assets/icons/png/premium_cab_icon.png";
   static const logisticsIconPng = "assets/icons/png/logistics_icon.png";
+  static const tripperIconPng = "assets/icons/png/tripper_icon.png";
 
 //SVG
   static const appIconSvg = "assets/icons/svg/app_icon.svg";
@@ -37,7 +42,10 @@ class Assets {
   static const doubleGreenTickIconSvg =
       "assets/icons/svg/double_green_tick.svg";
   static const myLocationIconSvg = "assets/icons/svg/my_location_icon.svg";
-  static const moneyPaymentIconSvg = "assets/icons/svg/money_payment_icon.svg";
+  static const cashIconSvg = "assets/icons/svg/cash_icon.svg";
+  static const walletIconSvg = "assets/icons/svg/wallet_icon.svg";
+  static const paymentMethodIconSvg =
+      "assets/icons/svg/payment_method_icon.svg";
 
 //=================== Animations ===================\\
 

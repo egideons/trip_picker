@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trip_picker/controllers/auth/verfy_email_otp_controller.dart';
-import 'package:trip_picker/controllers/others/success_screen_controller.dart';
 import 'package:trip_picker/theme/colors.dart';
 import 'package:trip_picker/view/android/auth/verify_email_otp/content/form_section.dart';
 
@@ -14,7 +13,6 @@ class AndroidVerifyEmailOtpScreen extends GetView<VerifyEmailOtpController> {
   Widget build(BuildContext context) {
     //Initialize the controller
     Get.put(VerifyEmailOtpController());
-    Get.put(SuccessScreenController());
 
     var colorScheme = Theme.of(context).colorScheme;
     var size = MediaQuery.sizeOf(context);

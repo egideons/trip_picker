@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 Color kLightBackgroundColor = const Color(0xFFFFFFFF);
-Color kDarkBackgroundColor = const Color(0xFFFFFFFF);
+Color kDarkBackgroundColor = const Color(0xFF000000);
 Color kPrimaryColor = const Color(0xFF5800FF);
 Color kAccentColor = const Color(0xFFA87BFF);
 Color kTextAccentColor = const Color(0xFFFF6633);
+Color kTextRedColor = const Color(0xFFE91B1B);
 Color kButtonAccentColor = const Color(0xFFFF453A);
 Color kSecondaryColor = const Color(0xFF1F1136);
 
@@ -12,6 +13,7 @@ Color kStarColor = Colors.amber;
 Color kSuccessColor = const Color(0xFF33B406);
 Color kDefaultTextColor = const Color(0xFF7E7E7E);
 Color kTextBlackColor = const Color(0xFF000000);
+Color kTextGoldColor = const Color(0xFFD4AF37);
 Color kFormFieldTextColor = const Color(0xFF2D2D2D);
 Color kFormFieldLabelTextColor = kFormFieldTextColor.withOpacity(.5);
 Color kGreyColor = const Color(0xFF7E869E);

@@ -9,6 +9,7 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:trip_picker/constants/assets.dart';
 import 'package:trip_picker/main.dart';
 import 'package:trip_picker/theme/colors.dart';
+import 'package:trip_picker/view/android/home_book_trip/content/payment_method_modal.dart';
 import 'package:trip_picker/view/android/home_book_trip/content/searching_for_driver_modal.dart';
 import 'package:trip_picker/view/android/trip/android_trip_screen.dart';
 
@@ -131,8 +132,8 @@ class HomeBookTripScreenController extends GetxController {
     updateThumbPosition();
   }
 
-  openPanel() {
-    panelController.open();
+  openPanel() async {
+    await panelController.open();
     onPanelOpened();
   }
 
@@ -154,6 +155,10 @@ class HomeBookTripScreenController extends GetxController {
     if (panelController.isPanelClosed) {
       if (headerSearchSectionIsVisible.value) {
         headerSearchSectionIsVisible.value = false;
+        if (pickupFieldIsActive.value || destinationFieldIsActive.value) {
+          pickupFieldIsActive.value = false;
+          destinationFieldIsActive.value = false;
+        }
       }
     }
 
@@ -193,13 +198,14 @@ class HomeBookTripScreenController extends GetxController {
   var destinationFN = FocusNode();
 
   //============= Functions =============\\
-  showHeaderSearchSection() {
+  showHeaderSearchSection() async {
     if (pickupEC.text.isNotEmpty && destinationEC.text.isNotEmpty) {
       headerSearchSectionIsVisible.value = true;
       FocusManager.instance.primaryFocus?.unfocus();
-      panelController.open();
+      await panelController.open();
+      destinationFN.requestFocus();
     } else {
-      if (panelController.isPanelOpen) panelController.close();
+      if (panelController.isPanelOpen) await panelController.close();
       headerSearchSectionIsVisible.value = true;
       // hideCollapsedSection.value = true;
       destinationFN.requestFocus();
@@ -214,12 +220,12 @@ class HomeBookTripScreenController extends GetxController {
     }
   }
 
-  pickupFieldOnChanged(String value) {
+  pickupFieldOnChanged(String value) async {
     if (value.isEmpty) {
       pickupFieldIsActive.value = false;
       hideSearchField();
     } else {
-      if (panelController.isPanelOpen) panelController.close();
+      if (panelController.isPanelOpen) await panelController.close();
       pickupFieldIsActive.value = true;
       stop1FieldIsActive.value = false;
       stop2FieldIsActive.value = false;
@@ -228,11 +234,11 @@ class HomeBookTripScreenController extends GetxController {
     }
   }
 
-  stop1FieldOnChanged(String value) {
+  stop1FieldOnChanged(String value) async {
     if (value.isEmpty) {
       stop1FieldIsActive.value = false;
     } else {
-      if (panelController.isPanelOpen) panelController.close();
+      if (panelController.isPanelOpen) await panelController.close();
       stop1FieldIsActive.value = true;
       stop2FieldIsActive.value = false;
       destinationFieldIsActive.value = false;
@@ -241,11 +247,11 @@ class HomeBookTripScreenController extends GetxController {
     }
   }
 
-  stop2FieldOnChanged(String value) {
+  stop2FieldOnChanged(String value) async {
     if (value.isEmpty) {
       stop2FieldIsActive.value = false;
     } else {
-      if (panelController.isPanelOpen) panelController.close();
+      if (panelController.isPanelOpen) await panelController.close();
       stop2FieldIsActive.value = true;
       destinationFieldIsActive.value = false;
       pickupFieldIsActive.value = false;
@@ -254,12 +260,12 @@ class HomeBookTripScreenController extends GetxController {
     }
   }
 
-  destinationFieldOnChanged(String value) {
+  destinationFieldOnChanged(String value) async {
     if (value.isEmpty) {
       destinationFieldIsActive.value = false;
       hideSearchField();
     } else {
-      if (panelController.isPanelOpen) panelController.close();
+      if (panelController.isPanelOpen) await panelController.close();
       destinationFieldIsActive.value = true;
       pickupFieldIsActive.value = false;
       stop1FieldIsActive.value = false;
@@ -268,7 +274,7 @@ class HomeBookTripScreenController extends GetxController {
     }
   }
 
-  selectPickupSuggestion() {
+  selectPickupSuggestion() async {
     pickupEC.text = pickupSuggestion.value;
     pickupFieldIsActive.value = false;
     stop1FieldIsActive.value = false;
@@ -277,12 +283,12 @@ class HomeBookTripScreenController extends GetxController {
     hideCollapsedSection.value = false;
     if (destinationEC.text.isNotEmpty) {
       FocusManager.instance.primaryFocus?.unfocus();
-      if (panelController.isPanelClosed) panelController.open();
+      if (panelController.isPanelClosed) await panelController.open();
     }
   }
 
-  selectDestinationSuggestion() {
-    if (panelController.isPanelClosed) panelController.open();
+  selectDestinationSuggestion() async {
+    if (panelController.isPanelClosed) await panelController.open();
     destinationEC.text = destinationSuggestion.value;
     pickupFieldIsActive.value = false;
     stop1FieldIsActive.value = false;
@@ -291,7 +297,7 @@ class HomeBookTripScreenController extends GetxController {
     hideCollapsedSection.value = false;
     if (pickupEC.text.isNotEmpty) {
       FocusManager.instance.primaryFocus?.unfocus();
-      if (panelController.isPanelClosed) panelController.open();
+      if (panelController.isPanelClosed) await panelController.open();
     }
   }
 
@@ -381,6 +387,38 @@ class HomeBookTripScreenController extends GetxController {
     }
   }
 
+  selectPaymentMethod() async {
+    var size = Get.context!.size;
+    var colorScheme = Theme.of(Get.context!).colorScheme;
+    await panelController.close();
+
+    await showModalBottomSheet(
+      isScrollControlled: true,
+      showDragHandle: false,
+      enableDrag: true,
+      context: Get.context!,
+      useSafeArea: true,
+      isDismissible: true,
+      barrierColor: kTransparentColor,
+      backgroundColor: kTransparentColor,
+      constraints:
+          BoxConstraints(maxHeight: size!.height / 1.4, minWidth: size.width),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(12),
+          topRight: Radius.circular(12),
+        ),
+      ),
+      builder: (context) {
+        return selectPaymentMethodModal(
+          HomeBookTripScreenController.instance,
+          size,
+          colorScheme,
+        );
+      },
+    );
+  }
+
   //==================================== Book Trip =========================================\\
 
   //============= Booleans =============\\
@@ -423,7 +461,7 @@ class HomeBookTripScreenController extends GetxController {
 
         await Get.offAll(
           () => const AndroidTripScreen(),
-          routeName: "/trip",
+          routeName: "/home-trip",
           fullscreenDialog: true,
           curve: Curves.easeInOut,
           predicate: (routes) => false,
@@ -442,7 +480,7 @@ class HomeBookTripScreenController extends GetxController {
   Future<void> showSearchingForDriverModal() async {
     var size = Get.context!.size;
     var colorScheme = Theme.of(Get.context!).colorScheme;
-    panelController.close();
+    await panelController.close();
 
     simulateDriverSearchProgress();
 

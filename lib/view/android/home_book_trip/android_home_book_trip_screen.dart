@@ -6,7 +6,6 @@ import 'package:trip_picker/view/android/home_book_trip/content/destination_map_
 import 'package:trip_picker/view/android/home_book_trip/content/home_book_trip_header.dart';
 import 'package:trip_picker/view/android/home_book_trip/content/locate_user_button.dart';
 import 'package:trip_picker/view/android/home_book_trip/content/pickup_map_suggestions.dart';
-import 'package:trip_picker/view/android/trip/content/trip_header.dart';
 
 class AndroidHomeBookTripScreen extends GetView<HomeBookTripScreenController> {
   const AndroidHomeBookTripScreen({super.key});
@@ -32,21 +31,14 @@ class AndroidHomeBookTripScreen extends GetView<HomeBookTripScreenController> {
                   children: [
                     bookTripPanel(controller, size, colorScheme),
                     Positioned(
-                      top: 44,
-                      left: 10,
-                      right: 10,
-                      child: () {
-                        if (controller.driverIsArriving.value) {
-                          return tripHeader(size, colorScheme);
-                        } else {
-                          return homeBookTripHeader(
-                            controller,
-                            colorScheme,
-                            size,
-                          );
-                        }
-                      }(),
-                    ),
+                        top: 44,
+                        left: 10,
+                        right: 10,
+                        child: homeBookTripHeader(
+                          controller,
+                          colorScheme,
+                          size,
+                        )),
                     Positioned(
                       top: size.height / 4,
                       left: 12,
@@ -71,6 +63,7 @@ class AndroidHomeBookTripScreen extends GetView<HomeBookTripScreenController> {
                     ),
                     controller.panelIsOpen.value ||
                             controller.hideCollapsedSection.value ||
+                            controller.searchingForDriver.value ||
                             controller.driverIsArriving.value ||
                             controller.cabDriverFound.value
                         ? SizedBox()

@@ -9,7 +9,7 @@ tripLocateUserButton(
   Size size,
 ) {
   return Positioned(
-    bottom: controller.panelIsOpen.value ? size.height * .78 : 200,
+    bottom: controller.panelIsOpen.value ? size.height * .74 : 200,
     right: 10,
     child: IconButton(
       onPressed: () {},
@@ -20,6 +20,7 @@ tripLocateUserButton(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
+        shadowColor: Color(0xc0000000),
       ),
       icon: Image.asset(
         Assets.myLocationIconPng,

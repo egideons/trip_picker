@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trip_picker/constants/consts.dart';
 import 'package:trip_picker/controllers/auth/onboarding_controller.dart';
+import 'package:trip_picker/theme/colors.dart';
 import 'package:trip_picker/utils/buttons/android/android_elevated_button.dart';
 import 'package:trip_picker/view/android/onboarding/content/image_section.dart';
 import 'package:trip_picker/view/android/onboarding/content/page_indicator.dart';
@@ -32,7 +33,10 @@ class AndroidOnboardingScreen extends GetView<OnboardingController> {
                         controller.onboardContent.value.items.length
                     ? colorScheme.secondary
                     : colorScheme.surface,
-                appBar: AppBar(toolbarHeight: 0),
+                appBar: controller.isLastPage.value
+                    ? AppBar(
+                        toolbarHeight: 0, backgroundColor: kTransparentColor)
+                    : AppBar(toolbarHeight: 0),
                 body: SafeArea(
                   child: Stack(
                     children: [

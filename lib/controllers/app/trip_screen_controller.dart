@@ -1,35 +1,57 @@
 import 'dart:async';
+import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:trip_picker/constants/assets.dart';
+import 'package:trip_picker/view/android/home_book_trip/android_home_book_trip_screen.dart';
 
 class TripScreenController extends GetxController {
   static TripScreenController get instance {
     return Get.find<TripScreenController>();
   }
 
-  // @override
-  // void onInit() {
-  //   super.onInit();
-  // }
+  @override
+  void onInit() {
+    simulateRideProgress();
+    super.onInit();
+  }
 
   @override
   void onClose() {
-    tripTimer?.cancel();
+    miningTimer?.cancel();
+    milesMinedTimer?.cancel();
     super.onClose();
   }
 
   //============= Variables =============\\
-  Timer? tripTimer;
-
+  Timer? miningTimer;
+  Timer? milesMinedTimer;
+  var miningCredits = 0.000000.obs;
+  var milesMined = 0.00.obs;
+  var pickupLocation = "No 12, GRA, Okumgbowa street".obs;
+  var destination = "No 12, GRA, Okumgbowa street".obs;
+  var stop1 = "No 12, GRA, Okumgbowa street".obs;
+  var stop2 = "No 12, GRA, Okumgbowa street".obs;
+  var tripHeaderMsg = "".obs;
+  var tripPanelMsg = "".obs;
+  var ridersImages = [
+    Assets.man1Png,
+    Assets.man2Png,
+    Assets.man3Png,
+    Assets.man4Png,
+  ].obs;
   //============= Booleans =============\\
   var isLoading = false.obs;
-  var panelIsVisible = false.obs;
+  var panelEnabled = true.obs;
   var panelIsOpen = false.obs;
-  var headerSearchSectionIsVisible = false.obs;
-  var cabDriverFound = false.obs;
   var driverIsArriving = false.obs;
+  var driverHasArrived = false.obs;
+  var tripHasStarted = false.obs;
+  var closeToDestination = false.obs;
+  var tripEnded = false.obs;
 
   //============= Controllers =============\\
   var panelController = PanelController();
@@ -123,12 +145,103 @@ class TripScreenController extends GetxController {
 
   tapOnGoogleMap(LatLng argument) {
     panelController.close();
+  }
 
-    // if (panelController.isPanelClosed) {
-    //   if (headerSearchSectionIsVisible.value) {
-    //     headerSearchSectionIsVisible.value = false;
-    //   }
-    // } else {
+  // Method to update the mining progress
+  void updateMiningProgress(double value) {
+    // if (value >= 0.00000 && value <= 1.0) {
+    miningCredits.value = value;
+    log("Mining credits Progress: ${miningCredits.value}");
     // }
+  }
+
+  // Method to update the mining progress
+  void updateMilesMinedProgress(double value) {
+    // if (value >= 0.00000 && value <= 1.0) {
+    milesMined.value = value;
+    log("Miles mined Progress: ${milesMined.value}");
+    // }
+  }
+
+  // Cancel the mining progress simulation
+  void cancelMiningProgress() {
+    miningTimer?.cancel();
+  }
+
+  // Cancel the miles mined progress simulation
+  void cancelMilesMinedProgress() {
+    milesMinedTimer?.cancel();
+  }
+
+  void simulateMiningProgress() async {
+    miningCredits.value = 0.000000;
+    miningTimer = Timer.periodic(
+      Duration(seconds: 1),
+      (timer) async {
+        if (tripHasStarted.value == true) {
+          updateMiningProgress(miningCredits.value + 0.000001);
+        }
+      },
+    );
+  }
+
+  void simulateMilesMinedProgress() async {
+    milesMined.value = 0.00;
+    miningTimer = Timer.periodic(
+      Duration(seconds: 10),
+      (timer) async {
+        if (tripHasStarted.value == true) {
+          updateMilesMinedProgress(milesMined.value + 0.01);
+        }
+      },
+    );
+  }
+
+  Future<void> simulateRideProgress() async {
+    driverIsArriving.value = true;
+    tripHeaderMsg.value = "Arriving in 4 mins";
+    tripPanelMsg.value = "Driver is on his way";
+
+    await Future.delayed(const Duration(seconds: 10));
+    driverHasArrived.value = true;
+    driverIsArriving.value = false;
+    tripPanelMsg.value = "";
+    tripHeaderMsg.value = "Driver has arrived";
+    // Close the panel
+    await panelController.close();
+
+    // Disable the panel sliding
+    panelEnabled.value = false;
+
+    await Future.delayed(const Duration(seconds: 10));
+    tripHasStarted.value = true;
+    simulateMiningProgress();
+    simulateMilesMinedProgress();
+    driverHasArrived.value = false;
+    tripHeaderMsg.value = "Trip started, estimated time: 30 mins";
+
+    await Future.delayed(const Duration(seconds: 30));
+    closeToDestination.value = true;
+    tripHeaderMsg.value = "Your are close to your destination";
+
+    await Future.delayed(const Duration(seconds: 30));
+    tripEnded.value = true;
+    tripHasStarted.value = false;
+    cancelMiningProgress();
+    cancelMilesMinedProgress();
+    closeToDestination.value = false;
+    tripPanelMsg.value = "Trip Ended";
+    tripHeaderMsg.value = "You have arrived at your destination";
+
+    await Future.delayed(const Duration(seconds: 2));
+    await Get.offAll(
+      () => const AndroidHomeBookTripScreen(),
+      routeName: "/book-trip",
+      fullscreenDialog: true,
+      curve: Curves.easeInOut,
+      predicate: (routes) => false,
+      popGesture: false,
+      transition: Get.defaultTransition,
+    );
   }
 }

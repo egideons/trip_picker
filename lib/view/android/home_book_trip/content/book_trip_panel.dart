@@ -24,6 +24,7 @@ bookTripPanel(
     onPanelOpened: controller.onPanelOpened,
     onPanelClosed: controller.onPanelClosed,
     backdropColor: kTransparentColor,
+    boxShadow: [BoxShadow(color: kTransparentColor)],
     backdropOpacity: .2,
     borderRadius: const BorderRadius.all(Radius.circular(32)),
     body: // controller.userPosition == null

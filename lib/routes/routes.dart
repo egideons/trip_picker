@@ -20,8 +20,8 @@ class Routes {
   static const verifyPhoneOtp = "/verify-phone-otp";
   static const verifyEmailOtp = "/verify-email-otp";
 
-  static const homePromo = "/home-promo";
-  static const homeBookTrip = "/home-book-trip";
+  static const promoTrip = "/promo-trip";
+  static const bookTrip = "/book-trip";
   static const trip = "/trip";
 
   //========================= GET PAGES ==========================\\
@@ -34,8 +34,8 @@ class Routes {
     GetPage(name: verifyEmailOtp, page: () => AndroidVerifyEmailOtpScreen()),
     GetPage(name: successScreen, page: () => AndroidSuccessScreen()),
 
-    GetPage(name: homePromo, page: () => AndroidHomePromoScreen()),
-    GetPage(name: homeBookTrip, page: () => AndroidHomePromoScreen()),
+    GetPage(name: promoTrip, page: () => AndroidHomePromoScreen()),
+    GetPage(name: bookTrip, page: () => AndroidHomePromoScreen()),
     GetPage(name: trip, page: () => AndroidTripScreen()),
   ];
 }

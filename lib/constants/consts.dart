@@ -80,6 +80,11 @@ class FormatToType {
     return numberFormat.format(value);
   }
 
+  static num doubleFormattedMiningCreditsWithDecimal(double value) {
+    final numberFormat = NumberFormat('#,##0.000000');
+    return numberFormat.parse(value.toString());
+  }
+
   static String doubleFormattedTextWithDecimal(double value) {
     final numberFormat = NumberFormat('#,##0.00');
     return numberFormat.format(value);

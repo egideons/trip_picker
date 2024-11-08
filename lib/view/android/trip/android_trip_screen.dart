@@ -4,6 +4,7 @@ import 'package:trip_picker/controllers/app/trip_screen_controller.dart';
 import 'package:trip_picker/view/android/trip/content/trip_header.dart';
 import 'package:trip_picker/view/android/trip/content/trip_locate_user_button.dart';
 import 'package:trip_picker/view/android/trip/content/trip_panel.dart';
+import 'package:trip_picker/view/android/trip/content/tripper_container.dart';
 
 class AndroidTripScreen extends GetView<TripScreenController> {
   const AndroidTripScreen({super.key});
@@ -32,7 +33,7 @@ class AndroidTripScreen extends GetView<TripScreenController> {
                       top: 44,
                       left: 10,
                       right: 10,
-                      child: tripHeader(size, colorScheme),
+                      child: tripHeader(controller, size, colorScheme),
                     ),
                     controller.driverIsArriving.value
                         ? SizedBox()
@@ -41,6 +42,23 @@ class AndroidTripScreen extends GetView<TripScreenController> {
                             controller,
                             size,
                           ),
+                    Positioned(
+                      top: 44,
+                      left: 10,
+                      right: 10,
+                      child: tripHeader(controller, size, colorScheme),
+                    ),
+                    controller.tripHasStarted.value
+                        ? Positioned(
+                            bottom: 200,
+                            left: 10,
+                            child: tripperContainer(
+                              colorScheme,
+                              controller,
+                              size,
+                            ),
+                          )
+                        : SizedBox(),
                   ],
                 );
               },
