@@ -220,9 +220,9 @@ class VerifyPhoneOtpController extends GetxController {
 
     //   if (response.statusCode == 200) {
     await Future.delayed(const Duration(seconds: 1));
-    ApiProcessorController.successSnack(
-      "An OTP has been sent to your phone number",
-    );
+    // ApiProcessorController.successSnack(
+    //   "An OTP has been sent to your phone number",
+    // );
     startTimer();
     //   } else {
     //     log("Request failed with status: ${response.statusCode}");

@@ -220,9 +220,9 @@ class VerifyEmailOtpController extends GetxController {
 
     //   if (response.statusCode == 200) {
     await Future.delayed(const Duration(seconds: 1));
-    ApiProcessorController.successSnack(
-      "An OTP has been sent to your email",
-    );
+    // ApiProcessorController.successSnack(
+    //   "An OTP has been sent to your email",
+    // );
     startTimer();
     //   } else {
     //     log("Request failed with status: ${response.statusCode}");
