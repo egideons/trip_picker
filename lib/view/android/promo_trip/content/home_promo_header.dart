@@ -7,7 +7,7 @@ import 'package:trip_picker/theme/colors.dart';
 import 'package:trip_picker/utils/containers/form_field_container.dart';
 import 'package:trip_picker/utils/text_form_fields/android/android_textformfield.dart';
 
-homePromoHeader(
+promoTripHeader(
   HomePromoScreenController controller,
   ColorScheme colorScheme,
   Size size,

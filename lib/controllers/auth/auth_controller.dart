@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trip_picker/view/android/auth/login_signup/android_login_signup_screen.dart';
-import 'package:trip_picker/view/android/home_book_trip/android_home_book_trip_screen.dart';
+import 'package:trip_picker/view/android/book_trip/android_book_trip_screen.dart';
 import 'package:trip_picker/view/android/onboarding/android_onboarding_screen.dart';
 
 import '../../../main.dart';
@@ -42,7 +42,7 @@ class AuthController extends GetxController
       if (isLoggedIn) {
         // await UserController.instance.getUserProfile();
         await Get.offAll(
-          () => const AndroidHomeBookTripScreen(),
+          () => const AndroidBookTripScreen(),
           routeName: "/home-book-trip",
           fullscreenDialog: true,
           curve: Curves.easeInOut,

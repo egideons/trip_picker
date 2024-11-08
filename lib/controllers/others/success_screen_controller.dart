@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trip_picker/view/android/home_book_trip/android_home_book_trip_screen.dart';
+import 'package:trip_picker/view/android/book_trip/android_book_trip_screen.dart';
 
 class SuccessScreenController extends GetxController {
   static SuccessScreenController get instance {
@@ -10,7 +10,7 @@ class SuccessScreenController extends GetxController {
 //============= Load BottomNavView =============\\
   loadHome() async {
     await Get.offAll(
-      () => const AndroidHomeBookTripScreen(),
+      () => const AndroidBookTripScreen(),
       routeName: "/home-book-trip",
       fullscreenDialog: true,
       curve: Curves.easeInOut,

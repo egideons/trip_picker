@@ -9,8 +9,8 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:trip_picker/constants/assets.dart';
 import 'package:trip_picker/main.dart';
 import 'package:trip_picker/theme/colors.dart';
-import 'package:trip_picker/view/android/home_book_trip/content/payment_method_modal.dart';
-import 'package:trip_picker/view/android/home_book_trip/content/searching_for_driver_modal.dart';
+import 'package:trip_picker/view/android/book_trip/content/payment_method_modal.dart';
+import 'package:trip_picker/view/android/book_trip/content/searching_for_driver_modal.dart';
 import 'package:trip_picker/view/android/trip/android_trip_screen.dart';
 
 class HomeBookTripScreenController extends GetxController {

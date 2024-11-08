@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trip_picker/controllers/app/home_book_trip_screen_controller.dart';
-import 'package:trip_picker/view/android/home_book_trip/content/book_trip_panel.dart';
-import 'package:trip_picker/view/android/home_book_trip/content/destination_map_suggestions.dart';
-import 'package:trip_picker/view/android/home_book_trip/content/home_book_trip_header.dart';
-import 'package:trip_picker/view/android/home_book_trip/content/locate_user_button.dart';
-import 'package:trip_picker/view/android/home_book_trip/content/pickup_map_suggestions.dart';
+import 'package:trip_picker/view/android/book_trip/content/book_trip_header.dart';
+import 'package:trip_picker/view/android/book_trip/content/book_trip_panel.dart';
+import 'package:trip_picker/view/android/book_trip/content/destination_map_suggestions.dart';
+import 'package:trip_picker/view/android/book_trip/content/locate_user_button.dart';
+import 'package:trip_picker/view/android/book_trip/content/pickup_map_suggestions.dart';
 
-class AndroidHomeBookTripScreen extends GetView<HomeBookTripScreenController> {
-  const AndroidHomeBookTripScreen({super.key});
+class AndroidBookTripScreen extends GetView<HomeBookTripScreenController> {
+  const AndroidBookTripScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class AndroidHomeBookTripScreen extends GetView<HomeBookTripScreenController> {
                         top: 44,
                         left: 10,
                         right: 10,
-                        child: homeBookTripHeader(
+                        child: bookTripHeader(
                           controller,
                           colorScheme,
                           size,
@@ -45,13 +45,13 @@ class AndroidHomeBookTripScreen extends GetView<HomeBookTripScreenController> {
                       right: 12,
                       child: () {
                         if (controller.pickupFieldIsActive.isTrue) {
-                          return homeBookTripPickupMapSuggestions(
+                          return bookTripPickupMapSuggestions(
                             controller,
                             colorScheme,
                             size,
                           );
                         } else if (controller.destinationFieldIsActive.isTrue) {
-                          return homeBookTripDestinationMapSuggestions(
+                          return bookTripDestinationMapSuggestions(
                             controller,
                             colorScheme,
                             size,
@@ -67,7 +67,7 @@ class AndroidHomeBookTripScreen extends GetView<HomeBookTripScreenController> {
                             controller.driverIsArriving.value ||
                             controller.cabDriverFound.value
                         ? SizedBox()
-                        : locateUserButton(colorScheme),
+                        : bookTripLocateUserButton(colorScheme),
                   ],
                 );
               },

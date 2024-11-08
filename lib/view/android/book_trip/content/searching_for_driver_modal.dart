@@ -4,7 +4,7 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:trip_picker/constants/consts.dart';
 import 'package:trip_picker/controllers/app/home_book_trip_screen_controller.dart';
 import 'package:trip_picker/theme/colors.dart';
-import 'package:trip_picker/view/android/home_book_trip/content/driver_found_modal.dart';
+import 'package:trip_picker/view/android/book_trip/content/driver_found_modal.dart';
 
 searchingForDriverModal(
   HomeBookTripScreenController controller,

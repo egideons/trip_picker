@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:trip_picker/controllers/app/home_book_trip_screen_controller.dart';
 import 'package:trip_picker/theme/colors.dart';
-import 'package:trip_picker/view/android/home_book_trip/content/home_book_trip_google_map.dart';
-import 'package:trip_picker/view/android/home_book_trip/content/panel_section.dart';
+import 'package:trip_picker/view/android/book_trip/content/book_trip_google_map.dart';
+import 'package:trip_picker/view/android/book_trip/content/panel_section.dart';
 
 bookTripPanel(
   HomeBookTripScreenController controller,
@@ -34,8 +34,8 @@ bookTripPanel(
         //         ),
         //       )
         //     :
-        homeBookTripGoogleMap(controller),
-    panel: homeBookTripPanelSection(controller, colorScheme, size),
+        bookTripGoogleMap(controller),
+    panel: bookTripDestinationMapSuggestions(controller, colorScheme, size),
     // collapsed: homeBookTripCollapsedSection(controller),
   );
 }

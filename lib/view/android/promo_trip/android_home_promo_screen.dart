@@ -5,15 +5,15 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:trip_picker/constants/assets.dart';
 import 'package:trip_picker/controllers/app/home_promo_screen_controller.dart';
 import 'package:trip_picker/theme/colors.dart';
-import 'package:trip_picker/view/android/home_promo/content/collapsed_section.dart';
-import 'package:trip_picker/view/android/home_promo/content/destination_map_suggestions.dart';
-import 'package:trip_picker/view/android/home_promo/content/home_promo_google_map.dart';
-import 'package:trip_picker/view/android/home_promo/content/home_promo_header.dart';
-import 'package:trip_picker/view/android/home_promo/content/panel_section.dart';
-import 'package:trip_picker/view/android/home_promo/content/pickup_map_suggestions.dart';
+import 'package:trip_picker/view/android/promo_trip/content/collapsed_section.dart';
+import 'package:trip_picker/view/android/promo_trip/content/destination_map_suggestions.dart';
+import 'package:trip_picker/view/android/promo_trip/content/home_promo_google_map.dart';
+import 'package:trip_picker/view/android/promo_trip/content/home_promo_header.dart';
+import 'package:trip_picker/view/android/promo_trip/content/panel_section.dart';
+import 'package:trip_picker/view/android/promo_trip/content/pickup_map_suggestions.dart';
 
-class AndroidHomePromoScreen extends GetView<HomePromoScreenController> {
-  const AndroidHomePromoScreen({super.key});
+class AndroidPromoTripScreen extends GetView<HomePromoScreenController> {
+  const AndroidPromoTripScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -62,18 +62,18 @@ class AndroidHomePromoScreen extends GetView<HomePromoScreenController> {
                                 //         ),
                                 //       )
                                 //     :
-                                homePromoGoogleMap(controller),
-                            panel: panelSection(
+                                promoTripGoogleMap(controller),
+                            panel: promoTripPanelSection(
                               controller,
                               colorScheme,
                               size,
                             ),
                             collapsed: controller.hideCollapsedSection.value
                                 ? SizedBox()
-                                : collapsedSection(controller),
+                                : promoTripCollapsedSection(controller),
                           ),
                     Positioned(
-                      child: homePromoHeader(
+                      child: promoTripHeader(
                         controller,
                         colorScheme,
                         size,
@@ -85,13 +85,13 @@ class AndroidHomePromoScreen extends GetView<HomePromoScreenController> {
                       right: 12,
                       child: () {
                         if (controller.pickupFieldIsActive.isTrue) {
-                          return homePromoPickupMapSuggestions(
+                          return promoTripPickupMapSuggestions(
                             controller,
                             colorScheme,
                             size,
                           );
                         } else if (controller.destinationFieldIsActive.isTrue) {
-                          return homePromoDestinationMapSuggestions(
+                          return promoTripDestinationMapSuggestions(
                             controller,
                             colorScheme,
                             size,

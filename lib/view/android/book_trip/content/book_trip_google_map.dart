@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:trip_picker/controllers/app/home_book_trip_screen_controller.dart';
 
-homeBookTripGoogleMap(HomeBookTripScreenController controller) {
+bookTripGoogleMap(HomeBookTripScreenController controller) {
   return GoogleMap(
     onTap: controller.tapOnGoogleMap,
     mapType: MapType.normal,

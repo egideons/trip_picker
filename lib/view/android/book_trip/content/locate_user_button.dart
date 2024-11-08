@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:trip_picker/constants/assets.dart';
 
-locateUserButton(ColorScheme colorScheme) {
+bookTripLocateUserButton(ColorScheme colorScheme) {
   return Positioned(
     bottom: 120,
     right: 10,

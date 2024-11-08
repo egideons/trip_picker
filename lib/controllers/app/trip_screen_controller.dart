@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:trip_picker/constants/assets.dart';
-import 'package:trip_picker/view/android/home_book_trip/android_home_book_trip_screen.dart';
+import 'package:trip_picker/view/android/book_trip/android_book_trip_screen.dart';
 
 class TripScreenController extends GetxController {
   static TripScreenController get instance {
@@ -235,7 +235,7 @@ class TripScreenController extends GetxController {
 
     await Future.delayed(const Duration(seconds: 2));
     await Get.offAll(
-      () => const AndroidHomeBookTripScreen(),
+      () => const AndroidBookTripScreen(),
       routeName: "/book-trip",
       fullscreenDialog: true,
       curve: Curves.easeInOut,

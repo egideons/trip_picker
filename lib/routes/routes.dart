@@ -2,8 +2,9 @@ import 'package:get/get.dart';
 import 'package:trip_picker/view/android/auth/login_signup/android_login_signup_screen.dart';
 import 'package:trip_picker/view/android/auth/verify_email_otp/android_verify_email_otp_screen.dart';
 import 'package:trip_picker/view/android/auth/verify_phone_otp/android_verify_phone_otp_screen.dart';
-import 'package:trip_picker/view/android/home_promo/android_home_promo_screen.dart';
+import 'package:trip_picker/view/android/book_trip/android_book_trip_screen.dart';
 import 'package:trip_picker/view/android/onboarding/android_onboarding_screen.dart';
+import 'package:trip_picker/view/android/promo_trip/android_home_promo_screen.dart';
 import 'package:trip_picker/view/android/splash_screen/startup/android_startup_screen.dart';
 import 'package:trip_picker/view/android/splash_screen/success/android_success_screen.dart';
 import 'package:trip_picker/view/android/trip/android_trip_screen.dart';
@@ -34,8 +35,8 @@ class Routes {
     GetPage(name: verifyEmailOtp, page: () => AndroidVerifyEmailOtpScreen()),
     GetPage(name: successScreen, page: () => AndroidSuccessScreen()),
 
-    GetPage(name: promoTrip, page: () => AndroidHomePromoScreen()),
-    GetPage(name: bookTrip, page: () => AndroidHomePromoScreen()),
+    GetPage(name: promoTrip, page: () => AndroidPromoTripScreen()),
+    GetPage(name: bookTrip, page: () => AndroidBookTripScreen()),
     GetPage(name: trip, page: () => AndroidTripScreen()),
   ];
 }
