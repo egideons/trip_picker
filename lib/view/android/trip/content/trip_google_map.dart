@@ -20,9 +20,13 @@ tripGoogleMap(TripScreenController controller, Size size) {
     rotateGesturesEnabled: true,
     scrollGesturesEnabled: true,
     onMapCreated: controller.onMapCreated,
-    padding: controller.panelIsOpen.value
-        ? EdgeInsets.only(left: 10, bottom: size.height * .7)
-        : const EdgeInsets.only(left: 10, bottom: 200),
+    padding: controller.tripHasStarted.value && controller.panelIsOpen.value
+        ? EdgeInsets.only(left: 10, bottom: size.height * .76)
+        : controller.tripHasStarted.value
+            ? EdgeInsets.only(left: 10, bottom: size.height * .34)
+            : controller.panelIsOpen.value
+                ? EdgeInsets.only(left: 10, bottom: size.height * .76)
+                : EdgeInsets.only(left: 10, bottom: size.height * .26),
     initialCameraPosition: const CameraPosition(
       target: LatLng(37.42796133580664, -122.085749655962),
       zoom: 14,

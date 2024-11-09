@@ -1,12 +1,17 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:delightful_toast/delight_toast.dart';
+import 'package:delightful_toast/toast/utils/enums.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:trip_picker/constants/assets.dart';
 import 'package:trip_picker/theme/colors.dart';
+import 'package:trip_picker/utils/toast/message_alert_toast.dart';
+import 'package:trip_picker/view/android/home/android_home_screen.dart';
 import 'package:trip_picker/view/android/trip/content/driver_rating_dialog.dart';
 
 class TripScreenController extends GetxController {
@@ -237,27 +242,45 @@ class TripScreenController extends GetxController {
     tripHeaderMsg.value = "You have arrived at your destination";
 
     await Future.delayed(const Duration(seconds: 2));
+    if (panelController.isPanelOpen) await panelController.close();
     showDriverRatingDialog();
-    // await Get.offAll(
-    //   () => const AndroidBookTripScreen(),
-    //   routeName: "/book-trip",
-    //   fullscreenDialog: true,
-    //   curve: Curves.easeInOut,
-    //   predicate: (routes) => false,
-    //   popGesture: false,
-    //   transition: Get.defaultTransition,
-    // );
   }
 
   //==================================== Driver Rating =========================================\\
 
+  //============= Keys =============\\
+  final badRatingFormKey = GlobalKey<FormState>();
   //============= Variables =============\\
   var rating = 0.0.obs;
+  var goodReasons = [
+    "Safe driving",
+    "Good music",
+    "Clean car",
+    "Polite driver",
+    "Provided snacks",
+  ];
+  var badReasons = [
+    "Rude driver",
+    "Unsafe driving",
+    "Dirty car",
+    "Different car",
+    "Arrived late",
+    "Asked to cancel",
+    "Requested for offline ride",
+    "Others",
+  ];
 
   //============= Booleans =============\\
   var hasRated = false.obs;
+  var othersIsSelected = false.obs;
   var goodRatingFeedbackTextFieldIsActive = false.obs;
+  var badRatingFeedbackTextFieldIsVisible = false.obs;
   var badRatingFeedbackTextFieldIsActive = false.obs;
+  var goodReasonIsSelected = [false, false, false, false, false].obs;
+  var badReasonIsSelected =
+      [false, false, false, false, false, false, false, false].obs;
+  var goodRateDriverButtonIsDisabled = true.obs;
+  var badRateDriverButtonIsDisabled = true.obs;
 
   //============= Controllers =============\\
   var driverRatingPageController = PageController();
@@ -269,9 +292,60 @@ class TripScreenController extends GetxController {
   var badRatingFeedbackFN = FocusNode();
 
   //============= Functions =============\\
-  rateDriver(Size size, int index) {
+  rateDriver(int index) {
     rating.value = index + 1;
     hasRated.value = true;
+  }
+
+  void toggleGoodReasonSelection(int index) {
+    goodReasonIsSelected[index] = !goodReasonIsSelected[index];
+    goodRateDriverButtonIsDisabled.value =
+        goodReasonIsSelected.every((isSelected) => !isSelected);
+
+    // badRatingFeedbackTextFieldIsVisible.value = false;
+    // badReasonIsSelected.value =
+    // badReasonIsSelected.every((isSelected) => false);
+  }
+
+  void toggleBadReasonSelection(int index) {
+    if (index == 7) {
+      badReasonIsSelected[0] = false;
+      badReasonIsSelected[1] = false;
+      badReasonIsSelected[2] = false;
+      badReasonIsSelected[3] = false;
+      badReasonIsSelected[4] = false;
+      badReasonIsSelected[5] = false;
+      badReasonIsSelected[6] = false;
+      badReasonIsSelected[7] = !badReasonIsSelected[7];
+      if (badRatingFeedbackEC.text.isNotEmpty &&
+          badReasonIsSelected[7] == false) {
+        badRateDriverButtonIsDisabled.value = true;
+      } else {
+        badRateDriverButtonIsDisabled.value = false;
+      }
+      if (badReasonIsSelected[7] == true) {
+        badRatingFeedbackTextFieldIsVisible.value = true;
+      } else {
+        badRatingFeedbackTextFieldIsVisible.value = false;
+      }
+    } else {
+      badReasonIsSelected[7] = false;
+      badReasonIsSelected[index] = !badReasonIsSelected[index];
+      badRateDriverButtonIsDisabled.value = false;
+      badRateDriverButtonIsDisabled.value =
+          badReasonIsSelected.every((isSelected) => !isSelected);
+      badRatingFeedbackTextFieldIsVisible.value = false;
+    }
+  }
+
+  badRatingOnChanged(String value) {
+    if (value.isEmpty) {
+      badRateDriverButtonIsDisabled.value = true;
+      badRatingFeedbackTextFieldIsActive.value = false;
+    } else {
+      badRatingFeedbackTextFieldIsActive.value = true;
+      badRateDriverButtonIsDisabled.value = false;
+    }
   }
 
   showDriverRatingDialog() async {
@@ -280,7 +354,6 @@ class TripScreenController extends GetxController {
 
     await showAdaptiveDialog(
       context: Get.context!,
-      anchorPoint: Offset(40, 0),
       barrierColor: kDarkBackgroundColor.withOpacity(.4),
       barrierDismissible: false,
       useSafeArea: true,
@@ -291,6 +364,143 @@ class TripScreenController extends GetxController {
           size!,
         );
       },
+    );
+  }
+
+  //Good Rating Submit Function
+  Future<void> submitGoodRating() async {
+    List<String> selectedValues = [];
+
+    if (goodReasonIsSelected[0]) {
+      selectedValues.add(goodReasons[0]);
+    }
+    if (goodReasonIsSelected[1]) {
+      selectedValues.add(goodReasons[1]);
+    }
+    if (goodReasonIsSelected[2]) {
+      selectedValues.add(goodReasons[2]);
+    }
+    if (goodReasonIsSelected[3]) {
+      selectedValues.add(goodReasons[3]);
+    }
+    if (goodReasonIsSelected[4]) {
+      selectedValues.add(goodReasons[4]);
+    }
+    log("Rating: ${rating.value}");
+    log("Selected Values: $selectedValues");
+
+    //Show the snackbar
+    DelightToastBar(
+      autoDismiss: true,
+      snackbarDuration: Duration(seconds: 3),
+      position: DelightSnackbarPosition.bottom,
+      builder: (context) => MessageAlertToast(
+        title: "Feeback received",
+        message: "We're glad you enjoyed the ride!",
+        leading: SvgPicture.asset(
+          Assets.appIconSvg,
+          width: 40,
+          height: 40,
+        ),
+      ),
+    ).show(Get.context!);
+
+    await Future.delayed(const Duration(seconds: 3));
+
+    await Get.offAll(
+      () => const AndroidHomeScreen(),
+      routeName: "/home",
+      fullscreenDialog: true,
+      curve: Curves.easeInOut,
+      predicate: (routes) => false,
+      popGesture: false,
+      transition: Get.defaultTransition,
+    );
+  }
+
+  //Bad Rating Submit Function
+  Future<void> submitBadRating() async {
+    if (badReasonIsSelected[7] == true) {
+      if (badRatingFormKey.currentState!.validate()) {
+        badRatingFormKey.currentState!.save();
+        if (badRatingFeedbackEC.text.isEmpty) {
+          //Show the snackbar
+          DelightToastBar(
+            autoDismiss: true,
+            snackbarDuration: Duration(seconds: 3),
+            position: DelightSnackbarPosition.bottom,
+            builder: (context) => MessageAlertToast(
+              title: "Warning!",
+              message: "Please fill the form",
+              titleColor: kWarningColor,
+              leading: SvgPicture.asset(
+                Assets.appIconSvg,
+                width: 40,
+                height: 40,
+              ),
+            ),
+          ).show(Get.context!);
+          return;
+        }
+        log("Selected Values: ${badRatingFeedbackEC.text}");
+      }
+    } else {
+      // ApiProcessorController.errorSnack("Field cannot be empty");
+      List<String> selectedValues = [];
+
+      if (badReasonIsSelected[0]) {
+        selectedValues.add(badReasons[0]);
+      }
+      if (badReasonIsSelected[1]) {
+        selectedValues.add(badReasons[1]);
+      }
+      if (badReasonIsSelected[2]) {
+        selectedValues.add(badReasons[2]);
+      }
+      if (badReasonIsSelected[3]) {
+        selectedValues.add(badReasons[3]);
+      }
+      if (badReasonIsSelected[4]) {
+        selectedValues.add(badReasons[4]);
+      }
+      if (badReasonIsSelected[5]) {
+        selectedValues.add(badReasons[5]);
+      }
+      if (badReasonIsSelected[6]) {
+        selectedValues.add(badReasons[6]);
+      }
+      // Log or process the selected values
+      log("Rating: ${rating.value}");
+      log("Selected Values: $selectedValues");
+    }
+
+    //Show the snackbar
+    DelightToastBar(
+      autoDismiss: true,
+      snackbarDuration: Duration(seconds: 3),
+      position: DelightSnackbarPosition.bottom,
+      builder: (context) => MessageAlertToast(
+        title: "Feeback received",
+        message: "We sincerely apologise for the poor ride.",
+        leading: SvgPicture.asset(
+          Assets.appIconSvg,
+          width: 40,
+          height: 40,
+        ),
+      ),
+    ).show(Get.context!);
+
+    await Future.delayed(const Duration(seconds: 3));
+
+    //Navigate to the home screen
+    await Get.offAll(
+      () => const AndroidHomeScreen(),
+      routeName: "/home",
+      fullscreenDialog: true,
+      curve: Curves.easeInOut,
+      predicate: (routes) => false,
+      popGesture: false,
+      transition: Get.defaultTransition,
     );
   }
 }

@@ -293,20 +293,6 @@ class VerifyPhoneOtpController extends GetxController {
       //   if (response.statusCode == 200) {
 
       await Future.delayed(const Duration(seconds: 3));
-      // DelightToastBar(
-      //   autoDismiss: true,
-      //   snackbarDuration: Duration(seconds: 2),
-      //   builder: (context) => MessageAlertToast(
-      //     title: "Verify Phone OTP",
-      //     message: "Verification successful",
-      //     titleColor: kSuccessColor,
-      //     leading: SvgPicture.asset(
-      //       Assets.appIconSvg,
-      //       width: 40,
-      //       height: 40,
-      //     ),
-      //   ),
-      // ).show(Get.context!);
 
       //     await loginUser();
 

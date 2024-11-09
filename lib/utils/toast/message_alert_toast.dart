@@ -13,7 +13,7 @@ class MessageAlertToast extends StatelessWidget {
     required this.title,
     required this.message,
     required this.leading,
-    required this.titleColor,
+    this.titleColor,
     this.subtitleColor,
   });
 
@@ -27,10 +27,9 @@ class MessageAlertToast extends StatelessWidget {
       title: Text(
         title,
         style: defaultTextStyle(
-          fontWeight: FontWeight.w900,
-          color: titleColor,
+          fontWeight: FontWeight.w600,
+          color: titleColor ?? colorScheme.primary,
           fontSize: 16,
-          letterSpacing: -1.0,
         ),
       ),
       subtitle: Text(
@@ -38,10 +37,9 @@ class MessageAlertToast extends StatelessWidget {
         overflow: TextOverflow.ellipsis,
         maxLines: 4,
         style: defaultTextStyle(
-          fontWeight: FontWeight.w800,
-          color: subtitleColor ?? kTextBoldHeadingColor,
+          fontWeight: FontWeight.w500,
+          color: subtitleColor ?? kDefaultTextColor,
           fontSize: 12,
-          letterSpacing: -1.0,
         ),
       ),
     );
