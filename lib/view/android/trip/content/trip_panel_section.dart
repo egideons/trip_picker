@@ -138,7 +138,7 @@ tripPanelSection(
                             width: size.width - 200,
                             child: AndroidOutlinedButton(
                               title: "Cancel Trip",
-                              onPressed: () {},
+                              onPressed: controller.showCancelRideDialog,
                               borderColor: kGreyColor,
                               textColor: kDefaultTextColor,
                               borderWidth: 1,

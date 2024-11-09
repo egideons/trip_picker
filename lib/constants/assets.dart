@@ -46,6 +46,7 @@ class Assets {
   static const walletIconSvg = "assets/icons/svg/wallet_icon.svg";
   static const paymentMethodIconSvg =
       "assets/icons/svg/payment_method_icon.svg";
+  static const banIconSvg = "assets/icons/svg/ban_icon.svg";
 
 //=================== Animations ===================\\
 

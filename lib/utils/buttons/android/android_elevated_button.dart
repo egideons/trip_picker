@@ -69,7 +69,7 @@ class AndroidElevatedButton extends StatelessWidget {
         elevation: buttonElevation ?? 0,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius ?? 10)),
-        minimumSize: minimumSize ?? Size(media.width, 44),
+        minimumSize: minimumSize ?? Size(media.width, 50),
       ),
       child: isLoading
           ? CupertinoActivityIndicator(color: colorScheme.surface)

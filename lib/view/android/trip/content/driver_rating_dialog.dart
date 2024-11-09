@@ -77,7 +77,7 @@ driverRatingDialog(
                       ]
                     else
                       Text(
-                        "Enjoyed your trip?",
+                        "How was your trip?",
                         textAlign: TextAlign.center,
                         style: defaultTextStyle(
                           color: kTextBlackColor,
